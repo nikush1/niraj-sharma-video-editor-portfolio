@@ -3353,68 +3353,69 @@ const testimonials = [
         }
 
         // Netlify Form Submission with Success Message
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
+const contactForm = document.getElementById('contactForm');
+const successMessage = document.getElementById('successMessage');
+
+if (contactForm) {
+    // Hide success message initially
+    successMessage.style.display = 'none';
+    
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
         
-        if (contactForm) {
-            // Hide success message initially
-            successMessage.style.display = 'none';
-            
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const projectType = document.getElementById('projectType').value;
-                const message = document.getElementById('message').value;
-                
-                // Simple validation
-                if (!name || !email || !projectType || !message) {
-                    alert('Please fill in all fields');
-                    return;
-                }
-                
-                // Show loading state on submit button
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                
-                try {
-                    // Prepare form data for Netlify
-                    const formData = new FormData(contactForm);
-                    
-                    // Submit to Netlify
-                    const response = await fetch('/', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        body: new URLSearchParams(formData).toString()
-                    });
-                    
-                    if (response.ok) {
-                        // Hide form and show success message
-                        contactForm.style.display = 'none';
-                        successMessage.classList.add('show');
-                        
-                        // Scroll to success message
-                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-                        // Reset form
-                        contactForm.reset();
-                    } else {
-                        throw new Error('Form submission failed');
-                    }
-                } catch (error) {
-                    alert('Sorry, there was an error sending your message. Please try again or email me directly at nirajsharma.work@gmail.com');
-                    console.error('Form submission error:', error);
-                } finally {
-                    // Reset button state
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const projectType = document.getElementById('projectType').value;
+        const message = document.getElementById('message').value;
+        
+        // Simple validation
+        if (!name || !email || !projectType || !message) {
+            alert('Please fill in all fields');
+            return;
         }
+        
+        // Show loading state on submit button
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Prepare form data for Netlify
+            const formData = new FormData(contactForm);
+            
+            // Submit to Netlify
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            });
+            
+            if (response.ok) {
+                // Hide form and show success message
+                contactForm.style.display = 'none';
+                successMessage.style.display = 'block'; // Changed to show message
+                successMessage.classList.add('show');
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset form
+                contactForm.reset();
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            alert('Sorry, there was an error sending your message. Please try again or email me directly at nirajsharma.work@gmail.com');
+            console.error('Form submission error:', error);
+        } finally {
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
 
         // Add enhanced styles for project cards
         const enhancedStyles = document.createElement('style');
