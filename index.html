@@ -123,60 +123,7 @@
             padding: 0 20px;
         }
 
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-}
-
-        .loader {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-        }
-
-        .loader-text {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            animation: pulse 1.5s ease-in-out infinite;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
+        /* REMOVED PRELOADER CSS */
 
         /* Scroll Progress Bar */
         .progress-container {
@@ -297,6 +244,11 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.6);
         }
 
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
         .nav-links {
             display: flex;
             list-style: none;
@@ -396,25 +348,18 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
         }
 
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 50px;
             color: var(--gray);
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
         }
 
         .btn {
@@ -433,9 +378,9 @@
             position: relative;
             overflow: hidden;
             font-size: 1.1rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.9s forwards;
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
         }
 
         .btn::before {
@@ -466,7 +411,6 @@
             background-color: transparent;
             border: 2px solid var(--secondary);
             color: var(--secondary);
-            animation-delay: 1.1s !important;
         }
 
         .btn-secondary:hover {
@@ -2076,14 +2020,6 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="loader">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">LOADING PORTFOLIO</div>
-        </div>
-    </div>
-
     <!-- Scroll Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
@@ -2409,23 +2345,6 @@
             });
         });
 
-        // Preloader
-        window.addEventListener('load', () => {
-            const preloader = document.querySelector('.preloader');
-            
-            // Create particles for hero section
-            createParticles();
-            
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-                
-                // Start lazy loading after preloader is hidden
-                initLazyLoading();
-                initAnimations();
-                loadThumbnailTrack();
-            }, 1500);
-        });
-
         // Create particles for hero section
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -2456,6 +2375,17 @@
                 particlesContainer.appendChild(particle);
             }
         }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create particles
+            createParticles();
+            
+            // Start lazy loading and animations immediately
+            initLazyLoading();
+            initAnimations();
+            loadThumbnailTrack();
+        });
 
         // Thumbnail data
         const thumbnails = [
@@ -2811,8 +2741,6 @@
             }
         });
 
-        // Close mobile menu when clicking on a link
-        
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
