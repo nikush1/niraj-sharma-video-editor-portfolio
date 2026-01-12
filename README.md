@@ -1,7 +1,7 @@
 # 🎬 Niraj Kumar Sharma - Video Editor Portfolio
 
-[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-brightgreen)](https://your-portfolio-url.netlify.app)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://app.netlify.com/sites/your-site-name/deploys)
+[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-brightgreen)](https://niraj-sharma-portfolio.netlify.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://niraj-sharma-portfolio.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A modern, interactive portfolio website showcasing video editing expertise in short-form and long-form content. This single-page application features a custom cursor, animated statistics, YouTube video integration, and a responsive design.
