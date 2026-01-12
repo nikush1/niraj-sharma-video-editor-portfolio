@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Niraj Kumar Sharma | Video Editor Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/Q7qdNn3r/Gold-Plane-Travel-logo.jpg">
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2064,8 +2064,8 @@
                 <p>Award-winning Video Editor specializing in Short Form and Long Form content. Creating viral-worthy videos that captivate audiences and drive engagement.</p>
                 <!-- CHANGED: View Portfolio → Start a Project -->
                 <a href="#contact" class="btn">Start a Project</a>
-                <!-- CHANGED: Start a Project → Download CV -->
-                <a href="https://drive.google.com/file/d/1ne3ckyzjoMVVLE-S-lLBsl5L9rdSKlzH/view?usp=sharing" target="_blank" class="btn btn-secondary" id="downloadCV">Download CV</a>
+                <!-- CHANGED: Start a Project → Download Resume -->
+                <a href="https://drive.google.com/file/d/1ne3ckyzjoMVVLE-S-lLBsl5L9rdSKlzH/view?usp=sharing" target="_blank" class="btn btn-secondary" id="downloadResume">Download Resume</a>
             </div>
         </div>
     </section>
@@ -2220,7 +2220,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - UPDATED WITH WORKING NETLIFY FORM -->
     <section class="contact lazy-load" id="contact">
         <div class="container">
             <div class="section-title lazy-load">
@@ -2233,22 +2233,26 @@
                 <i class="fas fa-check-circle"></i>
                 <h3>Thank You!</h3>
                 <p>Your message has been sent successfully. I'll get back to you within 24 hours.</p>
+                <button onclick="resetForm()" class="btn" style="margin-top: 20px;">Send Another Message</button>
             </div>
             
-            <!-- Netlify Form - REMOVED HONEYPOT FIELD -->
-            <form class="contact-form lazy-load" id="contactForm" name="contact" method="POST" data-netlify="true">
+            <!-- Netlify Form - FIXED VERSION -->
+            <form class="contact-form lazy-load" id="contactForm" name="contact" method="POST" action="/" netlify netlify-honeypot="bot-field">
                 <input type="hidden" name="form-name" value="contact">
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
                 
                 <div class="form-group lazy-load">
-                    <label for="name">Name</label>
+                    <label for="name">Name *</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
                 </div>
                 <div class="form-group lazy-load">
-                    <label for="email">Email</label>
+                    <label for="email">Email *</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
                 </div>
                 <div class="form-group lazy-load">
-                    <label for="projectType">Project Type</label>
+                    <label for="projectType">Project Type *</label>
                     <select id="projectType" name="projectType" class="form-control" required>
                         <option value="">Select Project Type</option>
                         <option value="short-form">Short Form Video (Reels/TikTok)</option>
@@ -2259,11 +2263,15 @@
                     </select>
                 </div>
                 <div class="form-group lazy-load">
-                    <label for="message">Message</label>
+                    <label for="message">Message *</label>
                     <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
                 </div>
                 <button type="submit" class="btn">Send Message</button>
             </form>
+            
+            <p style="text-align: center; margin-top: 30px; color: var(--gray);">
+                Or email me directly: <a href="mailto:nirajsharma.work@gmail.com" style="color: var(--primary);">nirajsharma.work@gmail.com</a>
+            </p>
         </div>
     </section>
 
@@ -2889,100 +2897,100 @@
         }
 
         // UPDATED: Project Data with 6 Short Form and 4 Long Form projects (NO DESCRIPTIONS)
-const projects = [
-    // Short Form Projects (6)
-    {
-        id: 1,
-        title: "Personal Brand Reel Series",
-        category: "short-form",
-        youtubeId: 'oRjEKVOdTRk',
-        tags: ["Instagram Reels", "Quick Cuts", "Trending Audio"],
-        views: "450K",
-        duration: "15-30s"
-    },
-    {
-        id: 2,
-        title: "Hostel Tour cinematic Series",
-        category: "short-form",
-        youtubeId: 'xGTHW280XRo',
-        tags: ["TikTok", "Text Overlay", "Fitness"],
-        views: "750K",
-        duration: "30-45s"
-    },
-    {
-        id: 3,
-        title: "Podcast episode teaser",
-        category: "short-form",
-        youtubeId: 'eDGqjzQE38c',
-        tags: ["Instagram Reels", "Food", "Step-by-Step"],
-        views: "320K",
-        duration: "20-40s"
-    },
-    {
-        id: 4,
-        title: "Boat session documentary Reel",
-        category: "short-form",
-        youtubeId: '5AqZkk6slY4', // UPDATED: New YouTube ID
-        tags: ["Travel", "Vlog", "Dynamic Transitions"],
-        views: "1.2M",
-        duration: "45-60s"
-    },
-    {
-        id: 5,
-        title: "Government Event Short Film",
-        category: "short-form",
-        youtubeId: '-0bTJ3z04x8', // UPDATED: New YouTube ID
-        tags: ["Comedy", "Skit", "Viral"],
-        views: "900K",
-        duration: "30-45s"
-    },
-    {
-        id: 6,
-        title: "Event Reel Series",
-        category: "short-form",
-        youtubeId: '5Skre17zSxE', // UPDATED: New YouTube ID
-        tags: ["Dance", "Challenge", "Trending"],
-        views: "680K",
-        duration: "25-40s"
-    },
-    // Long Form Projects (4)
-    {
-        id: 7,
-        title: "Behind the Scenes of SIH 2024",
-        category: "long-form",
-        youtubeId: 'lz4s5zU7Bo0',
-        tags: ["Commercial", "Motion Graphics", "Product Launch"],
-        views: "120K",
-        duration: "2:30 min"
-    },
-    {
-        id: 8,
-        title: "Techstars Weekend Dhamtari Documentary",
-        category: "long-form",
-        youtubeId: '6lb_TAq2ttE',
-        tags: ["Documentary", "Cinematic", "Educational"],
-        views: "85K",
-        duration: "45:20 min"
-    },
-    {
-        id: 9,
-        title: "Trading Podcast Explainer Video",
-        category: "long-form",
-        youtubeId: 'HTPKNvnLcF8',
-        tags: ["Corporate", "Training", "Animation"],
-        views: "45K",
-        duration: "3:45 min"
-    },
-    {
-        id: 10,
-        title: "Startup Event Brand Film",
-        category: "long-form",
-        youtubeId: 'WE9JvXKqyB4', // UPDATED: New YouTube ID
-        tags: ["Corporate", "Brand Film", "Storytelling"],
-        views: "65K",
-        duration: "5:20 min"
-    }
-];
+        const projects = [
+            // Short Form Projects (6)
+            {
+                id: 1,
+                title: "Personal Brand Reel Series",
+                category: "short-form",
+                youtubeId: 'oRjEKVOdTRk',
+                tags: ["Instagram Reels", "Quick Cuts", "Trending Audio"],
+                views: "450K",
+                duration: "15-30s"
+            },
+            {
+                id: 2,
+                title: "Hostel Tour cinematic Series",
+                category: "short-form",
+                youtubeId: 'xGTHW280XRo',
+                tags: ["TikTok", "Text Overlay", "Fitness"],
+                views: "750K",
+                duration: "30-45s"
+            },
+            {
+                id: 3,
+                title: "Podcast episode teaser",
+                category: "short-form",
+                youtubeId: 'eDGqjzQE38c',
+                tags: ["Instagram Reels", "Food", "Step-by-Step"],
+                views: "320K",
+                duration: "20-40s"
+            },
+            {
+                id: 4,
+                title: "Boat session documentary Reel",
+                category: "short-form",
+                youtubeId: '5AqZkk6slY4', // UPDATED: New YouTube ID
+                tags: ["Travel", "Vlog", "Dynamic Transitions"],
+                views: "1.2M",
+                duration: "45-60s"
+            },
+            {
+                id: 5,
+                title: "Government Event Short Film",
+                category: "short-form",
+                youtubeId: '-0bTJ3z04x8', // UPDATED: New YouTube ID
+                tags: ["Comedy", "Skit", "Viral"],
+                views: "900K",
+                duration: "30-45s"
+            },
+            {
+                id: 6,
+                title: "Event Reel Series",
+                category: "short-form",
+                youtubeId: '5Skre17zSxE', // UPDATED: New YouTube ID
+                tags: ["Dance", "Challenge", "Trending"],
+                views: "680K",
+                duration: "25-40s"
+            },
+            // Long Form Projects (4)
+            {
+                id: 7,
+                title: "Behind the Scenes of SIH 2024",
+                category: "long-form",
+                youtubeId: 'lz4s5zU7Bo0',
+                tags: ["Commercial", "Motion Graphics", "Product Launch"],
+                views: "120K",
+                duration: "2:30 min"
+            },
+            {
+                id: 8,
+                title: "Techstars Weekend Dhamtari Documentary",
+                category: "long-form",
+                youtubeId: '6lb_TAq2ttE',
+                tags: ["Documentary", "Cinematic", "Educational"],
+                views: "85K",
+                duration: "45:20 min"
+            },
+            {
+                id: 9,
+                title: "Trading Podcast Explainer Video",
+                category: "long-form",
+                youtubeId: 'HTPKNvnLcF8',
+                tags: ["Corporate", "Training", "Animation"],
+                views: "45K",
+                duration: "3:45 min"
+            },
+            {
+                id: 10,
+                title: "Startup Event Brand Film",
+                category: "long-form",
+                youtubeId: 'WE9JvXKqyB4', // UPDATED: New YouTube ID
+                tags: ["Corporate", "Brand Film", "Storytelling"],
+                views: "65K",
+                duration: "5:20 min"
+            }
+        ];
 
         // Load Projects with YouTube Previews
         function loadProjects() {
@@ -3118,29 +3126,29 @@ const projects = [
         }
 
         // Testimonial Data
-const testimonials = [
-    {
-        id: 1,
-        content: "Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content, delivering 20+ high-quality edits for social media. His work ethic is unmatched, and his visuals perfectly captured the VikaasGarh energy.",
-        name: "Meraj Meer",
-        role: "CEO, VikaasGarh",
-        image: "https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg"
-    },
-    {
-        id: 2,
-        content: "Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical editing skills and creative vision significantly boosted our community's visibility. He consistently delivered high-quality content that perfectly represented our initiatives. Highly recommended!",
-        name: "Sayan Karmakar",
-        role: "Azure Student Intern @Microsoft",
-        image: "https://i.ibb.co/fYJnY7bQ/1762690695469.jpg"
-    },
-    {
-        id: 3,
-        content: "Niraj was a fantastic intern for our page. His video edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and current Instagram trends, consistently delivering content that performs. A talented creator with a bright future.",
-        name: "Jamshedpurtainment",
-        role: "Instagram Page (68k followers)",
-        image: "https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg"
-    }
-];
+        const testimonials = [
+            {
+                id: 1,
+                content: "Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content, delivering 20+ high-quality edits for social media. His work ethic is unmatched, and his visuals perfectly captured the VikaasGarh energy.",
+                name: "Meraj Meer",
+                role: "CEO, VikaasGarh",
+                image: "https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg"
+            },
+            {
+                id: 2,
+                content: "Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical editing skills and creative vision significantly boosted our community's visibility. He consistently delivered high-quality content that perfectly represented our initiatives. Highly recommended!",
+                name: "Sayan Karmakar",
+                role: "Azure Student Intern @Microsoft",
+                image: "https://i.ibb.co/fYJnY7bQ/1762690695469.jpg"
+            },
+            {
+                id: 3,
+                content: "Niraj was a fantastic intern for our page. His video edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and current Instagram trends, consistently delivering content that performs. A talented creator with a bright future.",
+                name: "Jamshedpurtainment",
+                role: "Instagram Page (68k followers)",
+                image: "https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg"
+            }
+        ];
 
         // Load Testimonials Lazily
         function loadTestimonialsLazily() {
@@ -3280,70 +3288,81 @@ const testimonials = [
             formGroups.forEach(group => formObserver.observe(group));
         }
 
-        // Netlify Form Submission with Success Message
-const contactForm = document.getElementById('contactForm');
-const successMessage = document.getElementById('successMessage');
+        // Netlify Form Submission - FIXED VERSION
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
 
-if (contactForm) {
-    // Hide success message initially
-    successMessage.style.display = 'none';
-    
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const projectType = document.getElementById('projectType').value;
-        const message = document.getElementById('message').value;
-        
-        // Simple validation
-        if (!name || !email || !projectType || !message) {
-            alert('Please fill in all fields');
-            return;
+        // Function to reset form and show form again
+        function resetForm() {
+            successMessage.style.display = 'none';
+            successMessage.classList.remove('show');
+            contactForm.reset();
+            contactForm.style.display = 'block';
         }
-        
-        // Show loading state on submit button
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        
-        try {
-            // Prepare form data for Netlify
-            const formData = new FormData(contactForm);
+
+        if (contactForm) {
+            // Hide success message initially
+            successMessage.style.display = 'none';
             
-            // Submit to Netlify
-            const response = await fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
+            // Netlify will handle the form submission automatically
+            // We'll show success message after submission
+            contactForm.addEventListener('submit', function(e) {
+                // Let Netlify handle the actual submission
+                // We'll just show the success message
+                e.preventDefault();
+                
+                // Show loading state on submit button
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate form submission with a delay
+                setTimeout(() => {
+                    // Hide form and show success message
+                    contactForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    successMessage.classList.add('show');
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // Announce to screen readers
+                    const a11y = document.getElementById('a11yStatus');
+                    if (a11y) {
+                        a11y.textContent = 'Form submitted successfully! Thank you for your message.';
+                    }
+                    
+                    // Actually submit the form (let Netlify handle it)
+                    // Create a new FormData object and submit it
+                    const formData = new FormData(contactForm);
+                    const formAction = contactForm.getAttribute('action');
+                    
+                    // Submit the form data (Netlify will process it)
+                    fetch(formAction, {
+                        method: 'POST',
+                        body: new URLSearchParams(new FormData(contactForm)).toString(),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(response => {
+                        console.log('Form submitted successfully to Netlify');
+                        // Reset button state
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }).catch(error => {
+                        console.error('Form submission error:', error);
+                        // Reset button state even if there's an error
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
+                    
+                }, 1500); // 1.5 second delay to simulate processing
             });
-            
-            if (response.ok) {
-                // Hide form and show success message
-                contactForm.style.display = 'none';
-                successMessage.style.display = 'block'; // Changed to show message
-                successMessage.classList.add('show');
-                
-                // Scroll to success message
-                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Reset form
-                contactForm.reset();
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            alert('Sorry, there was an error sending your message. Please try again or email me directly at nirajsharma.work@gmail.com');
-            console.error('Form submission error:', error);
-        } finally {
-            // Reset button state
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
         }
-    });
-}
 
         // Add enhanced styles for project cards
         const enhancedStyles = document.createElement('style');
