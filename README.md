@@ -6,7 +6,7 @@
 
 A modern, interactive portfolio website showcasing video editing expertise in short-form and long-form content. This single-page application features a custom cursor, animated statistics, YouTube video integration, and a responsive design.
 
-![Portfolio Preview](https://i.ibb.co/Q7qdNn3r/Gold-Plane-Travel-logo.jpg)
+![Portfolio Preview](https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg)
 
 ## ✨ Features
 
