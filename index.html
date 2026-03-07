@@ -1,3397 +1,1186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niraj Kumar Sharma | Video Editor Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /*
-         * Main stylesheet (inline for this single-file portfolio)
-         * - Consider extracting to `style.css` for production to improve caching.
-         * - Use the :root variables below to change theming site-wide.
-         */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #FFD700;
-            --primary-dark: #FFC400;
-            --secondary: #08d9d6;
-            --dark: #0a0a0a;
-            --dark-gray: #1a1a1a;
-            --light: #f5f5f5;
-            --gray: #888;
-            --short-form: #FF6B6B;
-            --long-form: #4ECDC4;
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        html, body {
-            cursor: none !important;
-            overflow-x: hidden;
-        }
-
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-
-        /* Custom Cursor - Enhanced */
-        .cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary);
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
-            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-            opacity: 0.5;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-            background: var(--secondary);
-            box-shadow: 0 0 30px var(--secondary), 0 0 60px var(--secondary);
-        }
-
-        .cursor-follower.hover {
-            transform: translate(-50%, -50%) scale(1.5);
-            border-color: var(--secondary);
-            border-width: 1px;
-            opacity: 0.8;
-        }
-
-        .cursor.click {
-            transform: scale(0.5);
-            background: var(--short-form);
-            box-shadow: 0 0 25px var(--short-form), 0 0 50px var(--short-form);
-        }
-
-        .cursor-follower.click {
-            transform: translate(-50%, -50%) scale(0.5);
-            border-color: var(--short-form);
-        }
-
-        /* Hide cursor on mobile */
-        @media (max-width: 768px) {
-            .cursor, .cursor-follower {
-                display: none;
-            }
-            
-            html, body {
-                cursor: auto !important;
-            }
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* REMOVED PRELOADER CSS */
-
-        /* Scroll Progress Bar */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: transparent;
-            z-index: 1001;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: #000;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            z-index: 999;
-            box-shadow: var(--shadow);
-            transform: translateY(20px);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        /* Header & Navigation */
-        header {
-            background-color: rgba(10, 10, 10, 0.95);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            backdrop-filter: blur(15px);
-            transform: translateY(0);
-        }
-
-        header.hidden {
-            transform: translateY(-100%);
-        }
-
-        header.scrolled {
-            padding: 15px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--light);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--primary);
-            position: relative;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-        }
-
-        .logo span::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            bottom: -5px;
-            left: 0;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s ease;
-        }
-
-        .logo:hover span::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .logo-icon {
-            color: var(--primary);
-            animation: pulse 2s infinite;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
-        }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 17px;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            background: var(--primary);
-            bottom: 0;
-            left: 0;
-            transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--primary);
-            z-index: 1002;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-toggle:hover {
-            transform: rotate(90deg);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 220px 0 180px;
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(8, 217, 214, 0.05) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, 30px); }
-            66% { transform: translate(-20px, -20px); }
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 25px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            opacity: 1;
-            transform: translateY(0);
-            animation: none;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 50px;
-            color: var(--gray);
-            opacity: 1;
-            transform: translateY(0);
-            animation: none;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 18px 40px;
-            background-color: var(--primary);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 8px;
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            font-size: 1.1rem;
-            opacity: 1;
-            transform: translateY(0);
-            animation: none;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary);
-            color: var(--dark);
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: floatParticle 15s infinite linear;
-        }
-
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Demo Reel Section */
-        .demo-reel {
-            padding: 120px 0;
-            background-color: var(--dark-gray);
-            position: relative;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .demo-reel.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 70px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .section-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--light);
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--primary);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--gray);
-            max-width: 700px;
-            margin: 30px auto 0;
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .video-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            background-color: #000;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Stats Section - UPDATED FOR COUNTING ANIMATION */
-        .stats {
-            padding: 100px 0;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(8, 217, 214, 0.05) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 50px 30px;
-            background: var(--glass-bg);
-            border-radius: 16px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .stat-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow);
-            border-color: var(--primary);
-        }
-
-        .stat-card i {
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            display: inline-block;
-            transition: transform 0.5s ease;
-        }
-
-        .stat-card:hover i {
-            transform: scale(1.2) rotate(10deg);
-        }
-
-        /* UPDATED: Stats numbers with counting animation */
-        .stat-number {
-            font-size: 3.5rem;
-            color: var(--light);
-            margin-bottom: 15px;
-            font-weight: 800;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .stat-card p {
-            color: var(--gray);
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        /* Thumbnail Design Section */
-        .thumbnail-design {
-            padding: 120px 0;
-            background-color: var(--dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .thumbnail-design::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.05) 0%, rgba(8, 217, 214, 0.05) 100%);
-        }
-
-        .thumbnail-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            margin: 60px 0;
-        }
-
-        .thumbnail-track {
-            display: flex;
-            animation: thumbnailTrain 30s linear infinite;
-            gap: 30px;
-            padding: 20px;
-            width: max-content;
-        }
-
-        .thumbnail-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes thumbnailTrain {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .thumbnail-item {
-            flex: 0 0 auto;
-            width: 320px;
-            height: 180px;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            background: var(--dark-gray);
-            border: 2px solid transparent;
-        }
-
-        .thumbnail-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
-            z-index: 10;
-        }
-
-        .thumbnail-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-        }
-
-        .thumbnail-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .thumbnail-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
-            color: white;
-            transform: translateY(100%);
-            transition: var(--transition);
-        }
-
-        .thumbnail-item:hover .thumbnail-overlay {
-            transform: translateY(0);
-        }
-
-        .thumbnail-overlay h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: var(--primary);
-        }
-
-        .thumbnail-overlay p {
-            font-size: 0.85rem;
-            color: var(--light);
-            opacity: 0.9;
-        }
-
-        /* Lightbox modal for thumbnails */
-        .thumbnail-link {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .lightbox-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.25s ease, visibility 0.25s ease;
-        }
-
-        .lightbox-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-        }
-
-        .lightbox-caption {
-            color: var(--light);
-            text-align: center;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--light);
-            cursor: pointer;
-            border: none;
-            font-size: 20px;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            left: 12px;
-            right: 12px;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
-        }
-
-        .lightbox-nav button {
-            pointer-events: auto;
-            background: rgba(255,255,255,0.06);
-            border: none;
-            color: var(--light);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .lightbox-counter {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            color: rgba(255,255,255,0.85);
-            font-weight: 600;
-        }
-
-        /* Video lightbox styles */
-        .video-lightbox-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.92);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.25s ease, visibility 0.25s ease;
-        }
-
-        .video-lightbox-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .video-lightbox-content {
-            width: 95%;
-            max-width: 1200px;
-            max-height: 90vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .video-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .video-iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-lightbox-caption {
-            color: var(--light);
-            text-align: center;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        /* Projects Section - UPDATED FOR YOUTUBE PREVIEW */
-        .projects {
-            padding: 120px 0;
-            background-color: var(--dark);
-            position: relative;
-        }
-
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-            gap: 20px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .filter-buttons.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .filter-btn {
-            padding: 16px 36px;
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--light);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .filter-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
-            transition: left 0.7s;
-        }
-
-        .filter-btn:hover::before {
-            left: 100%;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--primary);
-            border-color: var(--primary);
-            color: #000;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
-            transform: translateY(-5px);
-        }
-
-        .filter-btn.short-form {
-            border-color: var(--short-form);
-        }
-
-        .filter-btn.short-form.active, .filter-btn.short-form:hover {
-            background-color: var(--short-form);
-            border-color: var(--short-form);
-            color: white;
-        }
-
-        .filter-btn.long-form {
-            border-color: var(--long-form);
-        }
-
-        .filter-btn.long-form.active, .filter-btn.long-form:hover {
-            background-color: var(--long-form);
-            border-color: var(--long-form);
-            color: white;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .project-card {
-            background-color: var(--dark-gray);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-            position: relative;
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            will-change: transform, opacity;
-            cursor: pointer;
-        }
-
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-20px) scale(1.02);
-            box-shadow: var(--shadow);
-        }
-
-        .project-card.short-form {
-            border-top: 6px solid var(--short-form);
-        }
-
-        .project-card.long-form {
-            border-top: 6px solid var(--long-form);
-        }
-
-        /* Project Video Containers - UPDATED FOR YOUTUBE PREVIEW */
-        .project-video-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            background: #111;
-            transition: all 0.5s ease;
-        }
-
-        .project-card.short-form .project-video-container {
-            height: 0;
-            padding-bottom: 177.78%; /* 9:16 aspect ratio */
-        }
-
-        .project-card.long-form .project-video-container {
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        }
-
-        /* YouTube iframe for projects - SIMPLE LIKE DEMO REEL */
-        .project-video-iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            opacity: 0;
-            z-index: 3;
-            transition: var(--transition);
-            pointer-events: none;
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.5));
-        }
-
-        .project-badge {
-            align-self: flex-start;
-            padding: 10px 22px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            pointer-events: auto;
-        }
-
-        .badge-short {
-            background-color: rgba(255, 107, 107, 0.9);
-            color: white;
-        }
-
-        .badge-long {
-            background-color: rgba(78, 205, 196, 0.9);
-            color: white;
-        }
-
-        /* Neutral play indicator (non-branded) */
-        .play-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.55);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.22s ease, transform 0.22s ease;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .play-indicator::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 0;
-            border-left: 14px solid rgba(255,255,255,0.95);
-            border-top: 9px solid transparent;
-            border-bottom: 9px solid transparent;
-            transform: translateX(2px);
-        }
-
-        .project-card:hover .play-indicator,
-        .project-card:focus .play-indicator,
-        .project-card:focus-visible .play-indicator {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.02);
-        }
-
-        /* Focus outline for keyboard users */
-        .project-card:focus-visible {
-            outline: 3px solid rgba(255, 215, 0, 0.18);
-            outline-offset: 6px;
-        }
-
-        /* Skip link (accessible) */
-        .skip-link {
-            position: absolute;
-            left: -999px;
-            top: auto;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(1px, 1px, 1px, 1px);
-            z-index: 10000;
-        }
-
-        .skip-link:focus, .skip-link:active {
-            left: 12px;
-            top: 12px;
-            width: auto;
-            height: auto;
-            padding: 10px 14px;
-            background: var(--primary);
-            color: #000;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        /* Screen-reader only helper */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Reduced motion: disable hover/animation transforms */
-        @media (prefers-reduced-motion: reduce) {
-            .project-card, .play-indicator {
-                transition: none !important;
-                transform: none !important;
-            }
-
-            .thumbnail-track {
-                animation: none !important;
-            }
-        }
-
-        .project-info {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .project-info h3 {
-            margin-bottom: 20px;
-            color: var(--light);
-            font-size: 1.4rem;
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .project-tags span {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-tags span {
-            background-color: rgba(255, 215, 0, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .project-stats {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-
-        .project-stats span {
-            display: flex;
-            align-items: center;
-        }
-
-        .project-stats i {
-            margin-right: 8px;
-        }
-
-        .short-form .project-stats i {
-            color: var(--short-form);
-        }
-
-        .long-form .project-stats i {
-            color: var(--long-form);
-        }
-
-        /* Lazy Loading Placeholder */
-        .lazy-load {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .lazy-load.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            padding: 120px 0;
-            background-color: var(--dark-gray);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonials::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
-        }
-
-        .testimonial-slider {
-            position: relative;
-            max-width: 1100px;
-            margin: 70px auto 0;
-            overflow: hidden;
-        }
-
-        .testimonial-track {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .testimonial-slide {
-            min-width: 100%;
-            padding: 0 20px;
-            opacity: 0;
-            transform: translateX(100px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .testimonial-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .testimonial-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            padding: 50px;
-            border-radius: 20px;
-            position: relative;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .testimonial-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            font-size: 6rem;
-            color: var(--primary);
-            opacity: 0.2;
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-
-        .testimonial-content {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 40px;
-        }
-
-        .testimonial-content p {
-            color: var(--light);
-            font-style: italic;
-            line-height: 1.9;
-            font-size: 1.2rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .testimonial-author img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 25px;
-            border: 3px solid var(--primary);
-            transition: var(--transition);
-        }
-
-        .testimonial-card:hover .testimonial-author img {
-            transform: scale(1.1);
-            border-color: var(--secondary);
-        }
-
-        .author-info h4 {
-            color: var(--light);
-            margin-bottom: 8px;
-            font-size: 1.3rem;
-        }
-
-        .author-info p {
-            color: var(--gray);
-            font-size: 1rem;
-        }
-
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-            gap: 15px;
-        }
-
-        .slider-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--gray);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .slider-dot::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            transition: var(--transition);
-        }
-
-        .slider-dot.active {
-            background: var(--primary);
-            transform: scale(1.3);
-        }
-
-        .slider-dot.active::after {
-            border-color: var(--primary);
-        }
-
-        /* About Section - UPDATED WITH SOFTWARE LOGOS */
-        .about {
-            padding: 120px 0;
-            background-color: var(--dark);
-            position: relative;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .about-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-text h3 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--light);
-            line-height: 1.3;
-        }
-
-        .about-text p {
-            margin-bottom: 30px;
-            color: var(--gray);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        /* Software Logos Container - UPDATED WITH IMAGES */
-        .software-logos {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 50px;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .software-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: var(--transition);
-            flex: 1;
-            min-width: 100px;
-        }
-
-        .software-logo:hover {
-            transform: translateY(-10px);
-        }
-
-        .software-logo img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 15px;
-            transition: var(--transition);
-            filter: brightness(1.1);
-        }
-
-        .software-logo:hover img {
-            transform: scale(1.1);
-            filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
-        }
-
-        .software-logo h4 {
-            color: var(--light);
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .about-image {
-            position: relative;
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
-        }
-
-        .about-image.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            border: 4px solid var(--primary);
-            transition: var(--transition);
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
-        .about-image img.loaded {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .about-image:hover img {
-            transform: scale(1.03);
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary);
-            border-radius: 20px;
-            top: 25px;
-            left: 25px;
-            z-index: -1;
-            opacity: 0.5;
-            transition: var(--transition);
-        }
-
-        .about-image:hover::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 120px 0;
-            background-color: var(--dark-gray);
-            text-align: center;
-            position: relative;
-        }
-
-        .contact-form {
-            max-width: 800px;
-            margin: 70px auto 0;
-            background: var(--glass-bg);
-            padding: 60px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .contact-form.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-            text-align: left;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .form-group.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 12px;
-            color: var(--light);
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 18px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: var(--light);
-            font-size: 1.1rem;
-            transition: var(--transition);
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Fix for select dropdown background */
-        select.form-control {
-            background: rgba(255, 255, 255, 0.05);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 24px center;
-            background-size: 20px;
-            padding-right: 60px;
-        }
-
-        select.form-control option {
-            background-color: var(--dark-gray);
-            color: var(--light);
-            padding: 10px;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        textarea.form-control {
-            min-height: 180px;
-            resize: vertical;
-        }
-
-        /* Success Message Styles */
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(8, 217, 214, 0.1));
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            margin-top: 30px;
-            border: 2px solid var(--long-form);
-            animation: fadeIn 0.5s ease;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-message i {
-            font-size: 4rem;
-            color: var(--long-form);
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
-        }
-
-        .success-message h3 {
-            color: var(--light);
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .success-message p {
-            color: var(--gray);
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-
-        /* Footer */
-        footer {
-            background-color: #050505;
-            padding: 80px 0 40px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 50px;
-        }
-
-        .footer-logo {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--light);
-            text-decoration: none;
-        }
-
-        .footer-logo span {
-            color: var(--primary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 55px;
-            height: 55px;
-            background-color: var(--dark-gray);
-            border-radius: 50%;
-            color: var(--light);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--primary);
-            border-radius: 50%;
-            transform: scale(0);
-            transition: transform 0.5s ease;
-        }
-
-        .social-links a:hover::before {
-            transform: scale(1);
-        }
-
-        .social-links a i {
-            position: relative;
-            z-index: 1;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-8px);
-            color: #000;
-        }
-
-        /* Social media brand colors on hover */
-        .social-links a:nth-child(1):hover { background: #E4405F; } /* Instagram */
-        .social-links a:nth-child(2):hover { background: #0A66C2; } /* LinkedIn */
-        .social-links a:nth-child(3):hover { background: #FF0000; } /* YouTube */
-        .social-links a:nth-child(4):hover { background: #EA4335; } /* Gmail */
-
-        .copyright {
-            color: var(--gray);
-            font-size: 1rem;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.8rem;
-            }
-            
-            .project-grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            }
-            
-            .thumbnail-item {
-                width: 280px;
-                height: 160px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-            
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .section-title h2 {
-                font-size: 2.5rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: 40px;
-            }
-            
-            .social-links {
-                margin-top: 20px;
-            }
-            
-            .thumbnail-item {
-                width: 250px;
-                height: 140px;
-            }
-            
-            .software-logos {
-                justify-content: center;
-                gap: 40px;
-            }
-            
-            .software-logo {
-                min-width: 120px;
-            }
-            
-            .software-logo img {
-                width: 70px;
-                height: 70px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 300px;
-                height: 100vh;
-                flex-direction: column;
-                background-color: var(--dark);
-                text-align: left;
-                transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                padding: 120px 40px 40px;
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
-                z-index: 1001;
-                backdrop-filter: blur(15px);
-                border-left: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .nav-links li {
-                margin: 0 0 30px 0;
-            }
-
-            .hero {
-                padding: 180px 0 120px;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .section-title h2 {
-                font-size: 2.3rem;
-            }
-            
-            .section-title p {
-                font-size: 1.1rem;
-            }
-
-            .filter-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .filter-btn {
-                width: 100%;
-                max-width: 350px;
-                margin: 8px 0;
-            }
-            
-            .contact-form {
-                padding: 40px 30px;
-            }
-            
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .btn {
-                padding: 16px 32px;
-                font-size: 1rem;
-            }
-            
-            .back-to-top {
-                bottom: 30px;
-                right: 30px;
-                width: 55px;
-                height: 55px;
-            }
-            
-            .thumbnail-item {
-                width: 220px;
-                height: 125px;
-            }
-            
-            .thumbnail-overlay {
-                padding: 15px;
-            }
-            
-            .thumbnail-overlay h4 {
-                font-size: 1rem;
-            }
-            
-            .thumbnail-overlay p {
-                font-size: 0.8rem;
-            }
-            
-            .software-logo img {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .software-logo h4 {
-                font-size: 1rem;
-            }
-            
-            .success-message {
-                padding: 30px 20px;
-            }
-            
-            .success-message i {
-                font-size: 3rem;
-            }
-            
-            .success-message h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding: 160px 0 100px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .btn {
-                padding: 16px 28px;
-                display: block;
-                margin: 15px 0;
-                width: 100%;
-                max-width: 350px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .testimonial-card {
-                padding: 40px 25px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title h2 {
-                font-size: 2.2rem;
-            }
-            
-            .thumbnail-item {
-                width: 200px;
-                height: 115px;
-            }
-            
-            .thumbnail-track {
-                gap: 20px;
-                padding: 15px;
-            }
-            
-            .software-logos {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-            
-            .software-logo {
-                min-width: 150px;
-            }
-            
-            .software-logo img {
-                width: 65px;
-                height: 65px;
-            }
-            
-            .success-message {
-                padding: 25px 15px;
-            }
-            
-            .success-message i {
-                font-size: 2.5rem;
-            }
-            
-            .success-message h3 {
-                font-size: 1.3rem;
-            }
-            
-            .success-message p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Niraj Kumar Sharma | Performance Video Editor</title>
+
+<!-- Website Preview Image -->
+<meta property="og:title" content="Niraj Kumar Sharma | Performance Video Editor">
+<meta property="og:description" content="Performance video editor for D2C brands. Reels, ads, YouTube videos and content that drives real engagement.">
+<meta property="og:image" content="https://i.ibb.co/5gkgCymJ/1000465289.jpg">
+<meta property="og:url" content="https://nirajvisuals.in">
+<meta property="og:type" content="website">
+
+<!-- Twitter Preview -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Niraj Kumar Sharma | Performance Video Editor">
+<meta name="twitter:description" content="Performance video editor for D2C brands. Reels, ads and YouTube content.">
+<meta name="twitter:image" content="https://i.ibb.co/5gkgCymJ/1000465289.jpg">
+<link rel="icon" type="image/x-icon" href="https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== THEME VARIABLES ===== */
+:root {
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --radius: 14px;
+  --gold:    #C9961A;
+  --gold-lt: #F5C842;
+  --teal:    #0D8C89;
+  --red:     #C94C2A;
+  --grn:     #1E8C6A;
+}
+
+/* LIGHT */
+[data-theme="light"] {
+  --bg:        #F9F6F1;
+  --bg2:       #F2EDE4;
+  --bg3:       #EAE3D7;
+  --surface:   #FFFFFF;
+  --ink:       #1C1410;
+  --ink2:      #3D3025;
+  --ink3:      #6B5E50;
+  --border:    rgba(28,20,16,.10);
+  --shadow-sm: 0 2px 12px rgba(28,20,16,.08);
+  --shadow:    0 8px 32px rgba(28,20,16,.12);
+  --shadow-lg: 0 20px 60px rgba(28,20,16,.16);
+  --proof-bg:  #1C1410;
+  --proof-txt: rgba(249,246,241,.7);
+  --proof-icon:#F5C842;
+  --header-bg: rgba(249,246,241,.92);
+  --cursor-mix:multiply;
+  --toggle-bg: #1C1410;
+  --toggle-fg: #F9F6F1;
+  --footer-bg:   #0F0D0C;
+  --footer-logo: #F0EBE4;
+  --footer-link: rgba(240,235,228,.45);
+  --footer-sub:  rgba(240,235,228,.28);
+  --footer-div:  rgba(255,255,255,.08);
+  --footer-icon: rgba(240,235,228,.5);
+}
+
+/* DARK */
+[data-theme="dark"] {
+  --bg:        #0A0908;
+  --bg2:       #121110;
+  --bg3:       #1A1816;
+  --surface:   #201E1C;
+  --ink:       #F0EBE4;
+  --ink2:      #D4C9BC;
+  --ink3:      #8A7E72;
+  --border:    rgba(240,235,228,.09);
+  --shadow-sm: 0 2px 14px rgba(0,0,0,.35);
+  --shadow:    0 8px 32px rgba(0,0,0,.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.65);
+  --proof-bg:  #0A0908;
+  --proof-txt: rgba(240,235,228,.6);
+  --proof-icon:#F5C842;
+  --header-bg: rgba(10,9,8,.92);
+  --cursor-mix:difference;
+  --toggle-bg: #F9F6F1;
+  --toggle-fg: #1C1410;
+  --footer-bg:   #060504;
+  --footer-logo: #F0EBE4;
+  --footer-link: rgba(240,235,228,.4);
+  --footer-sub:  rgba(240,235,228,.24);
+  --footer-div:  rgba(255,255,255,.07);
+  --footer-icon: rgba(240,235,228,.45);
+}
+
+/* ===== BASE ===== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior:smooth; overflow-x:hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.65;
+  cursor: none;
+  transition: background .4s ease, color .4s ease;
+}
+
+h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; line-height:1.15; }
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; display:block; }
+
+*, *::before, *::after {
+  transition: background-color .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease;
+}
+.cur, .cur-ring, #pgBar, .reveal, .ttrack, .thumb-item { transition: none !important; }
+.cur { transition: transform .1s, width .22s, height .22s !important; }
+
+/* ===== CURSOR ===== */
+.cur {
+  position:fixed; width:10px; height:10px;
+  background:var(--gold); border-radius:50%;
+  pointer-events:none; z-index:9999;
+  mix-blend-mode: var(--cursor-mix);
+  box-shadow:0 0 0 2px rgba(201,150,26,.3);
+}
+.cur-ring {
+  position:fixed; width:30px; height:30px;
+  border:1.5px solid var(--gold); border-radius:50%;
+  pointer-events:none; z-index:9998;
+  transition: all .25s ease;
+  transform:translate(-50%,-50%); opacity:.5;
+}
+.cur.big { transform:scale(2.2); background:var(--teal); }
+.cur-ring.big { transform:translate(-50%,-50%) scale(1.5); border-color:var(--teal); opacity:.6; }
+@media(max-width:768px){ .cur,.cur-ring{display:none;} body{cursor:auto;} }
+
+/* ===== PROGRESS BAR ===== */
+#pgBar {
+  position:fixed; top:0; left:0; height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--teal));
+  z-index:9999; width:0;
+}
+
+/* ===== BACK TO TOP ===== */
+#btt {
+  position:fixed; bottom:32px; right:32px;
+  width:48px; height:48px; background:var(--ink);
+  color:var(--bg); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; visibility:hidden;
+  z-index:900; font-size:1rem; box-shadow:var(--shadow);
+}
+#btt.show { opacity:1; visibility:visible; }
+#btt:hover { transform:translateY(-5px) scale(1.08); background:var(--gold); color:#fff; }
+
+/* ===== WHATSAPP FLOAT ===== */
+.wa {
+  position:fixed; bottom:32px; left:32px;
+  width:50px; height:50px; background:#25D366; color:#fff;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.45rem; z-index:900;
+  box-shadow:0 6px 20px rgba(37,211,102,.35);
+}
+.wa:hover { transform:translateY(-5px) scale(1.08); }
+
+/* ===== THEME TOGGLE ===== */
+#themeToggle {
+  position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+  z-index: 1100; width: 44px; display: flex; flex-direction: column;
+  align-items: center; background: var(--surface); border: 1px solid var(--border);
+  border-right: none; border-radius: 10px 0 0 10px; padding: 10px 0;
+  gap: 0; box-shadow: var(--shadow); cursor: pointer; overflow: hidden;
+}
+.tt-track { display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; }
+.tt-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all .4s var(--ease); }
+.tt-sun  { color: var(--gold); }
+.tt-moon { color: var(--teal); }
+.tt-pill { width: 26px; height: 50px; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 13px; margin: 4px 0; position: relative; flex-shrink: 0; }
+.tt-dot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); left: 50%; transform: translateX(-50%); top: 4px; transition: top .35s var(--ease), background .35s ease; box-shadow: 0 2px 8px rgba(201,150,26,.4); }
+[data-theme="dark"] .tt-dot { top: 28px; background: var(--teal); box-shadow: 0 2px 8px rgba(13,140,137,.4); }
+.tt-label { font-size: .6rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); padding: 4px 0 6px; font-family: 'Outfit', sans-serif; }
+
+/* ===== CONTAINER ===== */
+.c { width:92%; max-width:1160px; margin:0 auto; }
+
+/* ===== HEADER ===== */
+header {
+  position:fixed; width:100%; z-index:1000;
+  padding:18px 0;
+  background: var(--header-bg);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+header.scrolled { padding:13px 0; box-shadow:var(--shadow-sm); }
+header.hide { transform:translateY(-100%); }
+nav { display:flex; justify-content:space-between; align-items:center; }
+.logo {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:800;
+  color:var(--ink); display:flex; align-items:center; gap:8px;
+}
+.logo em { color:var(--gold); font-style:normal; }
+.logo-pip { width:7px; height:7px; background:var(--gold); border-radius:50%; animation:pip 2s infinite; }
+@keyframes pip { 0%,100%{opacity:.3;transform:scale(.8);} 50%{opacity:1;transform:scale(1.2);} }
+.nav-links { list-style:none; display:flex; gap:26px; }
+.nav-links a {
+  color:var(--ink3); font-size:.9rem; font-weight:500;
+  position:relative; padding-bottom:3px;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:0; height:1.5px; background:var(--gold);
+  transition:width .4s var(--ease);
+}
+.nav-links a:hover, .nav-links a.active { color:var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+.menu-toggle { display:none; font-size:20px; color:var(--ink); cursor:pointer; }
+
+/* ===== SECTION TITLE ===== */
+.stitle { text-align:center; margin-bottom:64px; }
+.stitle .tag {
+  display:inline-block; font-size:.7rem; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; color:var(--gold);
+  margin-bottom:14px; background:rgba(201,150,26,.12);
+  padding:5px 14px; border-radius:20px;
+}
+.stitle h2 { font-size:clamp(1.9rem,3.8vw,2.8rem); color:var(--ink); }
+.stitle p { color:var(--ink3); max-width:580px; margin:18px auto 0; font-size:1rem; line-height:1.8; }
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal { opacity:0; transform:translateY(36px); }
+.reveal.in { opacity:1; transform:translateY(0); animation:revealIn .75s var(--ease) forwards; }
+@keyframes revealIn { from{opacity:0;transform:translateY(36px);} to{opacity:1;transform:translateY(0);} }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 30px; border-radius:var(--radius);
+  font-weight:600; font-size:.95rem; cursor:pointer; border:none;
+  font-family:'Outfit',sans-serif;
+}
+.btn-primary { background:var(--ink); color:var(--bg); box-shadow:var(--shadow-sm); }
+.btn-primary:hover { background:var(--gold); color:#fff; transform:translateY(-5px); box-shadow:var(--shadow); }
+.btn-outline { background:transparent; border:2px solid var(--teal); color:var(--teal); }
+.btn-outline:hover { background:var(--teal); color:#fff; transform:translateY(-5px); }
+.btn-ghost { background:transparent; border:1.5px solid var(--border); color:var(--ink3); }
+.btn-ghost:hover { border-color:var(--ink); color:var(--ink); transform:translateY(-4px); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height:100vh; display:flex; align-items:center;
+  padding:140px 0 100px;
+  background: radial-gradient(ellipse 70% 50% at 10% 50%, rgba(201,150,26,.07) 0%,transparent 60%),
+              radial-gradient(ellipse 50% 40% at 90% 20%, rgba(13,140,137,.06) 0%,transparent 60%),
+              var(--bg);
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(28,20,16,.03) 79px,rgba(28,20,16,.03) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(28,20,16,.03) 79px,rgba(28,20,16,.03) 80px);
+  pointer-events:none;
+}
+[data-theme="dark"] .hero::before {
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,.025) 79px,rgba(255,255,255,.025) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.025) 79px,rgba(255,255,255,.025) 80px);
+}
+.hero-inner { display:grid; grid-template-columns:1.1fr .9fr; gap:80px; align-items:center; position:relative; z-index:1; }
+.hero-pill {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(30,140,106,.1); border:1px solid rgba(30,140,106,.25);
+  color:var(--grn); padding:6px 14px; border-radius:30px;
+  font-size:.76rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:20px;
+}
+.hero-pill::before { content:''; width:7px; height:7px; background:var(--grn); border-radius:50%; animation:pip 1.8s infinite; }
+.hero h1 { font-size:clamp(2.6rem,5.2vw,4rem); color:var(--ink); margin-bottom:18px; }
+.hero h1 span { color:var(--gold); font-style:italic; }
+.hero-sub { color:var(--ink3); font-size:1.05rem; line-height:1.8; max-width:460px; margin-bottom:28px; }
+.hero-chips { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px; }
+.hero-chip {
+  display:flex; align-items:center; gap:6px;
+  font-size:.8rem; font-weight:600; color:var(--ink2);
+  background:var(--surface); border:1px solid var(--border);
+  padding:7px 14px; border-radius:30px; box-shadow:var(--shadow-sm);
+}
+.hero-chip i { color:var(--gold); font-size:.75rem; }
+.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+.hero-photo-wrap { position:relative; }
+.hero-photo { width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:20px; box-shadow:var(--shadow-lg); }
+.hero-float {
+  position:absolute; background:var(--surface); border-radius:12px;
+  padding:14px 18px; box-shadow:var(--shadow); border:1px solid var(--border);
+}
+.hero-float-1 { bottom:-20px; left:-20px; }
+.hero-float-2 { top:20px; right:-20px; }
+.hero-float .lbl { font-size:.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--ink3); margin-bottom:3px; }
+.hero-float .val { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:800; color:var(--gold); line-height:1; }
+.hero-float .sub { font-size:.72rem; color:var(--ink3); margin-top:2px; }
+
+/* ===== PROOF STRIP ===== */
+.proof { padding:28px 0; background:var(--proof-bg); border-top:none; }
+.proof-inner { display:flex; align-items:center; justify-content:center; gap:44px; flex-wrap:wrap; }
+.proof-item { display:flex; align-items:center; gap:9px; color:var(--proof-txt); font-size:.85rem; font-weight:500; white-space:nowrap; }
+.proof-item i { color:var(--proof-icon); font-size:.85rem; }
+.proof-div { width:1px; height:24px; background:rgba(255,255,255,.12); }
+
+/* ===== REEL ===== */
+.reel { padding:110px 0; background:var(--bg2); }
+.video-wrap { border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid var(--border); max-width:980px; margin:0 auto; }
+.video-wrap iframe { display:block; width:100%; aspect-ratio:16/9; border:none; }
+
+/* ===== STATS ===== */
+.stats { padding:90px 0; background:var(--bg); }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.scard {
+  text-align:center; padding:40px 20px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow-sm);
+}
+.scard:hover { transform:translateY(-8px); box-shadow:var(--shadow); border-color:var(--gold); }
+.scard i { font-size:2rem; color:var(--gold); margin-bottom:16px; display:block; }
+.snum { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:800; color:var(--ink); line-height:1; margin-bottom:8px; }
+.scard p { color:var(--ink3); font-size:.9rem; font-weight:500; }
+
+/* ===== SERVICES ===== */
+.services { padding:110px 0; background:var(--bg2); }
+.sv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.sv-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:36px 28px;
+  box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
+}
+.sv-card::after {
+  content:''; position:absolute; bottom:0; left:0; width:100%; height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--teal));
+  transform:scaleX(0); transform-origin:left; transition:transform .4s ease;
+}
+.sv-card:hover::after { transform:scaleX(1); }
+.sv-card:hover { transform:translateY(-7px); box-shadow:var(--shadow); border-color:rgba(201,150,26,.3); }
+.sv-icon { width:52px; height:52px; background:rgba(201,150,26,.1); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:var(--gold); margin-bottom:22px; }
+.sv-card h3 { font-size:1.15rem; color:var(--ink); margin-bottom:10px; }
+.sv-card p { color:var(--ink3); font-size:.9rem; line-height:1.75; margin-bottom:16px; }
+.sv-for { display:inline-flex; align-items:center; gap:5px; font-size:.72rem; color:var(--teal); font-weight:700; background:rgba(13,140,137,.08); border-radius:20px; padding:4px 10px; }
+
+/* ===== PROJECTS ===== */
+.projects { padding:110px 0; background:var(--bg); }
+.filt-row { display:flex; justify-content:center; gap:12px; margin-bottom:48px; flex-wrap:wrap; }
+.flt {
+  padding:10px 26px; border-radius:30px; border:1.5px solid var(--border);
+  background:transparent; color:var(--ink3); font-size:.85rem; font-weight:600;
+  cursor:pointer; font-family:'Outfit',sans-serif;
+}
+.flt:hover, .flt.on { border-color:var(--ink); background:var(--ink); color:var(--bg); }
+.flt.sf:hover, .flt.sf.on { border-color:var(--red); background:var(--red); color:#fff; }
+.flt.lf:hover, .flt.lf.on { border-color:var(--teal); background:var(--teal); color:#fff; }
+.pg { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:28px; }
+.pc {
+  background:var(--surface); border-radius:var(--radius); overflow:hidden;
+  border:1px solid var(--border); box-shadow:var(--shadow-sm); cursor:pointer;
+}
+.pc:hover { transform:translateY(-10px); box-shadow:var(--shadow-lg); }
+.pc.sf { border-top:4px solid var(--red); }
+.pc.lf { border-top:4px solid var(--teal); }
+.pv { position:relative; overflow:hidden; background:var(--bg3); }
+.pv iframe { display:block; width:100%; border:none; pointer-events:none; } /* iframe doesn't capture mouse for hover */
+.pv.sf iframe { aspect-ratio:9/16; }
+.pv.lf iframe { aspect-ratio:16/9; }
+.pv-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(28,20,16,.3); opacity:0; transition:opacity .3s; }
+.pv-play::after { content:''; width:52px; height:52px; border-radius:50%; background:rgba(249,246,241,.95); display:block; clip-path:polygon(30% 20%,80% 50%,30% 80%); }
+[data-theme="dark"] .pv-play::after { background:rgba(20,18,16,.9); }
+.pc:hover .pv-play { opacity:1; }
+.pbadge { position:absolute; top:10px; left:10px; padding:4px 11px; border-radius:20px; font-size:.7rem; font-weight:700; z-index:2; }
+.bsf { background:var(--red); color:#fff; }
+.blf { background:var(--teal); color:#fff; }
+.pi { padding:22px 24px; }
+.pi h3 { font-size:1.05rem; color:var(--ink); margin-bottom:10px; }
+.pc:hover .pi h3 { color:var(--gold); }
+.pt { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.pt span { background:var(--bg2); padding:4px 11px; border-radius:14px; font-size:.76rem; color:var(--ink3); }
+.pm { display:flex; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border); font-size:.79rem; color:var(--ink3); }
+.pm span { display:flex; align-items:center; gap:5px; }
+.pm i { color:var(--gold); }
+
+/* ===== THUMBNAILS ===== */
+.thumbs { padding:110px 0; background:var(--bg2); overflow:hidden; }
+.ttrack-w { margin:0 -40px; overflow:hidden; padding:10px 0; }
+.ttrack { display:flex; gap:18px; padding:10px 40px; width:max-content; animation:slide 36s linear infinite; }
+.ttrack:hover { animation-play-state:paused; }
+@keyframes slide { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+.ti { flex:0 0 auto; width:280px; height:160px; border-radius:10px; overflow:hidden; border:2px solid transparent; box-shadow:var(--shadow-sm); cursor:pointer; }
+.ti:hover { border-color:var(--gold); transform:translateY(-7px) scale(1.04); box-shadow:var(--shadow); }
+.ti img { width:100%; height:100%; object-fit:cover; }
+
+/* ===== PROCESS ===== */
+.process { padding:110px 0; background:var(--bg); }
+.proc-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+.proc-grid::before {
+  content:''; position:absolute; top:33px; left:10%; width:80%; height:1.5px;
+  background:linear-gradient(90deg,var(--gold),var(--teal)); opacity:.3;
+}
+.proc-step { text-align:center; padding:0 10px; }
+.pnum {
+  width:66px; height:66px; border-radius:50%;
+  background:var(--surface); border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; font-family:'Playfair Display',serif;
+  font-size:1.3rem; font-weight:800; color:var(--gold);
+  position:relative; z-index:1; box-shadow:var(--shadow-sm);
+}
+.proc-step:hover .pnum { background:var(--gold); color:var(--surface); transform:scale(1.1); }
+.proc-step h4 { font-size:.95rem; color:var(--ink); margin-bottom:7px; }
+.proc-step p { color:var(--ink3); font-size:.82rem; line-height:1.6; }
+
+/* ===== TESTIMONIALS ===== */
+.testi { padding:110px 0; background:var(--bg2); }
+.t-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.tc {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:34px 28px;
+  box-shadow:var(--shadow-sm); position:relative;
+}
+.tc::before { content:'\201C'; position:absolute; top:16px; left:24px; font-size:5rem; color:var(--gold); opacity:.12; font-family:'Playfair Display',serif; line-height:1; }
+.tc:hover { transform:translateY(-7px); box-shadow:var(--shadow); border-color:rgba(201,150,26,.3); }
+.t-stars { color:var(--gold); font-size:.8rem; margin-bottom:14px; letter-spacing:2px; }
+.t-text { color:var(--ink2); font-size:.9rem; line-height:1.8; font-style:italic; margin-bottom:24px; }
+.t-auth { display:flex; align-items:center; gap:12px; }
+.t-auth img { width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); }
+.t-name { font-weight:700; color:var(--ink); font-size:.9rem; }
+.t-role { color:var(--ink3); font-size:.77rem; margin-top:2px; }
+
+/* ===== ABOUT ===== */
+.about { padding:110px 0; background:var(--bg); }
+.ab-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:80px; align-items:center; }
+.ab-img-wrap { position:relative; }
+.ab-img { width:100%; border-radius:18px; box-shadow:var(--shadow-lg); border:3px solid rgba(201,150,26,.2); }
+.ab-img-wrap::after { content:''; position:absolute; inset:-14px; border:2px solid rgba(201,150,26,.15); border-radius:22px; pointer-events:none; }
+.ab-overline { font-size:.72rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+.ab-text h3 { font-size:clamp(1.7rem,3vw,2.3rem); color:var(--ink); margin-bottom:18px; }
+.ab-text p { color:var(--ink3); line-height:1.8; margin-bottom:16px; font-size:.95rem; }
+.ab-text a { color:var(--gold); font-weight:600; }
+.skills-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+.sk { display:flex; flex-direction:column; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:13px 16px; box-shadow:var(--shadow-sm); }
+.sk img { width:34px; height:34px; object-fit:contain; }
+.sk span { font-size:.72rem; color:var(--ink3); font-weight:600; }
+.sk:hover { border-color:var(--gold); transform:translateY(-5px); box-shadow:var(--shadow); }
+
+/* ===== RECOGNITION (CERTIFICATES & AWARDS) ===== */
+.recognition { padding:110px 0; background:var(--bg2); }
+.rec-slider { position:relative; max-width:800px; margin:0 auto; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); }
+.rec-track { display:flex; transition:transform 0.5s ease; }
+.rec-slide { flex:0 0 100%; aspect-ratio:16/9; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
+.rec-slide img { width:100%; height:100%; object-fit:contain; background:var(--surface); }
+.rec-nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; background:var(--surface); border:1px solid var(--border); color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; transition:all 0.3s; opacity:0.8; z-index:2; }
+.rec-nav:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
+.rec-prev { left:20px; }
+.rec-next { right:20px; }
+.rec-dots { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:2; }
+.rec-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); border:1px solid rgba(0,0,0,.2); cursor:pointer; transition:all 0.3s; }
+.rec-dot.active { background:var(--gold); transform:scale(1.2); border-color:var(--gold); }
+@media(max-width:768px){ .rec-nav{width:32px;height:32px;font-size:.8rem;} }
+
+/* ===== FAQ ===== */
+.faq { padding:110px 0; background:var(--bg2); }
+.faq-wrap { max-width:740px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.fi { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
+.fq { padding:20px 24px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--ink); font-weight:600; font-size:.95rem; gap:14px; user-select:none; }
+.fq:hover { color:var(--gold); }
+.fq-icon { width:26px; height:26px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--ink3); font-size:.75rem; }
+.fi.open .fq-icon { background:var(--gold); border-color:var(--gold); color:#fff; transform:rotate(45deg); }
+.fa-ans { max-height:0; overflow:hidden; transition:max-height .5s ease,padding .5s ease; padding:0 24px; color:var(--ink3); font-size:.9rem; line-height:1.8; }
+.fi.open .fa-ans { max-height:180px; padding-bottom:20px; }
+.fi.open { border-color:rgba(201,150,26,.3); }
+
+/* ===== CONTACT ===== */
+.contact { padding:110px 0; background:var(--bg); }
+.ct-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:56px; align-items:start; }
+.ct-info h3 { font-size:1.9rem; color:var(--ink); margin-bottom:14px; }
+.ct-info p { color:var(--ink3); line-height:1.8; margin-bottom:28px; font-size:.95rem; }
+.ct-links { display:flex; flex-direction:column; gap:14px; }
+.ct-link { display:flex; align-items:center; gap:12px; color:var(--ink2); font-size:.9rem; }
+.ct-link:hover { color:var(--gold); }
+.ct-icon { width:40px; height:40px; background:var(--surface); border:1px solid var(--border); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:.95rem; color:var(--gold); flex-shrink:0; box-shadow:var(--shadow-sm); }
+.ct-link:hover .ct-icon { background:var(--gold); color:#fff; border-color:var(--gold); }
+.wa-btn { display:inline-flex; align-items:center; gap:9px; padding:13px 26px; background:#25D366; color:#fff; border-radius:var(--radius); font-weight:700; font-size:.95rem; margin-top:26px; box-shadow:0 6px 20px rgba(37,211,102,.3); }
+.wa-btn:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(37,211,102,.4); }
+.cf { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px; box-shadow:var(--shadow); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.fg { margin-bottom:18px; }
+.fg label { display:block; color:var(--ink); font-size:.85rem; font-weight:600; margin-bottom:7px; }
+.fc { width:100%; padding:13px 16px; background:var(--bg); border:1.5px solid var(--border); border-radius:10px; color:var(--ink); font-size:.9rem; font-family:'Outfit',sans-serif; }
+.fc:focus { outline:none; border-color:var(--gold); background:var(--surface); box-shadow:0 0 0 3px rgba(201,150,26,.1); }
+textarea.fc { min-height:130px; resize:vertical; }
+select.fc { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23C9961A' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-size:18px; background-color:var(--bg); }
+select.fc option { background:var(--surface); color:var(--ink); }
+.fsub { width:100%; padding:14px; background:var(--ink); color:var(--bg); border:none; border-radius:var(--radius); font-weight:700; font-size:.95rem; cursor:pointer; font-family:'Outfit',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; }
+.fsub:hover { background:var(--gold); color:#fff; transform:translateY(-3px); box-shadow:var(--shadow); }
+.smsg { display:none; text-align:center; padding:40px 20px; }
+.smsg i { font-size:3rem; color:var(--grn); margin-bottom:14px; display:block; }
+.smsg h4 { font-size:1.4rem; color:var(--ink); margin-bottom:8px; }
+.smsg p { color:var(--ink3); }
+
+/* ===== FOOTER ===== */
+footer { background:var(--footer-bg); padding:56px 0 32px; }
+.ft-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; flex-wrap:wrap; gap:24px; }
+.ft-logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:800; color:var(--footer-logo); }
+.ft-logo em { color:var(--gold-lt); font-style:normal; }
+.ft-nav { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; }
+.ft-nav a { color:var(--footer-link); font-size:.82rem; }
+.ft-nav a:hover { color:var(--gold-lt); }
+.socials { display:flex; gap:10px; }
+.socials a { width:40px; height:40px; background:rgba(255,255,255,.05); border:1px solid var(--footer-div); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--footer-icon); font-size:.9rem; }
+.socials a:hover { background:var(--gold); border-color:var(--gold); color:#000; transform:translateY(-4px); }
+.ft-bot { border-top:1px solid var(--footer-div); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.ft-bot p { color:var(--footer-sub); font-size:.78rem; }
+.legal { display:flex; gap:18px; }
+.legal a { color:var(--footer-sub); font-size:.77rem; }
+.legal a:hover { color:var(--gold-lt); }
+
+/* ===== LIGHTBOXES ===== */
+.vlb { position:fixed; inset:0; background:rgba(10,9,8,.93); z-index:10000; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; }
+.vlb.open { opacity:1; visibility:visible; }
+.vlb-in { width:95%; max-width:1100px; position:relative; }
+.vlb-in iframe { display:block; width:100%; aspect-ratio:16/9; border:none; border-radius:10px; }
+.vlb-x { position:absolute; top:-46px; right:0; width:38px; height:38px; background:rgba(255,255,255,.12); border:none; color:#fff; cursor:pointer; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.lb { position:fixed; inset:0; background:rgba(10,9,8,.92); z-index:10001; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; }
+.lb.open { opacity:1; visibility:visible; }
+.lb img { max-width:92%; max-height:85vh; border-radius:10px; }
+.lb-x { position:absolute; top:20px; right:20px; width:40px; height:40px; background:rgba(255,255,255,.1); border:none; color:#fff; font-size:1.2rem; cursor:pointer; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.lb-nav { position:absolute; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; width:100%; padding:0 18px; pointer-events:none; }
+.lb-nav button { pointer-events:auto; background:rgba(255,255,255,.1); border:none; color:#fff; width:42px; height:42px; border-radius:50%; font-size:1rem; cursor:pointer; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:50px;}
+  /* Removed display:none to show hero photo on mobile */
+  /* .hero-photo-wrap{display:none;} */
+  .sv-grid{grid-template-columns:1fr 1fr;}
+  .proc-grid{grid-template-columns:repeat(3,1fr);row-gap:40px;}
+  .proc-grid::before{display:none;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .t-grid{grid-template-columns:1fr 1fr;}
+  .ab-grid{grid-template-columns:1fr;}
+  .ct-grid{grid-template-columns:1fr;}
+  #themeToggle{top:auto;bottom:90px;transform:none;}
+}
+@media(max-width:768px){
+  .menu-toggle{display:block;}
+  .nav-links{position:fixed;top:0;right:-100%;width:270px;height:100vh;flex-direction:column;background:var(--bg);padding:90px 32px 40px;gap:20px;transition:right .5s var(--ease);border-left:1px solid var(--border);z-index:1001;box-shadow:var(--shadow);}
+  .nav-links.open{right:0;}
+  .sv-grid{grid-template-columns:1fr;}
+  .proc-grid{grid-template-columns:1fr 1fr;}
+  .pg{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .t-grid{grid-template-columns:1fr;}
+  .proof-inner{gap:18px;}
+  .proof-div{display:none;}
+  .hero-chips{display:none;}
+  #btt{bottom:20px;right:20px;}
+  .wa{bottom:20px;left:20px;}
+  .ft-top{flex-direction:column;text-align:center;}
+  .ft-bot{flex-direction:column;align-items:center;text-align:center;}
+  #themeToggle{top:auto;bottom:80px;right:0;transform:none;}
+}
+@media(max-width:480px){
+  .proc-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr;}
+  .hero-ctas{flex-direction:column;}
+  .btn{width:100%;justify-content:center;}
+}
+</style>
 </head>
 <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
-    <div id="a11yStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
-    <!-- Scroll Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+<!-- CURSOR -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curR"></div>
+<div id="pgBar"></div>
+<div id="btt"><i class="fas fa-arrow-up"></i></div>
+
+<!-- WHATSAPP -->
+<a class="wa" href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- THEME TOGGLE -->
+<div id="themeToggle" title="Toggle light / dark mode" role="button" aria-label="Toggle theme" tabindex="0">
+  <div class="tt-track">
+    <div class="tt-icon tt-sun"><i class="fas fa-sun"></i></div>
+    <div class="tt-pill"><div class="tt-dot"></div></div>
+    <div class="tt-icon tt-moon"><i class="fas fa-moon"></i></div>
+  </div>
+  <span class="tt-label" id="ttLabel">Light</span>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="c">
+    <nav>
+      <a href="#home" class="logo"><span class="logo-pip"></span>Niraj<em>Sharma</em></a>
+      <ul class="nav-links" id="navL">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="menu-toggle" id="mTog"><i class="fas fa-bars"></i></div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="c">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="hero-pill">Available for Projects</div>
+        <h1>Performance<br><span>Video Editor</span><br>for D2C Brands</h1>
+        <p class="hero-sub">I turn raw footage into scroll-stopping content — reels, brand films, and ad creatives that drive real engagement for brands and creators.</p>
+        <div class="hero-chips">
+          <span class="hero-chip"><i class="fas fa-trophy"></i> Adobe Certified Editor</span>
+          <span class="hero-chip"><i class="fas fa-globe"></i> UAE · USA · UK Clients</span>
+          <span class="hero-chip"><i class="fas fa-eye"></i> 6M+ Views Generated</span>
+        </div>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Start a Project</a>
+          <a href="#projects" class="btn btn-outline"><i class="fas fa-play"></i> View Work</a>
+          <a href="https://docs.google.com/document/d/1FfgBwjTyeecgEZ3w3OQv8NCoyMiq32uY/edit?usp=drive_link&ouid=101597923511347083816&rtpof=true&sd=true" target="_blank" class="btn btn-ghost"><i class="fas fa-download"></i> Resume</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap reveal" style="animation-delay:.2s">
+        <img src="https://i.ibb.co/XZj2T1VY/Untitled-design-8.jpg" alt="Niraj Kumar Sharma" class="hero-photo">
+        <div class="hero-float hero-float-1"><div class="lbl">Projects Done</div><div class="val">100+</div><div class="sub">Since 2022</div></div>
+        <div class="hero-float hero-float-2"><div class="lbl">Happy Clients</div><div class="val">80+</div><div class="sub">Globally</div></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="c">
+    <div class="proof-inner">
+      <div class="proof-item"><i class="fas fa-trophy"></i> Adobe Certified Editor</div>
+      <div class="proof-div"></div>
+      <div class="proof-item"><i class="fas fa-star"></i> 2+ Years Experience</div>
+      <div class="proof-div"></div>
+      <div class="proof-item"><i class="fas fa-globe"></i> International Clients — UAE, USA, UK</div>
+      <div class="proof-div"></div>
+      <div class="proof-item"><i class="fas fa-eye"></i> 6M+ Total Views</div>
+      <div class="proof-div"></div>
     </div>
+  </div>
+</div>
 
-    <!-- Header & Navigation -->
-    <header id="header">
-        <div class="container">
-            <nav>
-                <a href="#home" class="logo">
-                    <i class="fas fa-film logo-icon"></i>
-                    Niraj<span>Sharma</span>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#demo-reel">Best Work</a></li>
-                    <li><a href="#stats">Stats</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="menu-toggle">
-                    <i class="fas fa-bars" id="menuIcon"></i>
-                </div>
-            </nav>
+<!-- REEL (AUTOPLAY ADDED) -->
+<section class="reel" id="demo-reel">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">Showreel</span><h2>Best Work of 2025</h2><p>A curated showcase of short-form and long-form projects that have collectively generated millions of views.</p></div>
+    <div class="video-wrap reveal" style="animation-delay:.15s">
+      <!-- Added autoplay=1&mute=1 to start automatically -->
+      <iframe src="https://www.youtube.com/embed/PGgXdXShFAI?controls=1&rel=0&modestbranding=1&autoplay=1&mute=1" title="Demo Reel" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="c">
+    <div class="stats-grid">
+      <div class="scard reveal" data-target="100" data-sfx="+"><i class="fas fa-film"></i><div class="snum" id="s1">0</div><p>Projects Completed</p></div>
+      <div class="scard reveal" style="animation-delay:.08s" data-target="6" data-sfx="M+"><i class="fas fa-eye"></i><div class="snum" id="s2">0</div><p>Total Views</p></div>
+      <div class="scard reveal" style="animation-delay:.16s" data-target="80" data-sfx="+"><i class="fas fa-handshake"></i><div class="snum" id="s3">0</div><p>Happy Clients</p></div>
+      <div class="scard reveal" style="animation-delay:.24s"><i class="fas fa-trophy"></i><div class="snum">Adobe</div><p>Certified Editor</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">What I Offer</span><h2>Services</h2><p>Tailored video solutions for brands, creators and agencies — built for performance, not just aesthetics.</p></div>
+    <div class="sv-grid">
+      <div class="sv-card reveal"><div class="sv-icon"><i class="fas fa-mobile-alt"></i></div><h3>Short-Form Video Editing</h3><p>High-retention Instagram Reels, YouTube Shorts & TikToks with tight hooks, fast cuts, and trending audio sync. Designed to stop the scroll.</p><span class="sv-for"><i class="fas fa-bullseye"></i> D2C Brands · Creators · Coaches</span></div>
+      <div class="sv-card reveal" style="animation-delay:.08s"><div class="sv-icon"><i class="fas fa-video"></i></div><h3>Long-Form Video Editing</h3><p>Cinematic YouTube videos, brand films, vlogs and event coverage with colour grading, motion graphics, and pacing that holds attention end-to-end.</p><span class="sv-for"><i class="fas fa-bullseye"></i> YouTubers · Agencies · Startups</span></div>
+      <div class="sv-card reveal" style="animation-delay:.16s"><div class="sv-icon"><i class="fas fa-image"></i></div><h3>Thumbnail Design</h3><p>Click-worthy thumbnails combining psychology, contrast, and visual hierarchy to dramatically improve CTR. Tested on 68K+ follower pages.</p><span class="sv-for"><i class="fas fa-bullseye"></i> YouTubers · Content Creators</span></div>
+      <div class="sv-card reveal" style="animation-delay:.24s"><div class="sv-icon"><i class="fas fa-ad"></i></div><h3>Ad Creatives (Performance)</h3><p>UGC-style and scripted video ads for Meta & YouTube with strong hooks, problem-solution-proof structure, and CTAs that convert.</p><span class="sv-for"><i class="fas fa-bullseye"></i> D2C Brands · E-commerce · Apps</span></div>
+      <div class="sv-card reveal" style="animation-delay:.32s"><div class="sv-icon"><i class="fas fa-calendar-alt"></i></div><h3>Event Coverage Editing</h3><p>Raw event footage turned into highlight reels, recap videos, and behind-the-scenes content — delivered fast in multi-platform formats.</p><span class="sv-for"><i class="fas fa-bullseye"></i> Startups · Colleges · Organisations</span></div>
+      <div class="sv-card reveal" style="animation-delay:.40s"><div class="sv-icon"><i class="fas fa-brain"></i></div><h3>AI-Integrated Production</h3><p>Next-gen video production using Kling, ElevenLabs, Hedra, Topaz Video AI and more — creating visuals that stand out in any feed.</p><span class="sv-for"><i class="fas fa-bullseye"></i> Forward-thinking Brands</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">Portfolio</span><h2>Featured Projects</h2><p>Hover over any card to autoplay the video. Click to watch fullscreen.</p></div>
+    <div class="filt-row reveal">
+      <button class="flt on" data-f="all">All Projects</button>
+      <button class="flt sf" data-f="sf">Short Form</button>
+      <button class="flt lf" data-f="lf">Long Form</button>
+    </div>
+    <div class="pg" id="pg"></div>
+  </div>
+</section>
+
+<!-- THUMBNAILS -->
+<section class="thumbs" id="thumbnails">
+  <div class="c"><div class="stitle reveal"><span class="tag">Design Work</span><h2>Thumbnail Gallery</h2><p>Eye-catching designs built to maximise click-through rates. Hover to pause.</p></div></div>
+  <div class="ttrack-w"><div class="ttrack" id="ttrack"></div></div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">How It Works</span><h2>My Process</h2><p>A transparent, structured workflow so you always know what happens next.</p></div>
+    <div class="proc-grid">
+      <div class="proc-step reveal"><div class="pnum">01</div><h4>Discovery Call</h4><p>30-min call to understand your brand, audience, goals, and project scope.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.1s"><div class="pnum">02</div><h4>Brief & Proposal</h4><p>Clear proposal with deliverables, timeline and pricing — no hidden costs.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.2s"><div class="pnum">03</div><h4>Production</h4><p>First cut delivered on schedule. Full progress updates throughout.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.3s"><div class="pnum">04</div><h4>Revisions</h4><p>2 rounds of feedback-driven revisions to get everything exactly right.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.4s"><div class="pnum">05</div><h4>Final Delivery</h4><p>Exported in all required formats, ready for upload with platform-specific specs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi" id="testimonials">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">Social Proof</span><h2>Client Reviews</h2><p>What real clients say after working together.</p></div>
+    <div class="t-grid">
+      <div class="tc reveal"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content — delivering 20+ high-quality edits for social media. His work ethic is unmatched and his visuals perfectly captured the VikaasGarh energy."</p><div class="t-auth"><img src="https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg" alt="Meraj Meer"><div><div class="t-name">Meraj Meer</div><div class="t-role">CEO, VikaasGarh</div></div></div></div>
+      <div class="tc reveal" style="animation-delay:.1s"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical skills and creative vision significantly boosted our community's visibility. Consistently delivered content that perfectly represented our initiatives."</p><div class="t-auth"><img src="https://i.ibb.co/fYJnY7bQ/1762690695469.jpg" alt="Sayan Karmakar"><div><div class="t-name">Sayan Karmakar</div><div class="t-role">Azure Student Intern @ Microsoft</div></div></div></div>
+      <div class="tc reveal" style="animation-delay:.2s"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj's edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and Instagram trends — consistently delivering content that performs. A talented creator with a very bright future."</p><div class="t-auth"><img src="https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg" alt="Jamshedpurtainment"><div><div class="t-name">Jamshedpurtainment</div><div class="t-role">Instagram Page · 68K Followers</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="c">
+    <div class="ab-grid">
+      <div class="ab-img-wrap reveal"><img src="https://i.ibb.co/RGBVXq6v/YT-Banner-12.jpg" alt="Niraj Kumar Sharma" class="ab-img"></div>
+      <div class="reveal" style="animation-delay:.15s">
+        <span class="ab-overline">About Me</span>
+        <h3>Performance Creative & Video Specialist</h3>
+        <p>I'm Niraj Kumar Sharma — Senior Video Editor at GrowMedia and Media Magnetix, a 3rd-year CSE student at Rungta College of Engineering & Technology, Bhilai, and a Smart India Hackathon 2024 national winner.</p>
+        <p>I specialise in performance-focused video editing for D2C brands, Instagram creators, and YouTube channels. My pricing has evolved from ₹2,000 to ₹20,000+ per project — because the work delivers measurable results, not just polished aesthetics.</p>
+        <p>International clients from UAE, USA, and UK. Portfolio: <a href="https://nirajvisuals.in" target="_blank">nirajvisuals.in</a></p>
+        <div class="skills-row">
+          <div class="sk"><img src="https://sevensoftwares.com/wp-content/uploads/2024/11/adobe-premiere-pro-logo-1-1-2048x1997.png" alt="Premiere Pro"><span>Premiere Pro</span></div>
+          <div class="sk"><img src="https://adobe.psu.edu/files/2020/07/After-Effects.png" alt="After Effects"><span>After Effects</span></div>
+          <div class="sk"><img src="https://p.kindpng.com/picc/s/13-130854_davinci-resolve-icon-davinci-resolve-logo-transparent-hd.png" alt="DaVinci Resolve"><span>DaVinci</span></div>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <main id="main" tabindex="-1">
-    <section class="hero" id="home">
-        <div class="particles" id="particles"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h1>Niraj Kumar Sharma</h1>
-                <p>Award-winning Video Editor specializing in Short Form and Long Form content. Creating viral-worthy videos that captivate audiences and drive engagement.</p>
-                <!-- CHANGED: View Portfolio → Start a Project -->
-                <a href="#contact" class="btn">Start a Project</a>
-                <!-- CHANGED: Start a Project → Download Resume -->
-                <a href="https://drive.google.com/file/d/1ne3ckyzjoMVVLE-S-lLBsl5L9rdSKlzH/view?usp=sharing" target="_blank" class="btn btn-secondary" id="downloadResume">Download Resume</a>
-            </div>
+<!-- ===== NEW RECOGNITION SECTION (CERTIFICATES & AWARDS) ===== -->
+<section class="recognition" id="recognition">
+  <div class="c">
+    <div class="stitle reveal">
+      <span class="tag">Recognition</span>
+      <h2>Awards & Certifications</h2>
+      <p>Industry recognitions that validate expertise and commitment to quality.</p>
+    </div>
+    <div class="rec-slider reveal">
+      <div class="rec-track" id="recTrack"></div>
+      <button class="rec-nav rec-prev"><i class="fas fa-chevron-left"></i></button>
+      <button class="rec-nav rec-next"><i class="fas fa-chevron-right"></i></button>
+      <div class="rec-dots" id="recDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">Common Questions</span><h2>FAQ</h2><p>Answers to the questions clients ask most before reaching out.</p></div>
+    <div class="faq-wrap" id="faqW"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="c">
+    <div class="stitle reveal"><span class="tag">Work Together</span><h2>Let's Build Something</h2></div>
+    <div class="ct-grid">
+      <div class="reveal">
+        <h3>Got a project in mind?</h3>
+        <p>Whether you're a brand, creator, or agency — I'd love to hear about your vision. I respond within 24 hours.</p>
+        <div class="ct-links">
+          <a href="mailto:nirajsharma.work@gmail.com" class="ct-link"><div class="ct-icon"><i class="fas fa-envelope"></i></div>nirajsharma.work@gmail.com</a>
+          <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" class="ct-link"><div class="ct-icon"><i class="fab fa-linkedin-in"></i></div>linkedin.com/in/nirajsharmaeditor</a>
+          <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" class="ct-link"><div class="ct-icon"><i class="fab fa-instagram"></i></div>@itsnirajsharma</a>
+          <a href="https://nirajvisuals.in" target="_blank" class="ct-link"><div class="ct-icon"><i class="fas fa-globe"></i></div>nirajvisuals.in</a>
         </div>
-    </section>
-
-    <!-- Demo Reel Section -->
-    <section class="demo-reel lazy-load" id="demo-reel">
-        <div class="container">
-            <!-- CHANGED: Demo Reel 2026 → Best Work of 2025 -->
-            <div class="section-title lazy-load">
-                <h2>Best Work of 2025</h2>
-                <p>A showcase of my best work, featuring both Short Form and Long Form projects that have garnered millions of views.</p>
-            </div>
-            <div class="video-container lazy-load">
-                <div class="video-wrapper">
-                    <!-- Direct YouTube embed - Simple and reliable -->
-                    <iframe 
-                        src="https://www.youtube.com/embed/PGgXdXShFAI?controls=1&rel=0&modestbranding=1&showinfo=0"
-                        title="Niraj Sharma Demo Reel"
-                        frameborder="0"
-                        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
+        <a href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" class="wa-btn"><i class="fab fa-whatsapp" style="font-size:1.25rem"></i> Chat on WhatsApp</a>
+      </div>
+      <div class="cf reveal" style="animation-delay:.15s">
+        <div class="smsg" id="smsg">
+          <i class="fas fa-check-circle"></i>
+          <h4>Message Sent!</h4>
+          <p>I'll get back to you within 24 hours.</p>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="resetForm()">Send Another</button>
         </div>
-    </section>
+        <form id="cform" method="POST" action="/" name="contact" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>Don't fill: <input name="bot-field"></label></p>
+          <div class="form-row">
+            <div class="fg"><label>Name *</label><input type="text" name="name" class="fc" placeholder="Your name" required></div>
+            <div class="fg"><label>Email *</label><input type="email" name="email" class="fc" placeholder="your@email.com" required></div>
+          </div>
+          <div class="fg">
+            <label>Project Type *</label>
+            <select name="projectType" class="fc" required>
+              <option value="">Select a service</option>
+              <option value="short-form">Short-Form Video Editing</option>
+              <option value="long-form">Long-Form Video Editing</option>
+              <option value="ad-creative">Ad Creative / Performance Video</option>
+              <option value="thumbnail">Thumbnail Design</option>
+              <option value="event">Event Coverage Editing</option>
+              <option value="ai">AI-Integrated Production</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message *</label><textarea name="message" class="fc" placeholder="Tell me about your project, goals, and timeline..." required></textarea></div>
+          <button type="submit" class="fsub"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Stats Section - UPDATED FOR COUNTING ANIMATION -->
-    <section class="stats lazy-load" id="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <!-- Project count with animation -->
-                <div class="stat-card lazy-load" data-count-target="100" data-count-suffix="+">
-                    <i class="fas fa-project-diagram"></i>
-                    <div class="stat-number" id="projectCount">0</div>
-                    <p>Projects Completed</p>
-                </div>
-                <!-- Views count with animation (2M+) -->
-                <div class="stat-card lazy-load" data-count-target="2" data-count-suffix="M+">
-                    <i class="fas fa-eye"></i>
-                    <div class="stat-number" id="viewsCount">0</div>
-                    <p>Total Views</p>
-                </div>
-                <!-- Clients count with animation -->
-                <div class="stat-card lazy-load" data-count-target="10" data-count-suffix="+">
-                    <i class="fas fa-users"></i>
-                    <div class="stat-number" id="clientsCount">0</div>
-                    <p>Happy Clients</p>
-                </div>
-                <!-- SIH Award (static - no counting) -->
-                <div class="stat-card lazy-load">
-                    <i class="fas fa-trophy"></i>
-                    <div class="stat-number">SIH</div>
-                    <p>Social Media Winner</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FOOTER -->
+<footer>
+  <div class="c">
+    <div class="ft-top">
+      <a href="#home" class="ft-logo">Niraj<em>Sharma</em></a>
+      <div class="ft-nav">
+        <a href="#services">Services</a><a href="#projects">Work</a><a href="#process">Process</a>
+        <a href="#testimonials">Reviews</a><a href="#about">About</a><a href="#recognition">Recognition</a><a href="#contact">Contact</a>
+      </div>
+      <div class="socials">
+        <a href="https://www.instagram.com/itsnirajsharma/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.youtube.com/@NikushVlogs" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:nirajsharma.work@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>© 2026 Niraj Kumar Sharma. All rights reserved. Built with 🎬 in Bhilai, India.</p>
+      <div class="legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Refund Policy</a></div>
+    </div>
+  </div>
+</footer>
 
-    <!-- Projects Section - UPDATED FOR YOUTUBE PREVIEW -->
-    <section class="projects lazy-load" id="projects">
-        <div class="container">
-            <div class="section-title lazy-load">
-                <h2>Featured Projects</h2>
-                <p>Click on project cards to open the YouTube video. Each project features direct YouTube embedding.</p>
-            </div>
-            
-            <!-- ADDED: Filter buttons for Short Form and Long Form -->
-            <div class="filter-buttons lazy-load">
-                <button class="filter-btn lazy-load active" data-filter="all">All Projects</button>
-                <button class="filter-btn lazy-load short-form" data-filter="short-form">Short Form</button>
-                <button class="filter-btn lazy-load long-form" data-filter="long-form">Long Form</button>
-            </div>
-            
-            <div class="project-grid" id="projectGrid">
-                <!-- Projects will be loaded via JavaScript -->
-            </div>
-        </div>
-    </section>
+<!-- VIDEO LIGHTBOX -->
+<div class="vlb" id="vlb">
+  <div class="vlb-in">
+    <button class="vlb-x" id="vlbX"><i class="fas fa-times"></i></button>
+    <iframe id="vlbF" src="" allowfullscreen allow="autoplay;encrypted-media"></iframe>
+  </div>
+</div>
+<!-- IMAGE LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-x" id="lbX"><i class="fas fa-times"></i></button>
+  <div class="lb-nav"><button id="lbPrev"><i class="fas fa-chevron-left"></i></button><button id="lbNext"><i class="fas fa-chevron-right"></i></button></div>
+  <img id="lbImg" src="" alt="">
+</div>
 
-    <!-- Thumbnail Design Section -->
-    <section class="thumbnail-design lazy-load" id="thumbnail-design">
-        <div class="container">
-            <div class="section-title lazy-load">
-                <h2>Thumbnail Design</h2>
-                <p>Eye-catching thumbnails designed to maximize click-through rates and engagement. Hover to pause the animation.</p>
-            </div>
-            
-            <div class="thumbnail-container">
-                <div class="thumbnail-track" id="thumbnailTrack">
-                    <!-- Thumbnails will be loaded via JavaScript -->
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- YOUTUBE API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials lazy-load" id="testimonials">
-        <div class="container">
-            <div class="section-title lazy-load">
-                <h2>Client Testimonials</h2>
-                <p>What clients say about working with me.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial-track" id="testimonialTrack">
-                    <!-- Testimonials will be loaded via JavaScript -->
-                </div>
-                <div class="slider-nav" id="sliderNav">
-                    <!-- Dots will be added via JavaScript -->
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+/* ===== THEME ===== */
+const html = document.documentElement;
+const ttLabel = document.getElementById('ttLabel');
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  ttLabel.textContent = t === 'light' ? 'Light' : 'Dark';
+  localStorage.setItem('nk-theme', t);
+}
+(function(){
+  const saved = localStorage.getItem('nk-theme');
+  if (saved) { applyTheme(saved); return; }
+  const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+  applyTheme(prefersDark ? 'dark' : 'light');
+})();
+const tt = document.getElementById('themeToggle');
+function toggleTheme() {
+  const cur = html.getAttribute('data-theme');
+  applyTheme(cur === 'light' ? 'dark' : 'light');
+}
+tt.addEventListener('click', toggleTheme);
+tt.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); } });
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('nk-theme')) applyTheme(e.matches ? 'dark' : 'light');
+});
 
-    <!-- About Section - UPDATED WITH SOFTWARE LOGOS -->
-    <section class="about lazy-load" id="about">
-        <div class="container">
-            <div class="section-title lazy-load">
-                <h2>About Me</h2>
-                <p>Get to know the creative mind behind the edits.</p>
-            </div>
-            <div class="about-content lazy-load">
-                <div class="about-text">
-                    <h3>Video Editor & Social Media Content Creator</h3>
-                    <p>I'm Niraj Kumar Sharma, a passionate video editor with expertise in creating engaging content for social media platforms and traditional formats. My journey in video editing started during college and has evolved into a professional career where I help brands and creators tell their stories visually.</p>
-                    <p>As a Smart India Hackathon winner in the social media category, I understand what makes content go viral and how to optimize videos for maximum reach and engagement across different platforms.</p>
-                    
-                    <!-- UPDATED: Software logos with images instead of Font Awesome icons -->
-                    <div class="software-logos">
-                        <div class="software-logo">
-                            <!-- Adobe Premiere Pro logo - UPDATED WITH NEW LINK -->
-                            <img src="https://sevensoftwares.com/wp-content/uploads/2024/11/adobe-premiere-pro-logo-1-1-2048x1997.png" alt="Adobe Premiere Pro">
-                            <h4>Adobe Premiere Pro</h4>
-                        </div>
-                        <div class="software-logo">
-                            <!-- Adobe After Effects logo -->
-                            <img src="https://adobe.psu.edu/files/2020/07/After-Effects.png" alt="After Effects">
-                            <h4>After Effects</h4>
-                        </div>
-                        <div class="software-logo">
-                            <!-- DaVinci Resolve logo -->
-                            <img src="https://p.kindpng.com/picc/s/13-130854_davinci-resolve-icon-davinci-resolve-logo-transparent-hd.png" alt="DaVinci Resolve">
-                            <h4>DaVinci Resolve</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image lazy-load">
-                    <img data-src="https://i.ibb.co/5gkgCymJ/1000465289.jpg" alt="Niraj Kumar Sharma">
-                </div>
-            </div>
-        </div>
-    </section>
+/* ===== CURSOR ===== */
+const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+let mx=0,my=0,px=0,py=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function l(){ px+=(mx-px)/9; py+=(my-py)/9; curR.style.left=px+'px'; curR.style.top=py+'px'; requestAnimationFrame(l); })();
+document.querySelectorAll('a,button,.pc,.tc,.scard,.sv-card,.flt,.menu-toggle,.ti,input,textarea,select,#themeToggle').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('big');curR.classList.add('big');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('big');curR.classList.remove('big');});
+});
 
-    <!-- Contact Section - UPDATED WITH WORKING NETLIFY FORM -->
-    <section class="contact lazy-load" id="contact">
-        <div class="container">
-            <div class="section-title lazy-load">
-                <h2>Let's Work Together</h2>
-                <p>Have a project in mind? I'd love to hear about it and discuss how we can bring your vision to life.</p>
-            </div>
-            
-            <!-- Success Message (hidden by default) -->
-            <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle"></i>
-                <h3>Thank You!</h3>
-                <p>Your message has been sent successfully. I'll get back to you within 24 hours.</p>
-                <button onclick="resetForm()" class="btn" style="margin-top: 20px;">Send Another Message</button>
-            </div>
-            
-            <!-- Netlify Form - FIXED VERSION -->
-            <form class="contact-form lazy-load" id="contactForm" name="contact" method="POST" action="/" netlify netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="contact">
-                <p style="display: none;">
-                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                </p>
-                
-                <div class="form-group lazy-load">
-                    <label for="name">Name *</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
-                </div>
-                <div class="form-group lazy-load">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
-                </div>
-                <div class="form-group lazy-load">
-                    <label for="projectType">Project Type *</label>
-                    <select id="projectType" name="projectType" class="form-control" required>
-                        <option value="">Select Project Type</option>
-                        <option value="short-form">Short Form Video (Reels/TikTok)</option>
-                        <option value="long-form">Long Form Video (Commercial/Documentary)</option>
-                        <option value="thumbnail">Thumbnail Design</option>
-                        <option value="both">Video Editing + Thumbnail Design</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group lazy-load">
-                    <label for="message">Message *</label>
-                    <textarea id="message" name="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-            
-            <p style="text-align: center; margin-top: 30px; color: var(--gray);">
-                Or email me directly: <a href="mailto:nirajsharma.work@gmail.com" style="color: var(--primary);">nirajsharma.work@gmail.com</a>
-            </p>
-        </div>
-    </section>
+/* ===== SCROLL ===== */
+const pgBar = document.getElementById('pgBar'), btt = document.getElementById('btt'), hdr = document.getElementById('hdr');
+let lastY = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+  pgBar.style.width = (y/h*100)+'%';
+  btt.classList.toggle('show', y > 400);
+  hdr.classList.toggle('scrolled', y > 60);
+  hdr.classList.toggle('hide', y > lastY && y > 120);
+  lastY = y;
+});
+btt.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    </main>
+/* ===== MOBILE NAV ===== */
+const mTog = document.getElementById('mTog'), navL = document.getElementById('navL');
+mTog.addEventListener('click', () => navL.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => navL.classList.remove('open')));
 
-    <!-- Footer -->
-    <footer class="lazy-load">
-        <div class="container">
-            <div class="footer-content">
-                <a href="#home" class="footer-logo">Niraj<span>Sharma</span></a>
-                <div class="social-links">
-                    <!-- UPDATED WITH YOUR SOCIAL LINKS -->
-                    <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/niraj-kumar-sharma-3770b1213/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.youtube.com/@NikushVlogs" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="mailto:nirajsharma.work@gmail.com" title="Gmail"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <p class="copyright">© 2026 Niraj Kumar Sharma. All rights reserved.</p>
-        </div>
-    </footer>
+/* ===== ACTIVE NAV ===== */
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let c = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 160) c = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+c));
+});
 
-    <script>
-        /*
-         * Main interactive script for the portfolio (thumbnails, projects, lightboxes, accessibility helpers).
-         * Consider extracting to `script.js` when moving to production for caching and maintainability.
-         */
-        // Enhanced Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        let mouseX = 0, mouseY = 0;
-        let posX = 0, posY = 0;
+/* ===== REVEAL ===== */
+const ro = new IntersectionObserver(e => {
+  e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); });
+}, { threshold:.1, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-        // Mouse move listener
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+/* ===== COUNT-UP ===== */
+function count(el, t, sfx) {
+  let n=0; const inc = t/60;
+  const tm = setInterval(() => { n+=inc; if(n>=t){clearInterval(tm);el.textContent=t+sfx;}else el.textContent=Math.floor(n)+sfx; }, 30);
+}
+const cObs = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting && x.target.dataset.target){ count(x.target.querySelector('.snum'), +x.target.dataset.target, x.target.dataset.sfx||''); delete x.target.dataset.target; } });
+}, { threshold:.5 });
+document.querySelectorAll('.scard[data-target]').forEach(c => cObs.observe(c));
 
-        // Cursor animation loop
-        function animateCursor() {
-            posX += (mouseX - posX) / 9;
-            posY += (mouseY - posY) / 9;
-            
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-            
-            cursorFollower.style.left = posX + 'px';
-            cursorFollower.style.top = posY + 'px';
-            
-            requestAnimationFrame(animateCursor);
+/* ===== PROJECTS + HOVER AUTOPLAY (YouTube API) ===== */
+const PROJ = [
+  {t:'Skincare Brand Collab',c:'sf',y:'3CpnoEG3v5w',tags:['Instagram Reels','Fashion','Trending'],v:'450K',d:'15–30s'},
+  {t:'Shawarma Brand',c:'sf',y:'qv5gOU396iM',tags:['TikTok','Lifestyle','Ad'],v:'750K',d:'30–45s'},
+  {t:'Penny Stock Reel',c:'sf',y:'1C8wSecJ2Gg',tags:['Finance','Reels','Quick Cuts'],v:'320K',d:'20–40s'},
+  {t:'Hostel Tour Cinematic Series',c:'sf',y:'xGTHW280XRo',tags:['Lifestyle','Ad','Travel'],v:'1.2M',d:'45–60s'},
+  {t:'Personal Brand Reel Series',c:'sf',y:'oRjEKVOdTRk',tags:['Personal Brand','Short Film','Viral'],v:'900K',d:'30–45s'},
+  {t:'CUET Reel',c:'sf',y:'or90OeGLYc0',tags:['Education','Startup','Trending'],v:'680K',d:'25–40s'},
+  {t:'Master Trading in 2025',c:'lf',y:'HTPKNvnLcF8',tags:['Podcast','Trading','Youtube'],v:'120K',d:'2:30 min'},
+  {t:'Let’s Talk Gynae',c:'lf',y:'ZvZzvUsiP1o',tags:['Podcast','Trading','Youtube'],v:'85K',d:'45:20 min'},
+  {t:'IIT Kanpur Vlog',c:'lf',y:'qJqqkw1suTk',tags:['Vlog','IIT','Cinematic'],v:'45K',d:'3:45 min'},
+  {t:'Air India 171:',c:'lf',y:'mXu6Hybmy3U',tags:['Podcast','Trading','Youtube'],v:'65K',d:'5:20 min'},
+];
+
+let players = []; // store YouTube player instances
+
+function destroyPlayers() {
+  players.forEach(p => { if (p && typeof p.destroy === 'function') p.destroy(); });
+  players = [];
+}
+
+function buildPG(f='all') {
+  destroyPlayers(); // kill old players before rebuilding
+  const g = document.getElementById('pg'); g.innerHTML = '';
+  PROJ.filter(p => f==='all' || p.c===f).forEach((p,i) => {
+    const d = document.createElement('div');
+    d.className = `pc ${p.c} reveal`; d.style.animationDelay = (i*.07)+'s';
+    const vidId = `player-${Date.now()}-${i}`; // unique id for iframe
+    d.innerHTML = `<div class="pv ${p.c}"><iframe id="${vidId}" src="https://www.youtube.com/embed/${p.y}?enablejsapi=1&controls=1&rel=0&modestbranding=1" title="${p.t}" allow="encrypted-media" allowfullscreen loading="lazy"></iframe><div class="pv-play"></div><span class="pbadge ${p.c==='sf'?'bsf':'blf'}">${p.c==='sf'?'Short Form':'Long Form'}</span></div><div class="pi"><h3>${p.t}</h3><div class="pt">${p.tags.map(x=>`<span>${x}</span>`).join('')}</div><div class="pm"><span><i class="fas fa-eye"></i>${p.v}</span><span><i class="fas fa-clock"></i>${p.d}</span></div></div>`;
+    d.addEventListener('click', e => { if(!e.target.closest('iframe')) openV(p.y,p.t); });
+    g.appendChild(d);
+  });
+  g.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Initialize YouTube players after DOM update
+  setTimeout(initPlayers, 100);
+}
+
+// Initialize players for all iframes in .pc
+function initPlayers() {
+  document.querySelectorAll('.pc .pv iframe').forEach(iframe => {
+    if (!iframe.id) return;
+    const player = new YT.Player(iframe.id, {
+      events: {
+        onReady: (event) => {
+          // Store player on card element for easy access
+          const card = iframe.closest('.pc');
+          if (card) card.player = event.target;
         }
+      }
+    });
+    players.push(player);
+  });
 
-        // Start cursor animation
-        animateCursor();
+  // Attach hover events to each card
+  document.querySelectorAll('.pc').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      if (card.player && typeof card.player.playVideo === 'function') {
+        card.player.playVideo();
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      if (card.player && typeof card.player.pauseVideo === 'function') {
+        card.player.pauseVideo();
+      }
+    });
+  });
+}
 
-        // Cursor hover effects
-        const hoverElements = document.querySelectorAll('a, button, .project-card, .testimonial-card, .stat-card, .social-links a, .filter-btn, .menu-toggle, select, input, textarea, .thumbnail-item');
-        
-        hoverElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-                cursorFollower.classList.add('hover');
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-                cursorFollower.classList.remove('hover');
-            });
-            
-            element.addEventListener('mousedown', () => {
-                cursor.classList.add('click');
-                cursorFollower.classList.add('click');
-            });
-            
-            element.addEventListener('mouseup', () => {
-                cursor.classList.remove('click');
-                cursorFollower.classList.remove('click');
-            });
-        });
+// YouTube API ready callback
+window.onYouTubeIframeAPIReady = function() {
+  // Players will be created after buildPG calls initPlayers
+};
 
-        // Create particles for hero section
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            if (!particlesContainer) return;
-            
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random properties
-                const size = Math.random() * 4 + 2;
-                const posX = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = Math.random() * 10 + 15;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
-                // Random color (yellow to teal)
-                const hue = Math.random() * 40 + 40; // 40-80 (yellow to green)
-                particle.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+buildPG();
 
-        // Initialize everything when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            // Create particles
-            createParticles();
-            
-            // Start lazy loading and animations immediately
-            initLazyLoading();
-            initAnimations();
-            loadThumbnailTrack();
-        });
+// Filter buttons
+document.querySelectorAll('.flt').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.flt').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    buildPG(b.dataset.f);
+  });
+});
 
-        // Thumbnail data
-        const thumbnails = [
-            {
-                id: 1,
-                title: "Fitness Challenge",
-                description: "High-energy thumbnail with bold typography",
-                image: "https://i.ibb.co/Q3zFThB4/52.jpg",
-                link: "https://ibb.co/8LTDfG3H"
-            },
-            {
-                id: 2,
-                title: "Chhath Puja Special",
-                description: "Clean design with cultural elements",
-                image: "https://i.ibb.co/mCCTq6x9/62.jpg",
-                link: "https://ibb.co/bggmBzfs"
-            },
-            {
-                id: 3,
-                title: "Event Highlights",
-                description: "Developer conference with vibrant colors",
-                image: "https://i.ibb.co/NdW0xQRJ/63.jpg",
-                link: "https://ibb.co/FL8Q6Npy"
-            },
-            {
-                id: 4,
-                title: "Cana Event",
-                description: "Canva event thumbnail with modern aesthetics",
-                image: "https://i.ibb.co/YFpvF4V3/67.jpg",
-                link: "https://ibb.co/67g67cqm"
-            },
-            {
-                id: 5,
-                title: "Hostel Vlog",
-                description: "Hostel life with engaging visuals",
-                image: "https://i.ibb.co/nNb7ym9L/13.jpg",
-                link: "https://ibb.co/ksx4TBjS"
-            },
-            {
-                id: 6,
-                title: "Corporate Vlog",
-                description: "First Salary Vlog thumbnail design",
-                image: "https://i.ibb.co/5hLF5Rh6/32.jpg",
-                link: "https://ibb.co/RTcyCDT9"
-            },
-            {
-                id: 7,
-                title: "Daily Vlog",
-                description: "Fighting with stranger thumbnail",
-                image: "https://i.ibb.co/xtVFgWXy/35.jpg",
-                link: "https://ibb.co/HfmhP6B0"
-            },
-            {
-                id: 8,
-                title: "College Vlog",
-                description: "College life thumbnail with friends",
-                image: "https://i.ibb.co/rGtZtHk5/38.jpg",
-                link: "https://ibb.co/mCBHB4Jh"
-            },
-            {
-                id: 9,
-                title: "College Event",
-                description: "College fest with dynamic elements",
-                image: "https://i.ibb.co/kp9kvGq/43.jpg",
-                link: "https://ibb.co/fbnBLXr"
-            },
-            {
-                id: 10,
-                title: "Garba Night",
-                description: "Garba event thumbnail with festive vibes",
-                image: "https://i.ibb.co/G4N8vGC2/48.jpg",
-                link: "https://ibb.co/7dLZJBrW"
-            }
-        ];
+/* ===== VIDEO LIGHTBOX ===== */
+const vlb=document.getElementById('vlb'), vlbF=document.getElementById('vlbF');
+document.getElementById('vlbX').addEventListener('click', closeV);
+vlb.addEventListener('click', e=>{ if(e.target===vlb) closeV(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closeV();closeLB();} });
+function openV(id,t){ vlbF.src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`; vlb.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeV(){ vlb.classList.remove('open'); vlbF.src=''; document.body.style.overflow=''; }
 
-        // Shuffle thumbnails randomly for each page load
-        thumbnails.sort(() => Math.random() - 0.5);
+/* ===== THUMBNAILS ===== */
+const THUMBS = [
+  {i:'https://i.ibb.co/Q3zFThB4/52.jpg',t:'Fitness Challenge'},
+  {i:'https://i.ibb.co/mCCTq6x9/62.jpg',t:'Chhath Puja Special'},
+  {i:'https://i.ibb.co/NdW0xQRJ/63.jpg',t:'Event Highlights'},
+  {i:'https://i.ibb.co/YFpvF4V3/67.jpg',t:'Cana Event'},
+  {i:'https://i.ibb.co/nNb7ym9L/13.jpg',t:'Hostel Vlog'},
+  {i:'https://i.ibb.co/5hLF5Rh6/32.jpg',t:'Corporate Vlog'},
+  {i:'https://i.ibb.co/xtVFgWXy/35.jpg',t:'Daily Vlog'},
+  {i:'https://i.ibb.co/rGtZtHk5/38.jpg',t:'College Vlog'},
+  {i:'https://i.ibb.co/kp9kvGq/43.jpg',t:'College Event'},
+  {i:'https://i.ibb.co/G4N8vGC2/48.jpg',t:'Garba Night'},
+];
+(()=>{
+  const tr=document.getElementById('ttrack');
+  [...THUMBS,...THUMBS].forEach((th,i)=>{ const d=document.createElement('div'); d.className='ti'; d.innerHTML=`<img src="${th.i}" alt="${th.t}" loading="lazy">`; d.addEventListener('click',()=>openLB(i%THUMBS.length)); tr.appendChild(d); });
+})();
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+let lbI=0;
+document.getElementById('lbX').addEventListener('click', closeLB);
+lb.addEventListener('click', e=>{ if(e.target===lb) closeLB(); });
+document.getElementById('lbPrev').addEventListener('click', ()=>showLB(lbI-1));
+document.getElementById('lbNext').addEventListener('click', ()=>showLB(lbI+1));
+function openLB(i){ lbI=i; lbImg.src=THUMBS[i].i; lb.classList.add('open'); document.body.style.overflow='hidden'; }
+function showLB(i){ lbI=(i+THUMBS.length)%THUMBS.length; lbImg.src=THUMBS[lbI].i; }
+function closeLB(){ lb.classList.remove('open'); document.body.style.overflow=''; }
 
-        // Load Thumbnail Track
-        function loadThumbnailTrack() {
-            const thumbnailTrack = document.getElementById('thumbnailTrack');
-            if (!thumbnailTrack) return;
-            
-            // Clear existing content
-            thumbnailTrack.innerHTML = '';
-            
-            // Create thumbnails - doubled for seamless looping
-            const thumbnailSet = [...thumbnails, ...thumbnails];
-            
-            thumbnailSet.forEach((thumbnail, index) => {
-                const thumbnailItem = document.createElement('div');
-                thumbnailItem.className = 'thumbnail-item';
-                
-                // Create image element wrapped in a link to the original
-                const link = document.createElement('a');
-                link.href = thumbnail.link || thumbnail.image;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.title = thumbnail.title;
-                link.setAttribute('aria-label', `Open ${thumbnail.title} in lightbox`);
-                link.setAttribute('role', 'button');
-                link.className = 'thumbnail-link';
+/* ===== RECOGNITION SLIDESHOW (CERTIFICATES & AWARDS) ===== */
+const CERT_IMAGES = [
+  { src: 'https://i.ibb.co/YBzKvv9X/79.jpg', title: 'Adobe Certified Professional' },
+  { src: 'https://i.ibb.co/zHTHMwf3/78.jpg', title: 'Smart India Hackathon 2024 Winner' },
+  { src: 'https://i.ibb.co/jkqc9b3h/80.jpg', title: 'Techstars Startup Weekend' },
+  { src: 'https://i.ibb.co/SDY5y4v3/81.jpg', title: 'Microsoft Azure Certificate' }
+  // Replace these placeholder URLs with your actual certificate images
+];
 
-                const img = document.createElement('img');
-                img.src = thumbnail.image;
-                img.alt = thumbnail.title;
-                img.loading = 'eager'; // Force immediate loading
-                
-                // Create overlay
-                const overlay = document.createElement('div');
-                overlay.className = 'thumbnail-overlay';
-                overlay.innerHTML = `
-                    <h4>${thumbnail.title}</h4>
-                    <p>${thumbnail.description}</p>
-                `;
-                
-                link.appendChild(img);
-                thumbnailItem.appendChild(link);
-                thumbnailItem.appendChild(overlay);
-                thumbnailTrack.appendChild(thumbnailItem);
-            });
+const recTrack = document.getElementById('recTrack');
+const recDots = document.getElementById('recDots');
+let currentSlide = 0;
+let slideInterval;
 
-            // Attach click handlers for lightbox (prevent default link navigation)
-            document.querySelectorAll('#thumbnailTrack .thumbnail-link').forEach((link, i) => {
-                const logicalIndex = i % thumbnails.length;
-                // Make sure link behaves well as an accessible button
-                link.setAttribute('tabindex', '0');
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openLightbox(logicalIndex);
-                });
-                link.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openLightbox(logicalIndex);
-                    }
-                });
-            });
-        }
+function buildRecognition() {
+  recTrack.innerHTML = '';
+  CERT_IMAGES.forEach((img, idx) => {
+    const slide = document.createElement('div');
+    slide.className = 'rec-slide';
+    slide.innerHTML = `<img src="${img.src}" alt="${img.title}" loading="lazy">`;
+    recTrack.appendChild(slide);
+  });
+  // Dots
+  recDots.innerHTML = '';
+  CERT_IMAGES.forEach((_, idx) => {
+    const dot = document.createElement('span');
+    dot.className = 'rec-dot' + (idx === currentSlide ? ' active' : '');
+    dot.addEventListener('click', () => goToSlide(idx));
+    recDots.appendChild(dot);
+  });
+  updateSlide();
+}
 
-        // Lightbox implementation for thumbnail preview
-        let lightboxOverlay, lightboxImg, lightboxCaption, lightboxCounter, lightboxIndex = 0;
+function updateSlide() {
+  recTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  document.querySelectorAll('.rec-dot').forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === currentSlide);
+  });
+}
 
-        function createLightbox() {
-            if (document.getElementById('lightboxOverlay')) return;
-            lightboxOverlay = document.createElement('div');
-            lightboxOverlay.id = 'lightboxOverlay';
-            lightboxOverlay.className = 'lightbox-overlay';
-            lightboxOverlay.innerHTML = `
-                <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Image preview" aria-describedby="lightboxCaption">
-                    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-                    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&#10094;</button>
-                    <img class="lightbox-img" id="lightboxImg" src="" alt="">
-                    <button class="lightbox-next" id="lightboxNext" aria-label="Next">&#10095;</button>
-                    <div class="lightbox-caption" id="lightboxCaption"></div>
-                    <div class="lightbox-counter" id="lightboxCounter"></div>
-                </div>
-            `; 
-            document.body.appendChild(lightboxOverlay);
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % CERT_IMAGES.length;
+  updateSlide();
+}
 
-            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-            document.getElementById('lightboxPrev').addEventListener('click', () => showSlide(lightboxIndex - 1));
-            document.getElementById('lightboxNext').addEventListener('click', () => showSlide(lightboxIndex + 1));
-            lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); });
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + CERT_IMAGES.length) % CERT_IMAGES.length;
+  updateSlide();
+}
 
-            // Save previous focused element and trap focus inside modal
-            lightboxOverlay._previousActive = document.activeElement;
-            lightboxOverlay._trapHandler = function(e) {
-                if (e.key === 'Escape') { closeLightbox(); return; }
-                if (e.key === 'ArrowRight') { showSlide(lightboxIndex + 1); return; }
-                if (e.key === 'ArrowLeft') { showSlide(lightboxIndex - 1); return; }
-                if (e.key !== 'Tab') return;
-                const focusables = Array.from(lightboxOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(el => !el.disabled && el.offsetParent !== null);
-                if (!focusables.length) { e.preventDefault(); return; }
-                const first = focusables[0], last = focusables[focusables.length-1];
-                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-            };
-            document.addEventListener('keydown', lightboxOverlay._trapHandler);
+function goToSlide(n) {
+  currentSlide = n;
+  updateSlide();
+  resetInterval();
+}
 
-            lightboxImg = document.getElementById('lightboxImg');
-            lightboxCaption = document.getElementById('lightboxCaption');
-            lightboxCounter = document.getElementById('lightboxCounter');
-        }
+function resetInterval() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 4000);
+}
 
-        function openLightbox(index) {
-            createLightbox();
-            showSlide(index);
-            const main = document.getElementById('main');
-            if (main) main.setAttribute('aria-hidden', 'true');
-            lightboxOverlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            const a11y = document.getElementById('a11yStatus');
-            if (a11y) a11y.textContent = `Opened image ${lightboxIndex + 1} of ${thumbnails.length}: ${thumbnails[lightboxIndex].title}`;
-            const closeBtn = document.getElementById('lightboxClose');
-            if (closeBtn) closeBtn.focus();
-        }
+// Event listeners for nav buttons
+document.querySelector('.rec-prev').addEventListener('click', () => { prevSlide(); resetInterval(); });
+document.querySelector('.rec-next').addEventListener('click', () => { nextSlide(); resetInterval(); });
 
-        function closeLightbox() {
-            if (!lightboxOverlay) return;
-            lightboxOverlay.classList.remove('open');
-            document.body.style.overflow = 'auto';
-            const main = document.getElementById('main');
-            if (main) main.removeAttribute('aria-hidden');
-            if (lightboxOverlay._trapHandler) document.removeEventListener('keydown', lightboxOverlay._trapHandler);
-            if (lightboxOverlay._previousActive && typeof lightboxOverlay._previousActive.focus === 'function') lightboxOverlay._previousActive.focus();
-            const a11y = document.getElementById('a11yStatus');
-            if (a11y) a11y.textContent = 'Closed image preview';
-        }
+// Pause on hover
+const slider = document.querySelector('.rec-slider');
+slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+slider.addEventListener('mouseleave', resetInterval);
 
-        function showSlide(index) {
-            const total = thumbnails.length;
-            lightboxIndex = (index + total) % total;
-            const t = thumbnails[lightboxIndex];
-            lightboxImg.src = t.image;
-            lightboxImg.alt = t.title;
-            lightboxCaption.textContent = t.title + ' — ' + t.description;
-            lightboxCounter.textContent = `${lightboxIndex + 1} / ${total}`;
-            const a11y = document.getElementById('a11yStatus');
-            if (a11y) a11y.textContent = `Image ${lightboxIndex + 1} of ${total}: ${t.title}`;
-        }
+buildRecognition();
+resetInterval();
 
-        // Video lightbox implementation (opens YouTube iframe)
-        let videoLightboxOverlay, videoLightboxIframe, videoLightboxCaption;
+/* ===== FAQ ===== */
+const FAQS=[
+  {q:'What is your pricing for short-form video editing?',a:'Short-form projects (Reels/Shorts) start from ₹3,500 per video, scaling based on complexity and turnaround. Bulk packages for creators are available.'},
+  {q:'How long does a typical project take?',a:'Short-form edits are usually delivered within 3–5 business days. Long-form videos (10+ minutes) take 7–14 days depending on complexity. Rush delivery is available.'},
+  {q:'How many revisions are included?',a:'Every project includes 2 rounds of revisions. Additional revisions are billed at ₹500 per round for short-form and ₹1,000 per round for long-form.'},
+  {q:'What is your payment structure?',a:'50% advance to begin the project, 50% on final delivery before file transfer. UPI, bank transfer, and international payments (Wise/PayPal) are accepted.'},
+  {q:'Do you work with international clients?',a:'Yes — I currently work with clients from UAE, USA, and UK. Files are shared via Google Drive or WeTransfer with platform-ready export specs.'},
+  {q:'What files do you need to get started?',a:'Raw footage, brand guidelines (if available), reference videos, and a brief explaining the goal and target audience. I share a structured brief template on request.'},
+  {q:'Do you offer white-label services for agencies?',a:'Yes. I partner with performance creative agencies on white-label editing. Confidential agreements are available — reach out to discuss rates and capacity.'},
+];
+const fw=document.getElementById('faqW');
+FAQS.forEach((f,i)=>{
+  const it=document.createElement('div'); it.className='fi reveal'; it.style.animationDelay=(i*.06)+'s';
+  it.innerHTML=`<div class="fq">${f.q}<div class="fq-icon"><i class="fas fa-plus"></i></div></div><div class="fa-ans">${f.a}</div>`;
+  it.querySelector('.fq').addEventListener('click',()=>{ const o=it.classList.contains('open'); document.querySelectorAll('.fi').forEach(x=>x.classList.remove('open')); if(!o)it.classList.add('open'); });
+  fw.appendChild(it);
+});
+fw.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-        function createVideoLightbox() {
-            if (document.getElementById('videoLightboxOverlay')) return;
-
-            videoLightboxOverlay = document.createElement('div');
-            videoLightboxOverlay.id = 'videoLightboxOverlay';
-            videoLightboxOverlay.className = 'video-lightbox-overlay';
-            videoLightboxOverlay.innerHTML = `
-                <div class="video-lightbox-content" role="dialog" aria-modal="true" aria-label="Video player">
-                    <button class="lightbox-close" id="videoLightboxClose" aria-label="Close">&times;</button>
-                    <div class="video-container">
-                        <iframe id="videoLightboxIframe" class="video-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-lightbox-caption" id="videoLightboxCaption"></div>
-                </div>
-            `;
-
-            document.body.appendChild(videoLightboxOverlay);
-
-            document.getElementById('videoLightboxClose').addEventListener('click', closeVideoLightbox);
-            videoLightboxOverlay.addEventListener('click', (e) => { if (e.target === videoLightboxOverlay) closeVideoLightbox(); });
-
-            // Focus management and trap
-            videoLightboxOverlay._previousActive = document.activeElement;
-            videoLightboxOverlay._trapHandler = function(e) {
-                if (e.key === 'Escape') { closeVideoLightbox(); return; }
-                if (e.key !== 'Tab') return;
-                const focusables = Array.from(videoLightboxOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(el => !el.disabled && el.offsetParent !== null);
-                if (!focusables.length) { e.preventDefault(); return; }
-                const first = focusables[0], last = focusables[focusables.length-1];
-                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-            };
-            document.addEventListener('keydown', videoLightboxOverlay._trapHandler);
-
-            videoLightboxIframe = document.getElementById('videoLightboxIframe');
-            videoLightboxCaption = document.getElementById('videoLightboxCaption');
-        }
-
-        function openVideoLightbox(youtubeId, title, start) {
-            createVideoLightbox();
-            const startParam = (typeof start !== 'undefined' && start !== null) ? `&start=${parseInt(start, 10)}` : '';
-            const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1${startParam}`;
-            videoLightboxIframe.src = src;
-            videoLightboxIframe.title = title || '';
-            videoLightboxCaption.textContent = title || '';
-            const a11y = document.getElementById('a11yStatus');
-            if (a11y) a11y.textContent = `Opened video: ${title}`;
-            const main = document.getElementById('main');
-            if (main) main.setAttribute('aria-hidden', 'true');
-            videoLightboxOverlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            const closeBtn = document.getElementById('videoLightboxClose');
-            if (closeBtn) closeBtn.focus();
-        }
-
-        function closeVideoLightbox() {
-            if (!videoLightboxOverlay) return;
-            videoLightboxOverlay.classList.remove('open');
-            // stop playback
-            videoLightboxIframe.src = '';
-            document.body.style.overflow = 'auto';
-            const main = document.getElementById('main');
-            if (main) main.removeAttribute('aria-hidden');
-            if (videoLightboxOverlay._trapHandler) document.removeEventListener('keydown', videoLightboxOverlay._trapHandler);
-            if (videoLightboxOverlay._previousActive && typeof videoLightboxOverlay._previousActive.focus === 'function') videoLightboxOverlay._previousActive.focus();
-            const a11y = document.getElementById('a11yStatus');
-            if (a11y) a11y.textContent = 'Closed video';
-        }
-
-        // Scroll Progress Bar
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        });
-
-        // Back to Top Button
-        const backToTop = document.getElementById('backToTop');
-        if (backToTop) {
-            backToTop.setAttribute('role', 'button');
-            backToTop.tabIndex = 0;
-            backToTop.setAttribute('aria-label', 'Back to top');
-            backToTop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); backToTop.click(); } });
-        }
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Mobile Navigation
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const menuIcon = document.getElementById('menuIcon');
-
-        // Make menu toggle keyboard accessible
-        if (menuToggle) {
-            menuToggle.setAttribute('role', 'button');
-            menuToggle.tabIndex = 0;
-            menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            menuToggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); menuToggle.click(); } });
-        }
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const expanded = navLinks.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-            if (expanded) {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-times');
-                document.body.style.overflow = 'hidden';
-            } else {
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        // Active Navigation Link on Scroll
-        const sections = document.querySelectorAll('section');
-        const navLinksArray = document.querySelectorAll('.nav-links a');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= (sectionTop - 150)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinksArray.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-        
-        // Header scroll effect
-        let lastScroll = 0;
-        const header = document.getElementById('header');
-        
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 50) {
-                header.classList.add('scrolled');
-                
-                if (currentScroll > lastScroll && currentScroll > 100) {
-                    header.classList.add('hidden');
-                } else {
-                    header.classList.remove('hidden');
-                }
-            } else {
-                header.classList.remove('scrolled');
-                header.classList.remove('hidden');
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Lazy Loading Implementation
-        function initLazyLoading() {
-            // Lazy load images except thumbnails
-            const lazyImages = document.querySelectorAll('img[data-src]:not(.thumbnail-item img)');
-            
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    }
-                });
-            }, {
-                rootMargin: '100px 0px',
-                threshold: 0.1
-            });
-            
-            lazyImages.forEach(img => imageObserver.observe(img));
-            
-            // Lazy load sections and elements
-            const lazyElements = document.querySelectorAll('.lazy-load');
-            
-            const elementObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // If the element is a stat-card with counting data, start counting
-                        if (entry.target.classList.contains('stat-card') && entry.target.hasAttribute('data-count-target')) {
-                            startCountingAnimation(entry.target);
-                        }
-                        
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                rootMargin: '50px 0px',
-                threshold: 0.1
-            });
-            
-            lazyElements.forEach(el => elementObserver.observe(el));
-            
-            // Load projects
-            loadProjects();
-        }
-
-        // Counting Animation for Stats Section
-        function startCountingAnimation(statCard) {
-            const target = parseInt(statCard.getAttribute('data-count-target'));
-            const suffix = statCard.getAttribute('data-count-suffix') || '';
-            const numberElement = statCard.querySelector('.stat-number');
-            
-            if (!numberElement) return;
-            
-            let current = 0;
-            const increment = target / 50; // Divide by number of steps
-            const duration = 2000; // 2 seconds total
-            const interval = duration / 50; // Update interval
-            
-            // Special handling for "M" (millions)
-            const isMillions = suffix.includes('M');
-            
-            const timer = setInterval(() => {
-                current += increment;
-                
-                if (current >= target) {
-                    // Format the final number
-                    let displayNumber = target;
-                    if (isMillions) {
-                        // For millions, we might want to keep it as a whole number
-                        displayNumber = target;
-                    }
-                    
-                    numberElement.textContent = displayNumber + suffix;
-                    clearInterval(timer);
-                } else {
-                    // Format the current number
-                    let displayNumber = Math.floor(current);
-                    if (isMillions) {
-                        // For millions during animation, we can show decimal
-                        displayNumber = Math.floor(current * 100) / 100;
-                    }
-                    
-                    numberElement.textContent = displayNumber + suffix;
-                }
-            }, interval);
-        }
-
-        // UPDATED: Project Data with 6 Short Form and 4 Long Form projects (NO DESCRIPTIONS)
-        const projects = [
-            // Short Form Projects (6)
-            {
-                id: 1,
-                title: "Personal Brand Reel Series",
-                category: "short-form",
-                youtubeId: 'oRjEKVOdTRk',
-                tags: ["Instagram Reels", "Quick Cuts", "Trending Audio"],
-                views: "450K",
-                duration: "15-30s"
-            },
-            {
-                id: 2,
-                title: "Hostel Tour cinematic Series",
-                category: "short-form",
-                youtubeId: 'xGTHW280XRo',
-                tags: ["TikTok", "Text Overlay", "Fitness"],
-                views: "750K",
-                duration: "30-45s"
-            },
-            {
-                id: 3,
-                title: "Podcast episode teaser",
-                category: "short-form",
-                youtubeId: 'eDGqjzQE38c',
-                tags: ["Instagram Reels", "Food", "Step-by-Step"],
-                views: "320K",
-                duration: "20-40s"
-            },
-            {
-                id: 4,
-                title: "Boat session documentary Reel",
-                category: "short-form",
-                youtubeId: '5AqZkk6slY4', // UPDATED: New YouTube ID
-                tags: ["Travel", "Vlog", "Dynamic Transitions"],
-                views: "1.2M",
-                duration: "45-60s"
-            },
-            {
-                id: 5,
-                title: "Government Event Short Film",
-                category: "short-form",
-                youtubeId: '-0bTJ3z04x8', // UPDATED: New YouTube ID
-                tags: ["Comedy", "Skit", "Viral"],
-                views: "900K",
-                duration: "30-45s"
-            },
-            {
-                id: 6,
-                title: "Event Reel Series",
-                category: "short-form",
-                youtubeId: '5Skre17zSxE', // UPDATED: New YouTube ID
-                tags: ["Dance", "Challenge", "Trending"],
-                views: "680K",
-                duration: "25-40s"
-            },
-            // Long Form Projects (4)
-            {
-                id: 7,
-                title: "Behind the Scenes of SIH 2024",
-                category: "long-form",
-                youtubeId: 'lz4s5zU7Bo0',
-                tags: ["Commercial", "Motion Graphics", "Product Launch"],
-                views: "120K",
-                duration: "2:30 min"
-            },
-            {
-                id: 8,
-                title: "Techstars Weekend Dhamtari Documentary",
-                category: "long-form",
-                youtubeId: '6lb_TAq2ttE',
-                tags: ["Documentary", "Cinematic", "Educational"],
-                views: "85K",
-                duration: "45:20 min"
-            },
-            {
-                id: 9,
-                title: "Trading Podcast Explainer Video",
-                category: "long-form",
-                youtubeId: 'HTPKNvnLcF8',
-                tags: ["Corporate", "Training", "Animation"],
-                views: "45K",
-                duration: "3:45 min"
-            },
-            {
-                id: 10,
-                title: "Startup Event Brand Film",
-                category: "long-form",
-                youtubeId: 'WE9JvXKqyB4', // UPDATED: New YouTube ID
-                tags: ["Corporate", "Brand Film", "Storytelling"],
-                views: "65K",
-                duration: "5:20 min"
-            }
-        ];
-
-        // Load Projects with YouTube Previews
-        function loadProjects() {
-            const projectGrid = document.getElementById('projectGrid');
-            if (!projectGrid) return;
-            
-            projects.forEach((project, index) => {
-                const projectCard = document.createElement('div');
-                projectCard.className = `project-card lazy-load ${project.category}`;
-                projectCard.setAttribute('data-category', project.category);
-                projectCard.style.animationDelay = `${index * 0.1}s`;
-
-                // Make card keyboard-focusable and accessible
-                projectCard.tabIndex = 0;
-                projectCard.setAttribute('role', 'button');
-                projectCard.setAttribute('aria-label', `${project.title} — ${project.category === 'short-form' ? 'Short Form' : 'Long Form'} video`);
-                projectCard.addEventListener('keydown', (ev) => {
-                    if (ev.key === 'Enter' || ev.key === ' ') {
-                        ev.preventDefault();
-                        if (!ev.target.closest('iframe')) {
-                            openVideoLightbox(project.youtubeId, project.title, project.start);
-                        }
-                    }
-                });
-                
-                const isShortForm = project.category === 'short-form';
-                
-                // UPDATED: Removed description paragraph from project card HTML
-                projectCard.innerHTML = `
-                    <div class="project-video-container">
-                        <!-- YouTube iframe embed - same as demo reel -->
-                        <iframe 
-                            class="project-video-iframe"
-                            src="https://www.youtube.com/embed/${project.youtubeId}?controls=1&rel=0&modestbranding=1&showinfo=0"
-                            title="${project.title}"
-                            frameborder="0"
-                            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                        <!-- Neutral play indicator -->
-                        <div class="play-indicator" aria-hidden="true"></div>
-                        <!-- Project overlay -->
-                        <div class="project-overlay">
-                            <span class="project-badge ${isShortForm ? 'badge-short' : 'badge-long'}">
-                                ${isShortForm ? 'Short Form' : 'Long Form'}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>${project.title}</h3>
-                        <div class="project-tags">
-                            ${project.tags.map(tag => `<span>${tag}</span>`).join('')}
-                        </div>
-                        <div class="project-stats">
-                            <span><i class="fas fa-eye"></i> ${project.views} views</span>
-                            <span><i class="fas fa-clock"></i> ${project.duration}</span>
-                        </div>
-                    </div>
-                `;
-                
-                // Add click event to open YouTube video in a lightbox when clicking anywhere on the card
-                projectCard.addEventListener('click', (e) => {
-                    // Don't open if clicking on the iframe
-                    if (!e.target.closest('iframe')) {
-                        // Open embedded lightbox instead of new tab
-                        openVideoLightbox(project.youtubeId, project.title, project.start);
-                    }
-                });
-                
-                projectGrid.appendChild(projectCard);
-            });
-            
-            // Observe project cards for animation
-            const projectCards = document.querySelectorAll('.project-card');
-            const projectObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                rootMargin: '50px 0px',
-                threshold: 0.1
-            });
-            
-            projectCards.forEach(card => projectObserver.observe(card));
-            
-            // Set up project filtering
-            setupProjectFiltering();
-
-            // Ensure 'All Projects' filter is active by default and show all projects
-            const defaultFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
-            if (defaultFilterBtn) defaultFilterBtn.classList.add('active');
-            filterProjects('all');
-        }
-
-        // Project filtering
-        function setupProjectFiltering() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    button.classList.add('active');
-                    
-                    const filterValue = button.getAttribute('data-filter');
-                    filterProjects(filterValue);
-                });
-            });
-        }
-
-        function filterProjects(filter) {
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            projectCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0) scale(1)';
-                    }, 10);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(50px) scale(0.95)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 500);
-                }
-            });
-        }
-
-        // Testimonial Data
-        const testimonials = [
-            {
-                id: 1,
-                content: "Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content, delivering 20+ high-quality edits for social media. His work ethic is unmatched, and his visuals perfectly captured the VikaasGarh energy.",
-                name: "Meraj Meer",
-                role: "CEO, VikaasGarh",
-                image: "https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg"
-            },
-            {
-                id: 2,
-                content: "Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical editing skills and creative vision significantly boosted our community's visibility. He consistently delivered high-quality content that perfectly represented our initiatives. Highly recommended!",
-                name: "Sayan Karmakar",
-                role: "Azure Student Intern @Microsoft",
-                image: "https://i.ibb.co/fYJnY7bQ/1762690695469.jpg"
-            },
-            {
-                id: 3,
-                content: "Niraj was a fantastic intern for our page. His video edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and current Instagram trends, consistently delivering content that performs. A talented creator with a bright future.",
-                name: "Jamshedpurtainment",
-                role: "Instagram Page (68k followers)",
-                image: "https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg"
-            }
-        ];
-
-        // Load Testimonials Lazily
-        function loadTestimonialsLazily() {
-            const testimonialTrack = document.getElementById('testimonialTrack');
-            const sliderNav = document.getElementById('sliderNav');
-            
-            if (!testimonialTrack || !sliderNav) return;
-            
-            testimonials.forEach((testimonial, index) => {
-                // Create testimonial slide
-                const slide = document.createElement('div');
-                slide.className = 'testimonial-slide lazy-load';
-                if (index === 0) slide.classList.add('active');
-                
-                slide.innerHTML = `
-                    <div class="testimonial-card lazy-load">
-                        <div class="testimonial-content">
-                            <p>${testimonial.content}</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img data-src="${testimonial.image}" alt="${testimonial.name}">
-                            <div class="author-info">
-                                <h4>${testimonial.name}</h4>
-                                <p>${testimonial.role}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                testimonialTrack.appendChild(slide);
-                
-                // Create slider dot
-                const dot = document.createElement('div');
-                dot.className = `slider-dot lazy-load ${index === 0 ? 'active' : ''}`;
-                dot.setAttribute('data-slide', index);
-                sliderNav.appendChild(dot);
-                
-                // Lazy load testimonial image
-                const img = slide.querySelector('img[data-src]');
-                if (img) {
-                    const imgObserver = new IntersectionObserver((entries, observer) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                img.src = img.dataset.src;
-                                img.classList.add('loaded');
-                                observer.unobserve(img);
-                            }
-                        });
-                    });
-                    imgObserver.observe(img);
-                }
-            });
-            
-            // Set up testimonial slider
-            setupTestimonialSlider();
-        }
-
-        // Testimonial Slider
-        function setupTestimonialSlider() {
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            
-            function showSlide(index) {
-                if (index >= slides.length) currentSlide = 0;
-                if (index < 0) currentSlide = slides.length - 1;
-                
-                slides.forEach(slide => slide.classList.remove('active'));
-                slides[currentSlide].classList.add('active');
-                
-                testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                dots.forEach(dot => dot.classList.remove('active'));
-                dots[currentSlide].classList.add('active');
-            }
-            
-            // Dot click events
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    currentSlide = parseInt(dot.getAttribute('data-slide'));
-                    showSlide(currentSlide);
-                });
-            });
-            
-            // Auto slide
-            setInterval(() => {
-                currentSlide++;
-                showSlide(currentSlide);
-            }, 6000);
-            
-            // Observe testimonials for animation
-            const testimonialCards = document.querySelectorAll('.testimonial-card');
-            const testimonialObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-            
-            testimonialCards.forEach(card => testimonialObserver.observe(card));
-        }
-
-        // Initialize animations for elements
-        function initAnimations() {
-            // Load testimonials lazily
-            loadTestimonialsLazily();
-            
-            // Animate filter buttons on scroll
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const filterObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 100);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-            
-            filterButtons.forEach(btn => filterObserver.observe(btn));
-            
-            // Animate form groups on scroll
-            const formGroups = document.querySelectorAll('.form-group');
-            const formObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 150);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-            
-            formGroups.forEach(group => formObserver.observe(group));
-        }
-
-        // Netlify Form Submission - FIXED VERSION
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
-
-        // Function to reset form and show form again
-        function resetForm() {
-            successMessage.style.display = 'none';
-            successMessage.classList.remove('show');
-            contactForm.reset();
-            contactForm.style.display = 'block';
-        }
-
-        if (contactForm) {
-            // Hide success message initially
-            successMessage.style.display = 'none';
-            
-            // Netlify will handle the form submission automatically
-            // We'll show success message after submission
-            contactForm.addEventListener('submit', function(e) {
-                // Let Netlify handle the actual submission
-                // We'll just show the success message
-                e.preventDefault();
-                
-                // Show loading state on submit button
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate form submission with a delay
-                setTimeout(() => {
-                    // Hide form and show success message
-                    contactForm.style.display = 'none';
-                    successMessage.style.display = 'block';
-                    successMessage.classList.add('show');
-                    
-                    // Scroll to success message
-                    successMessage.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                    
-                    // Announce to screen readers
-                    const a11y = document.getElementById('a11yStatus');
-                    if (a11y) {
-                        a11y.textContent = 'Form submitted successfully! Thank you for your message.';
-                    }
-                    
-                    // Actually submit the form (let Netlify handle it)
-                    // Create a new FormData object and submit it
-                    const formData = new FormData(contactForm);
-                    const formAction = contactForm.getAttribute('action');
-                    
-                    // Submit the form data (Netlify will process it)
-                    fetch(formAction, {
-                        method: 'POST',
-                        body: new URLSearchParams(new FormData(contactForm)).toString(),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        }
-                    }).then(response => {
-                        console.log('Form submitted successfully to Netlify');
-                        // Reset button state
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    }).catch(error => {
-                        console.error('Form submission error:', error);
-                        // Reset button state even if there's an error
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    });
-                    
-                }, 1500); // 1.5 second delay to simulate processing
-            });
-        }
-
-        // Add enhanced styles for project cards
-        const enhancedStyles = document.createElement('style');
-        enhancedStyles.textContent = `
-            .project-card {
-                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-                border: 1px solid transparent;
-            }
-            
-            .project-card:hover {
-                transform: translateY(-15px) scale(1.03) !important;
-                box-shadow: 0 25px 50px rgba(255, 215, 0, 0.2) !important;
-                border-color: var(--primary);
-            }
-            
-            .project-card h3 {
-                transition: color 0.3s ease;
-            }
-            
-            .project-card:hover h3 {
-                color: var(--primary) !important;
-            }
-            
-            /* Smooth transition for video container */
-            .project-video-container {
-                transition: all 0.5s ease !important;
-            }
-        `;
-        document.head.appendChild(enhancedStyles);
-    </script>
+/* ===== CONTACT FORM ===== */
+const cform=document.getElementById('cform'), smsg=document.getElementById('smsg');
+smsg.style.display='none';
+cform.addEventListener('submit', e=>{
+  e.preventDefault();
+  const btn=cform.querySelector('.fsub');
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…'; btn.disabled=true;
+  setTimeout(()=>{
+    cform.style.display='none'; smsg.style.display='block';
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(cform)).toString()}).catch(()=>{});
+    btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message'; btn.disabled=false;
+  }, 1400);
+});
+window.resetForm = function(){ smsg.style.display='none'; cform.style.display='block'; cform.reset(); };
+</script>
 </body>
 </html>
