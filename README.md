@@ -43,8 +43,3 @@ A fully responsive, single‑page HTML portfolio built to present Niraj’s prof
 
 ---
 
-## 🚀 Setup / Installation
-
-1. **Clone or download** the repository.
-   ```bash
-   git clone https://github.com/yourusername/niraj-portfolio.git
