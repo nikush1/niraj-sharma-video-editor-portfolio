@@ -1,63 +1,50 @@
-# 🎬 Niraj Kumar Sharma - Video Editor Portfolio
+# Niraj Kumar Sharma – Performance Video Editor Portfolio
 
-[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-brightgreen)](https://niraj-sharma-portfolio.netlify.app/)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://niraj-sharma-portfolio.netlify.app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This is the official portfolio website of **Niraj Kumar Sharma**, a performance video editor specializing in short‑form and long‑form content for D2C brands, creators, and agencies. The site showcases his work, services, client testimonials, certifications, and provides a direct contact form.
 
-A modern, interactive portfolio website showcasing video editing expertise in short-form and long-form content. This single-page application features a custom cursor, animated statistics, YouTube video integration, and a responsive design.
+👉 **Live at:** [nirajvisuals.in](https://nirajvisuals.in)
 
-![Portfolio Preview](https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg)
+---
+
+## 📖 Description
+
+A fully responsive, single‑page HTML portfolio built to present Niraj’s professional identity as a video editor. The design features light/dark theme toggling, custom cursor, animated counters, a filterable project gallery with hover autoplay, a thumbnail carousel, a recognition slideshow, FAQ accordion, and a functional contact form. It’s optimised for performance and uses modern CSS (variables, flex, grid) along with vanilla JavaScript for interactivity.
+
+---
 
 ## ✨ Features
 
-### 🎨 **Design & UX**
-- **Custom Animated Cursor** with hover effects
-- **Particle Background Animation** in hero section
-- **Smooth Scroll Animations** using Intersection Observer
-- **Dark Theme** with golden accent colors
-- **Glassmorphism Effects** on cards and elements
-- **Responsive Design** for all devices
+- **Light / Dark Theme** – Toggle between themes with a persistent preference saved in `localStorage`.
+- **Custom Cursor** – A smooth animated cursor that changes size over clickable elements.
+- **Progress Bar & Back‑to‑Top** – Visual scroll indicator and quick navigation.
+- **Reveal Animations** – Elements fade in as they enter the viewport.
+- **Dynamic Stats Counter** – Numbers increment when the stats section becomes visible.
+- **Filterable Project Gallery** – Switch between “All”, “Short Form”, and “Long Form” projects. Hover over a card to autoplay the embedded YouTube video.
+- **Video Lightbox** – Click on a project card to watch the video fullscreen.
+- **Thumbnail Carousel** – Infinite horizontal scroll of design thumbnails; click to open a lightbox gallery.
+- **Recognition Slider** – Auto‑rotating slideshow of certificates and awards.
+- **FAQ Accordion** – Expand/collapse common questions.
+- **Contact Form** – Built with Netlify‑compatible hidden fields; shows a success message after submission.
+- **WhatsApp Floating Button** – Quick chat link.
+- **Fully Responsive** – Optimised for mobile, tablet, and desktop.
+- **Social Media & Resume Links** – Direct links to Instagram, LinkedIn, YouTube, and downloadable resume.
 
-### 🎥 **Video Features**
-- **Direct YouTube Embedding** for projects
-- **Video Lightbox** for full-screen viewing
-- **Project Filtering** (Short Form/Long Form)
-- **Auto-playing Thumbnail Gallery**
-- **Demo Reel Section** with best work showcase
-
-### ⚡ **Interactive Elements**
-- **Counting Animation** for statistics (100+ projects, 2M+ views)
-- **Form Submission** with Netlify integration
-- **Testimonial Slider** with auto-rotation
-- **Scroll Progress Bar**
-- **Back-to-Top Button**
-- **Mobile Navigation Menu**
-
-### 🔧 **Technical Features**
-- **Single HTML File** (all CSS/JS embedded)
-- **Lazy Loading** for images and sections
-- **Accessibility** (ARIA labels, skip links, keyboard navigation)
-- **Preloader Animation**
-- **Contact Form** with success message
-
-## 📱 Sections
-
-1. **Hero** - Introduction with call-to-action buttons
-2. **Demo Reel** - Featured best work of 2025
-3. **Stats** - Animated statistics counter
-4. **Projects** - Filterable project gallery with YouTube embeds
-5. **Thumbnail Designs** - Auto-scrolling thumbnail showcase
-6. **Testimonials** - Client feedback slider
-7. **About Me** - Bio with software expertise
-8. **Contact** - Working Netlify form
-9. **Footer** - Social links and copyright
+---
 
 ## 🛠️ Technologies Used
 
-- **HTML5** - Semantic markup
-- **CSS3** - Custom properties, Flexbox, Grid, animations
-- **JavaScript (ES6+)** - Intersection Observer, dynamic content loading
-- **Font Awesome 6** - Icons
-- **Google Fonts** - Poppins & Montserrat
-- **Netlify** - Form handling and hosting
-- **YouTube API** - Video embedding
+- **HTML5** – Semantic structure.
+- **CSS3** – Custom properties (variables), Grid, Flexbox, keyframe animations.
+- **JavaScript (ES6)** – DOM manipulation, Intersection Observer, YouTube IFrame API, event handling.
+- **Font Awesome 6** – Icons.
+- **Google Fonts** – Playfair Display & Outfit.
+- **YouTube IFrame API** – For player control on hover.
+- **Netlify (form handling)** – The contact form uses Netlify’s built‑in form detection.
+
+---
+
+## 🚀 Setup / Installation
+
+1. **Clone or download** the repository.
+   ```bash
+   git clone https://github.com/yourusername/niraj-portfolio.git
