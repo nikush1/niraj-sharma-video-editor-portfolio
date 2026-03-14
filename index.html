@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-  Niraj Kumar Sharma – Performance Video Editor for D2C Brands & Creators</title>
+<title>Niraj Kumar Sharma – Performance Video Editor for D2C Brands & Creators</title>
+
+<!-- ✅ FIX: Added meta description (SEO score fix) -->
+<meta name="description" content="Niraj Kumar Sharma is a performance video editor for D2C brands & creators. Specialising in high-converting reels, YouTube videos & Meta ads that drive real engagement. 2+ years experience, 80+ happy clients. Based in India, serving UAE, USA & UK.">
 
 <!-- Website Preview Image -->
 <meta property="og:title" content="Niraj Kumar Sharma – Performance Video Editor for D2C Brands & Creators">
@@ -18,11 +20,22 @@
 <meta name="twitter:title" content="Niraj Kumar Sharma – Performance Video Editor for D2C Brands & Creators">
 <meta name="twitter:description" content="Performance video editor for D2C brands. Reels, ads and YouTube content.">
 <meta name="twitter:image" content="https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg">
+
 <link rel="icon" type="image/x-icon" href="https://i.ibb.co/G4M2R6v3/Startup-Grind-Profile-photo.jpg">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- ✅ FIX: Preconnect only to critical origins (was warning: too many preconnects) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- ✅ FIX: Preload hero image for faster LCP -->
+<link rel="preload" as="image" href="https://i.ibb.co/XZj2T1VY/Untitled-design-8.jpg" fetchpriority="high">
+
+<!-- font-display=swap already in URL for best font rendering -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ FIX: Load Font Awesome with non-blocking display -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
 <style>
 /* ===== THEME VARIABLES ===== */
@@ -94,9 +107,7 @@
 
 /* ===== BASE ===== */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior:smooth; overflow-x:hidden; }
-
 body {
   background: var(--bg);
   color: var(--ink);
@@ -105,15 +116,17 @@ body {
   cursor: none;
   transition: background .4s ease, color .4s ease;
 }
-
 h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; line-height:1.15; }
 a { color:inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
 
-*, *::before, *::after {
-  transition: background-color .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease;
+/* ✅ FIX: Scoped transitions to avoid animating everything (reduces composite layers) */
+a, button, .scard, .sv-card, .pc, .tc, .sk, .ti, .ct-link, .ct-icon,
+.wa, #btt, .socials a, .flt, .pnum, .btn, .fsub, .rec-nav {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease,
+              box-shadow .3s ease, transform .3s ease, opacity .3s ease;
 }
-.cur, .cur-ring, #pgBar, .reveal, .ttrack, .thumb-item { transition: none !important; }
+.cur, .cur-ring, #pgBar, .reveal, .ttrack { transition: none !important; }
 .cur { transition: transform .1s, width .22s, height .22s !important; }
 
 /* ===== CURSOR ===== */
@@ -128,7 +141,6 @@ img { max-width:100%; display:block; }
   position:fixed; width:30px; height:30px;
   border:1.5px solid var(--gold); border-radius:50%;
   pointer-events:none; z-index:9998;
-  transition: all .25s ease;
   transform:translate(-50%,-50%); opacity:.5;
 }
 .cur.big { transform:scale(2.2); background:var(--teal); }
@@ -150,6 +162,7 @@ img { max-width:100%; display:block; }
   display:flex; align-items:center; justify-content:center;
   cursor:pointer; opacity:0; visibility:hidden;
   z-index:900; font-size:1rem; box-shadow:var(--shadow);
+  border:none;
 }
 #btt.show { opacity:1; visibility:visible; }
 #btt:hover { transform:translateY(-5px) scale(1.08); background:var(--gold); color:#fff; }
@@ -173,7 +186,7 @@ img { max-width:100%; display:block; }
   gap: 0; box-shadow: var(--shadow); cursor: pointer; overflow: hidden;
 }
 .tt-track { display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; }
-.tt-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all .4s var(--ease); }
+.tt-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
 .tt-sun  { color: var(--gold); }
 .tt-moon { color: var(--teal); }
 .tt-pill { width: 26px; height: 50px; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 13px; margin: 4px 0; position: relative; flex-shrink: 0; }
@@ -191,6 +204,7 @@ header {
   background: var(--header-bg);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
+  transition: padding .3s ease, box-shadow .3s ease, transform .4s ease;
 }
 header.scrolled { padding:13px 0; box-shadow:var(--shadow-sm); }
 header.hide { transform:translateY(-100%); }
@@ -214,7 +228,8 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 }
 .nav-links a:hover, .nav-links a.active { color:var(--ink); }
 .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
-.menu-toggle { display:none; font-size:20px; color:var(--ink); cursor:pointer; }
+/* ✅ FIX: Added accessible label via aria-label in HTML */
+.menu-toggle { display:none; font-size:20px; color:var(--ink); cursor:pointer; background:none; border:none; }
 
 /* ===== SECTION TITLE ===== */
 .stitle { text-align:center; margin-bottom:64px; }
@@ -288,6 +303,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .hero-chip i { color:var(--gold); font-size:.75rem; }
 .hero-ctas { display:flex; gap:12px; flex-wrap:wrap; }
 .hero-photo-wrap { position:relative; }
+/* ✅ FIX: explicit dimensions prevent layout shift (CLS) */
 .hero-photo { width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:20px; box-shadow:var(--shadow-lg); }
 .hero-float {
   position:absolute; background:var(--surface); border-radius:12px;
@@ -300,7 +316,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .hero-float .sub { font-size:.72rem; color:var(--ink3); margin-top:2px; }
 
 /* ===== PROOF STRIP ===== */
-.proof { padding:28px 0; background:var(--proof-bg); border-top:none; }
+.proof { padding:28px 0; background:var(--proof-bg); }
 .proof-inner { display:flex; align-items:center; justify-content:center; gap:44px; flex-wrap:wrap; }
 .proof-item { display:flex; align-items:center; gap:9px; color:var(--proof-txt); font-size:.85rem; font-weight:500; white-space:nowrap; }
 .proof-item i { color:var(--proof-icon); font-size:.85rem; }
@@ -310,6 +326,26 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .reel { padding:110px 0; background:var(--bg2); }
 .video-wrap { border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid var(--border); max-width:980px; margin:0 auto; }
 .video-wrap iframe { display:block; width:100%; aspect-ratio:16/9; border:none; }
+
+/* ✅ FIX: Click-to-play poster for reel — avoids loading YouTube iframe on page load (major LCP fix) */
+.reel-poster {
+  position:relative; cursor:pointer; border-radius:18px; overflow:hidden;
+  box-shadow:var(--shadow-lg); border:1px solid var(--border); max-width:980px; margin:0 auto;
+  aspect-ratio:16/9; background:#000;
+}
+.reel-poster img { width:100%; height:100%; object-fit:cover; opacity:.75; display:block; }
+.reel-poster-btn {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:16px;
+}
+.reel-play-circle {
+  width:80px; height:80px; background:rgba(201,150,26,.95); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem; color:#fff; box-shadow:0 8px 32px rgba(201,150,26,.5);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.reel-poster:hover .reel-play-circle { transform:scale(1.1); box-shadow:0 12px 40px rgba(201,150,26,.6); }
+.reel-poster-label { color:#fff; font-size:1rem; font-weight:600; letter-spacing:1px; text-shadow:0 2px 8px rgba(0,0,0,.6); }
 
 /* ===== STATS ===== */
 .stats { padding:90px 0; background:var(--bg); }
@@ -364,10 +400,10 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .pc.sf { border-top:4px solid var(--red); }
 .pc.lf { border-top:4px solid var(--teal); }
 .pv { position:relative; overflow:hidden; background:var(--bg3); }
-.pv iframe { display:block; width:100%; border:none; pointer-events:none; } /* iframe doesn't capture mouse for hover */
+.pv iframe { display:block; width:100%; border:none; pointer-events:none; }
 .pv.sf iframe { aspect-ratio:9/16; }
 .pv.lf iframe { aspect-ratio:16/9; }
-.pv-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(28,20,16,.3); opacity:0; transition:opacity .3s; }
+.pv-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(28,20,16,.3); opacity:0; transition:opacity .3s; pointer-events:none; }
 .pv-play::after { content:''; width:52px; height:52px; border-radius:50%; background:rgba(249,246,241,.95); display:block; clip-path:polygon(30% 20%,80% 50%,30% 80%); }
 [data-theme="dark"] .pv-play::after { background:rgba(20,18,16,.9); }
 .pc:hover .pv-play { opacity:1; }
@@ -391,7 +427,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 @keyframes slide { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 .ti { flex:0 0 auto; width:280px; height:160px; border-radius:10px; overflow:hidden; border:2px solid transparent; box-shadow:var(--shadow-sm); cursor:pointer; }
 .ti:hover { border-color:var(--gold); transform:translateY(-7px) scale(1.04); box-shadow:var(--shadow); }
-.ti img { width:100%; height:100%; object-fit:cover; }
+.ti img { width:280px; height:160px; object-fit:cover; }
 
 /* ===== PROCESS ===== */
 .process { padding:110px 0; background:var(--bg); }
@@ -437,7 +473,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .ab-img { width:100%; border-radius:18px; box-shadow:var(--shadow-lg); border:3px solid rgba(201,150,26,.2); }
 .ab-img-wrap::after { content:''; position:absolute; inset:-14px; border:2px solid rgba(201,150,26,.15); border-radius:22px; pointer-events:none; }
 .ab-overline { font-size:.72rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
-.ab-text h3 { font-size:clamp(1.7rem,3vw,2.3rem); color:var(--ink); margin-bottom:18px; }
+.ab-text h2 { font-size:clamp(1.7rem,3vw,2.3rem); color:var(--ink); margin-bottom:18px; }
 .ab-text p { color:var(--ink3); line-height:1.8; margin-bottom:16px; font-size:.95rem; }
 .ab-text a { color:var(--gold); font-weight:600; }
 .skills-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
@@ -452,12 +488,17 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .rec-track { display:flex; transition:transform 0.5s ease; }
 .rec-slide { flex:0 0 100%; aspect-ratio:16/9; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
 .rec-slide img { width:100%; height:100%; object-fit:contain; background:var(--surface); }
-.rec-nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; background:var(--surface); border:1px solid var(--border); color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; transition:all 0.3s; opacity:0.8; z-index:2; }
+.rec-nav {
+  position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px;
+  border-radius:50%; background:var(--surface); border:1px solid var(--border);
+  color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:1rem; opacity:0.8; z-index:2;
+}
 .rec-nav:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
 .rec-prev { left:20px; }
 .rec-next { right:20px; }
 .rec-dots { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:2; }
-.rec-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); border:1px solid rgba(0,0,0,.2); cursor:pointer; transition:all 0.3s; }
+.rec-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); border:1px solid rgba(0,0,0,.2); cursor:pointer; }
 .rec-dot.active { background:var(--gold); transform:scale(1.2); border-color:var(--gold); }
 @media(max-width:768px){ .rec-nav{width:32px;height:32px;font-size:.8rem;} }
 
@@ -465,7 +506,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 .faq { padding:110px 0; background:var(--bg2); }
 .faq-wrap { max-width:740px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
 .fi { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); }
-.fq { padding:20px 24px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--ink); font-weight:600; font-size:.95rem; gap:14px; user-select:none; }
+.fq { padding:20px 24px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--ink); font-weight:600; font-size:.95rem; gap:14px; user-select:none; background:none; border:none; width:100%; text-align:left; font-family:'Outfit',sans-serif; }
 .fq:hover { color:var(--gold); }
 .fq-icon { width:26px; height:26px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--ink3); font-size:.75rem; }
 .fi.open .fq-icon { background:var(--gold); border-color:var(--gold); color:#fff; transform:rotate(45deg); }
@@ -476,7 +517,7 @@ nav { display:flex; justify-content:space-between; align-items:center; }
 /* ===== CONTACT ===== */
 .contact { padding:110px 0; background:var(--bg); }
 .ct-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:56px; align-items:start; }
-.ct-info h3 { font-size:1.9rem; color:var(--ink); margin-bottom:14px; }
+.ct-info h2 { font-size:1.9rem; color:var(--ink); margin-bottom:14px; }
 .ct-info p { color:var(--ink3); line-height:1.8; margin-bottom:28px; font-size:.95rem; }
 .ct-links { display:flex; flex-direction:column; gap:14px; }
 .ct-link { display:flex; align-items:center; gap:12px; color:var(--ink2); font-size:.9rem; }
@@ -534,15 +575,12 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr;gap:50px;}
-  /* Removed display:none to show hero photo on mobile */
-  /* .hero-photo-wrap{display:none;} */
   .sv-grid{grid-template-columns:1fr 1fr;}
   .proc-grid{grid-template-columns:repeat(3,1fr);row-gap:40px;}
   .proc-grid::before{display:none;}
   .stats-grid{grid-template-columns:repeat(2,1fr);}
   .t-grid{grid-template-columns:1fr 1fr;}
   .ab-grid{grid-template-columns:1fr;}
-  .ct-grid{grid-template-columns:1fr;}
   #themeToggle{top:auto;bottom:90px;transform:none;}
 }
 @media(max-width:768px){
@@ -574,22 +612,24 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <body>
 
 <!-- CURSOR -->
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="curR"></div>
-<div id="pgBar"></div>
-<div id="btt"><i class="fas fa-arrow-up"></i></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-ring" id="curR" aria-hidden="true"></div>
+<div id="pgBar" aria-hidden="true" role="progressbar" aria-label="Page scroll progress"></div>
 
-<!-- WHATSAPP -->
-<a class="wa" href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener" title="Chat on WhatsApp">
-  <i class="fab fa-whatsapp"></i>
+<!-- ✅ FIX: aria-label on back-to-top button -->
+<button id="btt" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+<!-- ✅ FIX: aria-label on WhatsApp link -->
+<a class="wa" href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener noreferrer" aria-label="Chat with Niraj on WhatsApp">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
 </a>
 
-<!-- THEME TOGGLE -->
-<div id="themeToggle" title="Toggle light / dark mode" role="button" aria-label="Toggle theme" tabindex="0">
+<!-- ✅ FIX: aria-label on theme toggle button -->
+<div id="themeToggle" role="button" aria-label="Toggle light / dark mode" tabindex="0">
   <div class="tt-track">
-    <div class="tt-icon tt-sun"><i class="fas fa-sun"></i></div>
-    <div class="tt-pill"><div class="tt-dot"></div></div>
-    <div class="tt-icon tt-moon"><i class="fas fa-moon"></i></div>
+    <div class="tt-icon tt-sun" aria-hidden="true"><i class="fas fa-sun"></i></div>
+    <div class="tt-pill" aria-hidden="true"><div class="tt-dot"></div></div>
+    <div class="tt-icon tt-moon" aria-hidden="true"><i class="fas fa-moon"></i></div>
   </div>
   <span class="tt-label" id="ttLabel">Light</span>
 </div>
@@ -597,9 +637,9 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <!-- HEADER -->
 <header id="hdr">
   <div class="c">
-    <nav>
-      <a href="#home" class="logo"><span class="logo-pip"></span>Niraj<em>Sharma</em></a>
-      <ul class="nav-links" id="navL">
+    <nav aria-label="Primary navigation">
+      <a href="#home" class="logo"><span class="logo-pip" aria-hidden="true"></span>Niraj<em>Sharma</em></a>
+      <ul class="nav-links" id="navL" role="list">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#projects">Work</a></li>
@@ -608,10 +648,16 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="menu-toggle" id="mTog"><i class="fas fa-bars"></i></div>
+      <!-- ✅ FIX: aria-label + aria-expanded on menu toggle button -->
+      <button class="menu-toggle" id="mTog" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navL">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
     </nav>
   </div>
 </header>
+
+<!-- ✅ FIX: <main> landmark for accessibility -->
+<main id="main-content">
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -622,48 +668,81 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
         <h1>Performance<br><span>Video Editor</span><br>for D2C Brands</h1>
         <p class="hero-sub">I turn raw footage into scroll-stopping content — reels, brand films, and ad creatives that drive real engagement for brands and creators.</p>
         <div class="hero-chips">
-          <span class="hero-chip"><i class="fas fa-trophy"></i> Adobe Certified Editor</span>
-          <span class="hero-chip"><i class="fas fa-globe"></i> UAE · USA · UK Clients</span>
-          <span class="hero-chip"><i class="fas fa-eye"></i> 6M+ Views Generated</span>
+          <span class="hero-chip"><i class="fas fa-trophy" aria-hidden="true"></i> Adobe Certified Editor</span>
+          <span class="hero-chip"><i class="fas fa-globe" aria-hidden="true"></i> UAE · USA · UK Clients</span>
+          <span class="hero-chip"><i class="fas fa-eye" aria-hidden="true"></i> 6M+ Views Generated</span>
         </div>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary"><i class="fas fa-rocket"></i> Start a Project</a>
-          <a href="#projects" class="btn btn-outline"><i class="fas fa-play"></i> View Work</a>
-          <a href="https://docs.google.com/document/d/1FfgBwjTyeecgEZ3w3OQv8NCoyMiq32uY/edit?usp=drive_link&ouid=101597923511347083816&rtpof=true&sd=true" target="_blank" class="btn btn-ghost"><i class="fas fa-download"></i> Resume</a>
+          <a href="#contact" class="btn btn-primary"><i class="fas fa-rocket" aria-hidden="true"></i> Start a Project</a>
+          <a href="#projects" class="btn btn-outline"><i class="fas fa-play" aria-hidden="true"></i> View Work</a>
+          <a href="https://docs.google.com/document/d/1FfgBwjTyeecgEZ3w3OQv8NCoyMiq32uY/edit?usp=drive_link&ouid=101597923511347083816&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><i class="fas fa-download" aria-hidden="true"></i> Resume</a>
         </div>
       </div>
       <div class="hero-photo-wrap reveal" style="animation-delay:.2s">
-        <img src="https://i.ibb.co/XZj2T1VY/Untitled-design-8.jpg" alt="Niraj Kumar Sharma" class="hero-photo">
-        <div class="hero-float hero-float-1"><div class="lbl">Projects Done</div><div class="val">100+</div><div class="sub">Since 2022</div></div>
-        <div class="hero-float hero-float-2"><div class="lbl">Happy Clients</div><div class="val">80+</div><div class="sub">Globally</div></div>
+        <!-- ✅ FIX: fetchpriority + explicit width/height for LCP & CLS -->
+        <img
+          src="https://i.ibb.co/XZj2T1VY/Untitled-design-8.jpg"
+          alt="Niraj Kumar Sharma – Performance Video Editor"
+          class="hero-photo"
+          width="520" height="650"
+          fetchpriority="high"
+          decoding="async"
+        >
+        <div class="hero-float hero-float-1" aria-hidden="true"><div class="lbl">Projects Done</div><div class="val">100+</div><div class="sub">Since 2022</div></div>
+        <div class="hero-float hero-float-2" aria-hidden="true"><div class="lbl">Happy Clients</div><div class="val">80+</div><div class="sub">Globally</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PROOF STRIP -->
-<div class="proof">
+<div class="proof" role="region" aria-label="Credentials overview">
   <div class="c">
     <div class="proof-inner">
-      <div class="proof-item"><i class="fas fa-trophy"></i> Adobe Certified Editor</div>
-      <div class="proof-div"></div>
-      <div class="proof-item"><i class="fas fa-star"></i> 2+ Years Experience</div>
-      <div class="proof-div"></div>
-      <div class="proof-item"><i class="fas fa-globe"></i> International Clients — UAE, USA, UK</div>
-      <div class="proof-div"></div>
-      <div class="proof-item"><i class="fas fa-eye"></i> 6M+ Total Views</div>
-      <div class="proof-div"></div>
+      <div class="proof-item"><i class="fas fa-trophy" aria-hidden="true"></i> Adobe Certified Editor</div>
+      <div class="proof-div" aria-hidden="true"></div>
+      <div class="proof-item"><i class="fas fa-star" aria-hidden="true"></i> 2+ Years Experience</div>
+      <div class="proof-div" aria-hidden="true"></div>
+      <div class="proof-item"><i class="fas fa-globe" aria-hidden="true"></i> International Clients — UAE, USA, UK</div>
+      <div class="proof-div" aria-hidden="true"></div>
+      <div class="proof-item"><i class="fas fa-eye" aria-hidden="true"></i> 6M+ Total Views</div>
+      <div class="proof-div" aria-hidden="true"></div>
     </div>
   </div>
 </div>
 
-<!-- REEL (AUTOPLAY ADDED) -->
+<!-- ✅ FIX: Showreel now uses click-to-play poster instead of autoplay iframe
+     This is the single biggest LCP improvement — removes 16/9 YouTube iframe from initial load -->
 <section class="reel" id="demo-reel">
   <div class="c">
-    <div class="stitle reveal"><span class="tag">Showreel</span><h2>Best Work of 2025</h2><p>A curated showcase of short-form and long-form projects that have collectively generated millions of views.</p></div>
-    <div class="video-wrap reveal" style="animation-delay:.15s">
-      <!-- Added autoplay=1&mute=1 to start automatically -->
-      <iframe src="https://www.youtube.com/embed/PGgXdXShFAI?controls=1&rel=0&modestbranding=1&autoplay=1&mute=1" title="Demo Reel" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    <div class="stitle reveal">
+      <span class="tag">Showreel</span>
+      <h2>Best Work of 2025</h2>
+      <p>A curated showcase of short-form and long-form projects that have collectively generated millions of views.</p>
+    </div>
+    <div class="reel-poster reveal" id="reelPoster" style="animation-delay:.15s" role="button" tabindex="0" aria-label="Play demo reel video">
+      <img
+        src="https://i.ytimg.com/vi/PGgXdXShFAI/maxresdefault.jpg"
+        alt="Demo Reel 2025 – Niraj Kumar Sharma"
+        width="980" height="551"
+        loading="lazy"
+        decoding="async"
+      >
+      <div class="reel-poster-btn">
+        <div class="reel-play-circle"><i class="fas fa-play" aria-hidden="true"></i></div>
+        <span class="reel-poster-label">Watch Demo Reel</span>
+      </div>
+    </div>
+    <!-- iframe injected on click -->
+    <div class="video-wrap" id="reelVideo" style="display:none">
+      <iframe
+        id="reelIframe"
+        src=""
+        title="Niraj Kumar Sharma – Demo Reel 2025"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
     </div>
   </div>
 </section>
@@ -672,10 +751,10 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <section class="stats" id="stats">
   <div class="c">
     <div class="stats-grid">
-      <div class="scard reveal" data-target="100" data-sfx="+"><i class="fas fa-film"></i><div class="snum" id="s1">0</div><p>Projects Completed</p></div>
-      <div class="scard reveal" style="animation-delay:.08s" data-target="6" data-sfx="M+"><i class="fas fa-eye"></i><div class="snum" id="s2">0</div><p>Total Views</p></div>
-      <div class="scard reveal" style="animation-delay:.16s" data-target="80" data-sfx="+"><i class="fas fa-handshake"></i><div class="snum" id="s3">0</div><p>Happy Clients</p></div>
-      <div class="scard reveal" style="animation-delay:.24s"><i class="fas fa-trophy"></i><div class="snum">Adobe</div><p>Certified Editor</p></div>
+      <div class="scard reveal" data-target="100" data-sfx="+"><i class="fas fa-film" aria-hidden="true"></i><div class="snum" id="s1">0</div><p>Projects Completed</p></div>
+      <div class="scard reveal" style="animation-delay:.08s" data-target="6" data-sfx="M+"><i class="fas fa-eye" aria-hidden="true"></i><div class="snum" id="s2">0</div><p>Total Views</p></div>
+      <div class="scard reveal" style="animation-delay:.16s" data-target="80" data-sfx="+"><i class="fas fa-handshake" aria-hidden="true"></i><div class="snum" id="s3">0</div><p>Happy Clients</p></div>
+      <div class="scard reveal" style="animation-delay:.24s"><i class="fas fa-trophy" aria-hidden="true"></i><div class="snum">Adobe</div><p>Certified Editor</p></div>
     </div>
   </div>
 </section>
@@ -685,12 +764,12 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
   <div class="c">
     <div class="stitle reveal"><span class="tag">What I Offer</span><h2>Services</h2><p>Tailored video solutions for brands, creators and agencies — built for performance, not just aesthetics.</p></div>
     <div class="sv-grid">
-      <div class="sv-card reveal"><div class="sv-icon"><i class="fas fa-mobile-alt"></i></div><h3>Short-Form Video Editing</h3><p>High-retention Instagram Reels, YouTube Shorts & TikToks with tight hooks, fast cuts, and trending audio sync. Designed to stop the scroll.</p><span class="sv-for"><i class="fas fa-bullseye"></i> D2C Brands · Creators · Coaches</span></div>
-      <div class="sv-card reveal" style="animation-delay:.08s"><div class="sv-icon"><i class="fas fa-video"></i></div><h3>Long-Form Video Editing</h3><p>Cinematic YouTube videos, brand films, vlogs and event coverage with colour grading, motion graphics, and pacing that holds attention end-to-end.</p><span class="sv-for"><i class="fas fa-bullseye"></i> YouTubers · Agencies · Startups</span></div>
-      <div class="sv-card reveal" style="animation-delay:.16s"><div class="sv-icon"><i class="fas fa-image"></i></div><h3>Thumbnail Design</h3><p>Click-worthy thumbnails combining psychology, contrast, and visual hierarchy to dramatically improve CTR. Tested on 68K+ follower pages.</p><span class="sv-for"><i class="fas fa-bullseye"></i> YouTubers · Content Creators</span></div>
-      <div class="sv-card reveal" style="animation-delay:.24s"><div class="sv-icon"><i class="fas fa-ad"></i></div><h3>Ad Creatives (Performance)</h3><p>UGC-style and scripted video ads for Meta & YouTube with strong hooks, problem-solution-proof structure, and CTAs that convert.</p><span class="sv-for"><i class="fas fa-bullseye"></i> D2C Brands · E-commerce · Apps</span></div>
-      <div class="sv-card reveal" style="animation-delay:.32s"><div class="sv-icon"><i class="fas fa-calendar-alt"></i></div><h3>Event Coverage Editing</h3><p>Raw event footage turned into highlight reels, recap videos, and behind-the-scenes content — delivered fast in multi-platform formats.</p><span class="sv-for"><i class="fas fa-bullseye"></i> Startups · Colleges · Organisations</span></div>
-      <div class="sv-card reveal" style="animation-delay:.40s"><div class="sv-icon"><i class="fas fa-brain"></i></div><h3>AI-Integrated Production</h3><p>Next-gen video production using Kling, ElevenLabs, Hedra, Topaz Video AI and more — creating visuals that stand out in any feed.</p><span class="sv-for"><i class="fas fa-bullseye"></i> Forward-thinking Brands</span></div>
+      <div class="sv-card reveal"><div class="sv-icon" aria-hidden="true"><i class="fas fa-mobile-alt"></i></div><h3>Short-Form Video Editing</h3><p>High-retention Instagram Reels, YouTube Shorts & TikToks with tight hooks, fast cuts, and trending audio sync. Designed to stop the scroll.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> D2C Brands · Creators · Coaches</span></div>
+      <div class="sv-card reveal" style="animation-delay:.08s"><div class="sv-icon" aria-hidden="true"><i class="fas fa-video"></i></div><h3>Long-Form Video Editing</h3><p>Cinematic YouTube videos, brand films, vlogs and event coverage with colour grading, motion graphics, and pacing that holds attention end-to-end.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> YouTubers · Agencies · Startups</span></div>
+      <div class="sv-card reveal" style="animation-delay:.16s"><div class="sv-icon" aria-hidden="true"><i class="fas fa-image"></i></div><h3>Thumbnail Design</h3><p>Click-worthy thumbnails combining psychology, contrast, and visual hierarchy to dramatically improve CTR. Tested on 68K+ follower pages.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> YouTubers · Content Creators</span></div>
+      <div class="sv-card reveal" style="animation-delay:.24s"><div class="sv-icon" aria-hidden="true"><i class="fas fa-ad"></i></div><h3>Ad Creatives (Performance)</h3><p>UGC-style and scripted video ads for Meta & YouTube with strong hooks, problem-solution-proof structure, and CTAs that convert.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> D2C Brands · E-commerce · Apps</span></div>
+      <div class="sv-card reveal" style="animation-delay:.32s"><div class="sv-icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div><h3>Event Coverage Editing</h3><p>Raw event footage turned into highlight reels, recap videos, and behind-the-scenes content — delivered fast in multi-platform formats.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> Startups · Colleges · Organisations</span></div>
+      <div class="sv-card reveal" style="animation-delay:.40s"><div class="sv-icon" aria-hidden="true"><i class="fas fa-brain"></i></div><h3>AI-Integrated Production</h3><p>Next-gen video production using Kling, ElevenLabs, Hedra, Topaz Video AI and more — creating visuals that stand out in any feed.</p><span class="sv-for"><i class="fas fa-bullseye" aria-hidden="true"></i> Forward-thinking Brands</span></div>
     </div>
   </div>
 </section>
@@ -699,31 +778,33 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <section class="projects" id="projects">
   <div class="c">
     <div class="stitle reveal"><span class="tag">Portfolio</span><h2>Featured Projects</h2><p>Hover over any card to autoplay the video. Click to watch fullscreen.</p></div>
-    <div class="filt-row reveal">
+    <div class="filt-row reveal" role="group" aria-label="Filter projects">
       <button class="flt on" data-f="all">All Projects</button>
       <button class="flt sf" data-f="sf">Short Form</button>
       <button class="flt lf" data-f="lf">Long Form</button>
     </div>
-    <div class="pg" id="pg"></div>
+    <div class="pg" id="pg" role="list" aria-label="Portfolio projects"></div>
   </div>
 </section>
 
 <!-- THUMBNAILS -->
 <section class="thumbs" id="thumbnails">
   <div class="c"><div class="stitle reveal"><span class="tag">Design Work</span><h2>Thumbnail Gallery</h2><p>Eye-catching designs built to maximise click-through rates. Hover to pause.</p></div></div>
-  <div class="ttrack-w"><div class="ttrack" id="ttrack"></div></div>
+  <div class="ttrack-w" aria-label="Thumbnail gallery scrolling strip" role="region">
+    <div class="ttrack" id="ttrack" aria-hidden="true"></div>
+  </div>
 </section>
 
 <!-- PROCESS -->
 <section class="process" id="process">
   <div class="c">
     <div class="stitle reveal"><span class="tag">How It Works</span><h2>My Process</h2><p>A transparent, structured workflow so you always know what happens next.</p></div>
-    <div class="proc-grid">
-      <div class="proc-step reveal"><div class="pnum">01</div><h4>Discovery Call</h4><p>30-min call to understand your brand, audience, goals, and project scope.</p></div>
-      <div class="proc-step reveal" style="animation-delay:.1s"><div class="pnum">02</div><h4>Brief & Proposal</h4><p>Clear proposal with deliverables, timeline and pricing — no hidden costs.</p></div>
-      <div class="proc-step reveal" style="animation-delay:.2s"><div class="pnum">03</div><h4>Production</h4><p>First cut delivered on schedule. Full progress updates throughout.</p></div>
-      <div class="proc-step reveal" style="animation-delay:.3s"><div class="pnum">04</div><h4>Revisions</h4><p>2 rounds of feedback-driven revisions to get everything exactly right.</p></div>
-      <div class="proc-step reveal" style="animation-delay:.4s"><div class="pnum">05</div><h4>Final Delivery</h4><p>Exported in all required formats, ready for upload with platform-specific specs.</p></div>
+    <div class="proc-grid" role="list">
+      <div class="proc-step reveal" role="listitem"><div class="pnum" aria-hidden="true">01</div><h3>Discovery Call</h3><p>30-min call to understand your brand, audience, goals, and project scope.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.1s" role="listitem"><div class="pnum" aria-hidden="true">02</div><h3>Brief & Proposal</h3><p>Clear proposal with deliverables, timeline and pricing — no hidden costs.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.2s" role="listitem"><div class="pnum" aria-hidden="true">03</div><h3>Production</h3><p>First cut delivered on schedule. Full progress updates throughout.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.3s" role="listitem"><div class="pnum" aria-hidden="true">04</div><h3>Revisions</h3><p>2 rounds of feedback-driven revisions to get everything exactly right.</p></div>
+      <div class="proc-step reveal" style="animation-delay:.4s" role="listitem"><div class="pnum" aria-hidden="true">05</div><h3>Final Delivery</h3><p>Exported in all required formats, ready for upload with platform-specific specs.</p></div>
     </div>
   </div>
 </section>
@@ -733,9 +814,30 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
   <div class="c">
     <div class="stitle reveal"><span class="tag">Social Proof</span><h2>Client Reviews</h2><p>What real clients say after working together.</p></div>
     <div class="t-grid">
-      <div class="tc reveal"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content — delivering 20+ high-quality edits for social media. His work ethic is unmatched and his visuals perfectly captured the VikaasGarh energy."</p><div class="t-auth"><img src="https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg" alt="Meraj Meer"><div><div class="t-name">Meraj Meer</div><div class="t-role">CEO, VikaasGarh</div></div></div></div>
-      <div class="tc reveal" style="animation-delay:.1s"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical skills and creative vision significantly boosted our community's visibility. Consistently delivered content that perfectly represented our initiatives."</p><div class="t-auth"><img src="https://i.ibb.co/fYJnY7bQ/1762690695469.jpg" alt="Sayan Karmakar"><div><div class="t-name">Sayan Karmakar</div><div class="t-role">Azure Student Intern @ Microsoft</div></div></div></div>
-      <div class="tc reveal" style="animation-delay:.2s"><div class="t-stars">★★★★★</div><p class="t-text">"Niraj's edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and Instagram trends — consistently delivering content that performs. A talented creator with a very bright future."</p><div class="t-auth"><img src="https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg" alt="Jamshedpurtainment"><div><div class="t-name">Jamshedpurtainment</div><div class="t-role">Instagram Page · 68K Followers</div></div></div></div>
+      <div class="tc reveal">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="t-text">"Niraj is an exceptional editor. During Techstars Startup Weekend Dhamtari, he managed our entire video content — delivering 20+ high-quality edits for social media. His work ethic is unmatched and his visuals perfectly captured the VikaasGarh energy."</p>
+        <div class="t-auth">
+          <img src="https://i.ibb.co/Lzk1R1Y5/Meraj-Meer-Startup-Grind.jpg" alt="Meraj Meer, CEO of VikaasGarh" width="48" height="48" loading="lazy" decoding="async">
+          <div><div class="t-name">Meraj Meer</div><div class="t-role">CEO, VikaasGarh</div></div>
+        </div>
+      </div>
+      <div class="tc reveal" style="animation-delay:.1s">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="t-text">"Niraj was an invaluable Core Member and Lead Video Editor for our MSA Club. His technical skills and creative vision significantly boosted our community's visibility. Consistently delivered content that perfectly represented our initiatives."</p>
+        <div class="t-auth">
+          <img src="https://i.ibb.co/fYJnY7bQ/1762690695469.jpg" alt="Sayan Karmakar, Azure Student Intern at Microsoft" width="48" height="48" loading="lazy" decoding="async">
+          <div><div class="t-name">Sayan Karmakar</div><div class="t-role">Azure Student Intern @ Microsoft</div></div>
+        </div>
+      </div>
+      <div class="tc reveal" style="animation-delay:.2s">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="t-text">"Niraj's edits played a key role in engaging our community of 68k followers. He understands pacing, hooks, and Instagram trends — consistently delivering content that performs. A talented creator with a very bright future."</p>
+        <div class="t-auth">
+          <img src="https://i.ibb.co/QFLj1hwX/462060857-1426092761395046-2028504144651116812-n.jpg" alt="Jamshedpurtainment Instagram Page" width="48" height="48" loading="lazy" decoding="async">
+          <div><div class="t-name">Jamshedpurtainment</div><div class="t-role">Instagram Page · 68K Followers</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -744,36 +846,40 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <section class="about" id="about">
   <div class="c">
     <div class="ab-grid">
-      <div class="ab-img-wrap reveal"><img src="https://i.ibb.co/RGBVXq6v/YT-Banner-12.jpg" alt="Niraj Kumar Sharma" class="ab-img"></div>
-      <div class="reveal" style="animation-delay:.15s">
+      <div class="ab-img-wrap reveal">
+        <img src="https://i.ibb.co/RGBVXq6v/YT-Banner-12.jpg" alt="Niraj Kumar Sharma video editing workspace" class="ab-img" width="560" height="315" loading="lazy" decoding="async">
+      </div>
+      <div class="ab-text reveal" style="animation-delay:.15s">
         <span class="ab-overline">About Me</span>
-        <h3>Performance Creative & Video Specialist</h3>
+        <!-- ✅ FIX: Changed h3 → h2 to fix heading hierarchy (was jumping h2→h3 without h2 in this section) -->
+        <h2>Performance Creative &amp; Video Specialist</h2>
         <p>I'm Niraj Kumar Sharma — Senior Video Editor at GrowMedia and Media Magnetix, a 3rd-year CSE student at Rungta College of Engineering & Technology, Bhilai, and a Smart India Hackathon 2024 national winner.</p>
         <p>I specialise in performance-focused video editing for D2C brands, Instagram creators, and YouTube channels. My pricing has evolved from ₹2,000 to ₹20,000+ per project — because the work delivers measurable results, not just polished aesthetics.</p>
-        <p>International clients from UAE, USA, and UK. Portfolio: <a href="https://nirajvisuals.in" target="_blank">nirajvisuals.in</a></p>
+        <p>International clients from UAE, USA, and UK. Portfolio: <a href="https://nirajvisuals.in" target="_blank" rel="noopener noreferrer">nirajvisuals.in</a></p>
         <div class="skills-row">
-          <div class="sk"><img src="https://sevensoftwares.com/wp-content/uploads/2024/11/adobe-premiere-pro-logo-1-1-2048x1997.png" alt="Premiere Pro"><span>Premiere Pro</span></div>
-          <div class="sk"><img src="https://adobe.psu.edu/files/2020/07/After-Effects.png" alt="After Effects"><span>After Effects</span></div>
-          <div class="sk"><img src="https://p.kindpng.com/picc/s/13-130854_davinci-resolve-icon-davinci-resolve-logo-transparent-hd.png" alt="DaVinci Resolve"><span>DaVinci</span></div>
+          <div class="sk"><img src="https://sevensoftwares.com/wp-content/uploads/2024/11/adobe-premiere-pro-logo-1-1-2048x1997.png" alt="Adobe Premiere Pro" width="34" height="34" loading="lazy" decoding="async"><span>Premiere Pro</span></div>
+          <div class="sk"><img src="https://adobe.psu.edu/files/2020/07/After-Effects.png" alt="Adobe After Effects" width="34" height="34" loading="lazy" decoding="async"><span>After Effects</span></div>
+          <div class="sk"><img src="https://p.kindpng.com/picc/s/13-130854_davinci-resolve-icon-davinci-resolve-logo-transparent-hd.png" alt="DaVinci Resolve" width="34" height="34" loading="lazy" decoding="async"><span>DaVinci</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== NEW RECOGNITION SECTION (CERTIFICATES & AWARDS) ===== -->
+<!-- RECOGNITION (CERTIFICATES & AWARDS) -->
 <section class="recognition" id="recognition">
   <div class="c">
     <div class="stitle reveal">
       <span class="tag">Recognition</span>
-      <h2>Awards & Certifications</h2>
+      <h2>Awards &amp; Certifications</h2>
       <p>Industry recognitions that validate expertise and commitment to quality.</p>
     </div>
-    <div class="rec-slider reveal">
-      <div class="rec-track" id="recTrack"></div>
-      <button class="rec-nav rec-prev"><i class="fas fa-chevron-left"></i></button>
-      <button class="rec-nav rec-next"><i class="fas fa-chevron-right"></i></button>
-      <div class="rec-dots" id="recDots"></div>
+    <div class="rec-slider reveal" role="region" aria-label="Awards and certifications carousel" aria-roledescription="carousel">
+      <div class="rec-track" id="recTrack" aria-live="polite"></div>
+      <!-- ✅ FIX: aria-label on rec nav buttons -->
+      <button class="rec-nav rec-prev" aria-label="Previous certificate"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+      <button class="rec-nav rec-next" aria-label="Next certificate"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+      <div class="rec-dots" id="recDots" role="tablist" aria-label="Certificate slides"></div>
     </div>
   </div>
 </section>
@@ -782,7 +888,7 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 <section class="faq" id="faq">
   <div class="c">
     <div class="stitle reveal"><span class="tag">Common Questions</span><h2>FAQ</h2><p>Answers to the questions clients ask most before reaching out.</p></div>
-    <div class="faq-wrap" id="faqW"></div>
+    <div class="faq-wrap" id="faqW" role="list"></div>
   </div>
 </section>
 
@@ -791,34 +897,42 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
   <div class="c">
     <div class="stitle reveal"><span class="tag">Work Together</span><h2>Let's Build Something</h2></div>
     <div class="ct-grid">
-      <div class="reveal">
-        <h3>Got a project in mind?</h3>
+      <div class="ct-info reveal">
+        <!-- ✅ FIX: Changed h3 → h2 (no parent h2 in this column) -->
+        <h2>Got a project in mind?</h2>
         <p>Whether you're a brand, creator, or agency — I'd love to hear about your vision. I respond within 24 hours.</p>
         <div class="ct-links">
-          <a href="mailto:nirajsharma.work@gmail.com" class="ct-link"><div class="ct-icon"><i class="fas fa-envelope"></i></div>nirajsharma.work@gmail.com</a>
-          <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" class="ct-link"><div class="ct-icon"><i class="fab fa-linkedin-in"></i></div>linkedin.com/in/nirajsharmaeditor</a>
-          <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" class="ct-link"><div class="ct-icon"><i class="fab fa-instagram"></i></div>@itsnirajsharma</a>
-          <a href="https://nirajvisuals.in" target="_blank" class="ct-link"><div class="ct-icon"><i class="fas fa-globe"></i></div>nirajvisuals.in</a>
+          <a href="mailto:nirajsharma.work@gmail.com" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>nirajsharma.work@gmail.com</a>
+          <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fab fa-linkedin-in"></i></div>linkedin.com/in/nirajsharmaeditor</a>
+          <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fab fa-instagram"></i></div>@itsnirajsharma</a>
+          <a href="https://nirajvisuals.in" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fas fa-globe"></i></div>nirajvisuals.in</a>
         </div>
-        <a href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" class="wa-btn"><i class="fab fa-whatsapp" style="font-size:1.25rem"></i> Chat on WhatsApp</a>
+        <a href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener noreferrer" class="wa-btn"><i class="fab fa-whatsapp" style="font-size:1.25rem" aria-hidden="true"></i> Chat on WhatsApp</a>
       </div>
       <div class="cf reveal" style="animation-delay:.15s">
-        <div class="smsg" id="smsg">
-          <i class="fas fa-check-circle"></i>
+        <div class="smsg" id="smsg" role="alert" aria-live="polite">
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
           <h4>Message Sent!</h4>
           <p>I'll get back to you within 24 hours.</p>
           <button class="btn btn-primary" style="margin-top:18px;" onclick="resetForm()">Send Another</button>
         </div>
-        <form id="cform" method="POST" action="/" name="contact" data-netlify="true">
+        <form id="cform" method="POST" action="/" name="contact" data-netlify="true" novalidate>
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none"><label>Don't fill: <input name="bot-field"></label></p>
           <div class="form-row">
-            <div class="fg"><label>Name *</label><input type="text" name="name" class="fc" placeholder="Your name" required></div>
-            <div class="fg"><label>Email *</label><input type="email" name="email" class="fc" placeholder="your@email.com" required></div>
+            <div class="fg">
+              <label for="f-name">Name *</label>
+              <input type="text" id="f-name" name="name" class="fc" placeholder="Your name" required autocomplete="name">
+            </div>
+            <div class="fg">
+              <label for="f-email">Email *</label>
+              <input type="email" id="f-email" name="email" class="fc" placeholder="your@email.com" required autocomplete="email">
+            </div>
           </div>
+          <!-- ✅ FIX: Connected label to select via for/id (was flagged in accessibility audit) -->
           <div class="fg">
-            <label>Project Type *</label>
-            <select name="projectType" class="fc" required>
+            <label for="f-project">Project Type *</label>
+            <select id="f-project" name="projectType" class="fc" required>
               <option value="">Select a service</option>
               <option value="short-form">Short-Form Video Editing</option>
               <option value="long-form">Long-Form Video Editing</option>
@@ -829,28 +943,34 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
               <option value="other">Other</option>
             </select>
           </div>
-          <div class="fg"><label>Message *</label><textarea name="message" class="fc" placeholder="Tell me about your project, goals, and timeline..." required></textarea></div>
-          <button type="submit" class="fsub"><i class="fas fa-paper-plane"></i> Send Message</button>
+          <div class="fg">
+            <label for="f-message">Message *</label>
+            <textarea id="f-message" name="message" class="fc" placeholder="Tell me about your project, goals, and timeline..." required></textarea>
+          </div>
+          <button type="submit" class="fsub"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message</button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
+</main><!-- end #main-content -->
+
 <!-- FOOTER -->
 <footer>
   <div class="c">
     <div class="ft-top">
       <a href="#home" class="ft-logo">Niraj<em>Sharma</em></a>
-      <div class="ft-nav">
+      <nav class="ft-nav" aria-label="Footer navigation">
         <a href="#services">Services</a><a href="#projects">Work</a><a href="#process">Process</a>
         <a href="#testimonials">Reviews</a><a href="#about">About</a><a href="#recognition">Recognition</a><a href="#contact">Contact</a>
-      </div>
+      </nav>
+      <!-- ✅ FIX: aria-label on all social icon links -->
       <div class="socials">
-        <a href="https://www.instagram.com/itsnirajsharma/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.youtube.com/@NikushVlogs" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="mailto:nirajsharma.work@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" rel="noopener noreferrer" aria-label="Niraj on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" rel="noopener noreferrer" aria-label="Niraj on LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="https://www.youtube.com/@NikushVlogs" target="_blank" rel="noopener noreferrer" aria-label="Niraj on YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+        <a href="mailto:nirajsharma.work@gmail.com" aria-label="Email Niraj"><i class="fas fa-envelope" aria-hidden="true"></i></a>
       </div>
     </div>
     <div class="ft-bot">
@@ -861,21 +981,27 @@ footer { background:var(--footer-bg); padding:56px 0 32px; }
 </footer>
 
 <!-- VIDEO LIGHTBOX -->
-<div class="vlb" id="vlb">
+<div class="vlb" id="vlb" role="dialog" aria-modal="true" aria-label="Video player">
   <div class="vlb-in">
-    <button class="vlb-x" id="vlbX"><i class="fas fa-times"></i></button>
-    <iframe id="vlbF" src="" allowfullscreen allow="autoplay;encrypted-media"></iframe>
+    <!-- ✅ FIX: aria-label on close button -->
+    <button class="vlb-x" id="vlbX" aria-label="Close video"><i class="fas fa-times" aria-hidden="true"></i></button>
+    <iframe id="vlbF" src="" title="Project video" allowfullscreen allow="autoplay;encrypted-media"></iframe>
   </div>
 </div>
+
 <!-- IMAGE LIGHTBOX -->
-<div class="lb" id="lb">
-  <button class="lb-x" id="lbX"><i class="fas fa-times"></i></button>
-  <div class="lb-nav"><button id="lbPrev"><i class="fas fa-chevron-left"></i></button><button id="lbNext"><i class="fas fa-chevron-right"></i></button></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <!-- ✅ FIX: aria-label on close + nav buttons -->
+  <button class="lb-x" id="lbX" aria-label="Close image"><i class="fas fa-times" aria-hidden="true"></i></button>
+  <div class="lb-nav">
+    <button id="lbPrev" aria-label="Previous image"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+    <button id="lbNext" aria-label="Next image"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+  </div>
   <img id="lbImg" src="" alt="">
 </div>
 
-<!-- YOUTUBE API -->
-<script src="https://www.youtube.com/iframe_api"></script>
+<!-- ✅ FIX: YouTube API loaded with defer to reduce TBT (non-blocking) -->
+<script src="https://www.youtube.com/iframe_api" defer></script>
 
 <script>
 /* ===== THEME ===== */
@@ -889,13 +1015,11 @@ function applyTheme(t) {
 (function(){
   const saved = localStorage.getItem('nk-theme');
   if (saved) { applyTheme(saved); return; }
-  const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
-  applyTheme(prefersDark ? 'dark' : 'light');
+  applyTheme(window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
 })();
 const tt = document.getElementById('themeToggle');
 function toggleTheme() {
-  const cur = html.getAttribute('data-theme');
-  applyTheme(cur === 'light' ? 'dark' : 'light');
+  applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
 }
 tt.addEventListener('click', toggleTheme);
 tt.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleTheme(); } });
@@ -908,7 +1032,7 @@ const cur = document.getElementById('cur'), curR = document.getElementById('curR
 let mx=0,my=0,px=0,py=0;
 document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
 (function l(){ px+=(mx-px)/9; py+=(my-py)/9; curR.style.left=px+'px'; curR.style.top=py+'px'; requestAnimationFrame(l); })();
-document.querySelectorAll('a,button,.pc,.tc,.scard,.sv-card,.flt,.menu-toggle,.ti,input,textarea,select,#themeToggle').forEach(el=>{
+document.querySelectorAll('a,button,.pc,.tc,.scard,.sv-card,.flt,.ti,input,textarea,select,#themeToggle').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.classList.add('big');curR.classList.add('big');});
   el.addEventListener('mouseleave',()=>{cur.classList.remove('big');curR.classList.remove('big');});
 });
@@ -923,13 +1047,21 @@ window.addEventListener('scroll', () => {
   hdr.classList.toggle('scrolled', y > 60);
   hdr.classList.toggle('hide', y > lastY && y > 120);
   lastY = y;
-});
+}, { passive: true });
 btt.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
 /* ===== MOBILE NAV ===== */
 const mTog = document.getElementById('mTog'), navL = document.getElementById('navL');
-mTog.addEventListener('click', () => navL.classList.toggle('open'));
-document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => navL.classList.remove('open')));
+mTog.addEventListener('click', () => {
+  const open = navL.classList.toggle('open');
+  mTog.setAttribute('aria-expanded', open);
+  mTog.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+});
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  navL.classList.remove('open');
+  mTog.setAttribute('aria-expanded', 'false');
+  mTog.setAttribute('aria-label', 'Open navigation menu');
+}));
 
 /* ===== ACTIVE NAV ===== */
 const secs = document.querySelectorAll('section[id]');
@@ -937,11 +1069,11 @@ window.addEventListener('scroll', () => {
   let c = '';
   secs.forEach(s => { if (window.scrollY >= s.offsetTop - 160) c = s.id; });
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+c));
-});
+}, { passive: true });
 
 /* ===== REVEAL ===== */
 const ro = new IntersectionObserver(e => {
-  e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); });
+  e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); ro.unobserve(x.target); } });
 }, { threshold:.1, rootMargin:'0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
@@ -955,6 +1087,18 @@ const cObs = new IntersectionObserver(e => {
 }, { threshold:.5 });
 document.querySelectorAll('.scard[data-target]').forEach(c => cObs.observe(c));
 
+/* ===== SHOWREEL CLICK-TO-PLAY ===== */
+const reelPoster = document.getElementById('reelPoster');
+const reelVideo  = document.getElementById('reelVideo');
+const reelIframe = document.getElementById('reelIframe');
+function activateReel() {
+  reelIframe.src = 'https://www.youtube.com/embed/PGgXdXShFAI?controls=1&rel=0&modestbranding=1&autoplay=1';
+  reelPoster.style.display = 'none';
+  reelVideo.style.display  = 'block';
+}
+reelPoster.addEventListener('click', activateReel);
+reelPoster.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateReel(); } });
+
 /* ===== PROJECTS + HOVER AUTOPLAY (YouTube API) ===== */
 const PROJ = [
   {t:'Skincare Brand Collab',c:'sf',y:'3CpnoEG3v5w',tags:['Instagram Reels','Fashion','Trending'],v:'450K',d:'15–30s'},
@@ -964,74 +1108,82 @@ const PROJ = [
   {t:'Personal Brand Reel Series',c:'sf',y:'oRjEKVOdTRk',tags:['Personal Brand','Short Film','Viral'],v:'900K',d:'30–45s'},
   {t:'CUET Reel',c:'sf',y:'or90OeGLYc0',tags:['Education','Startup','Trending'],v:'680K',d:'25–40s'},
   {t:'Master Trading in 2025',c:'lf',y:'HTPKNvnLcF8',tags:['Podcast','Trading','Youtube'],v:'120K',d:'2:30 min'},
-  {t:'Let’s Talk Gynae',c:'lf',y:'ZvZzvUsiP1o',tags:['Podcast','Trading','Youtube'],v:'85K',d:'45:20 min'},
+  {t:'Let\'s Talk Gynae',c:'lf',y:'ZvZzvUsiP1o',tags:['Podcast','Health','Youtube'],v:'85K',d:'45:20 min'},
   {t:'IIT Kanpur Vlog',c:'lf',y:'qJqqkw1suTk',tags:['Vlog','IIT','Cinematic'],v:'45K',d:'3:45 min'},
-  {t:'Air India 171:',c:'lf',y:'mXu6Hybmy3U',tags:['Podcast','Trading','Youtube'],v:'65K',d:'5:20 min'},
+  {t:'Air India 171',c:'lf',y:'mXu6Hybmy3U',tags:['Podcast','Travel','Youtube'],v:'65K',d:'5:20 min'},
 ];
 
-let players = []; // store YouTube player instances
-
+let players = [];
 function destroyPlayers() {
-  players.forEach(p => { if (p && typeof p.destroy === 'function') p.destroy(); });
+  players.forEach(p => { try { if (p && typeof p.destroy === 'function') p.destroy(); } catch(e){} });
   players = [];
 }
 
 function buildPG(f='all') {
-  destroyPlayers(); // kill old players before rebuilding
+  destroyPlayers();
   const g = document.getElementById('pg'); g.innerHTML = '';
   PROJ.filter(p => f==='all' || p.c===f).forEach((p,i) => {
     const d = document.createElement('div');
-    d.className = `pc ${p.c} reveal`; d.style.animationDelay = (i*.07)+'s';
-    const vidId = `player-${Date.now()}-${i}`; // unique id for iframe
-    d.innerHTML = `<div class="pv ${p.c}"><iframe id="${vidId}" src="https://www.youtube.com/embed/${p.y}?enablejsapi=1&controls=1&rel=0&modestbranding=1" title="${p.t}" allow="encrypted-media" allowfullscreen loading="lazy"></iframe><div class="pv-play"></div><span class="pbadge ${p.c==='sf'?'bsf':'blf'}">${p.c==='sf'?'Short Form':'Long Form'}</span></div><div class="pi"><h3>${p.t}</h3><div class="pt">${p.tags.map(x=>`<span>${x}</span>`).join('')}</div><div class="pm"><span><i class="fas fa-eye"></i>${p.v}</span><span><i class="fas fa-clock"></i>${p.d}</span></div></div>`;
-    d.addEventListener('click', e => { if(!e.target.closest('iframe')) openV(p.y,p.t); });
+    d.className = `pc ${p.c} reveal`;
+    d.style.animationDelay = (i*.07)+'s';
+    d.setAttribute('role','listitem');
+    const vidId = `yt-${Date.now()}-${i}`;
+    d.innerHTML = `
+      <div class="pv ${p.c}">
+        <iframe
+          id="${vidId}"
+          src="https://www.youtube.com/embed/${p.y}?enablejsapi=1&controls=1&rel=0&modestbranding=1"
+          title="${p.t}"
+          allow="encrypted-media"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+        <div class="pv-play" aria-hidden="true"></div>
+        <span class="pbadge ${p.c==='sf'?'bsf':'blf'}">${p.c==='sf'?'Short Form':'Long Form'}</span>
+      </div>
+      <div class="pi">
+        <h3>${p.t}</h3>
+        <div class="pt">${p.tags.map(x=>`<span>${x}</span>`).join('')}</div>
+        <div class="pm">
+          <span><i class="fas fa-eye" aria-hidden="true"></i>${p.v}</span>
+          <span><i class="fas fa-clock" aria-hidden="true"></i>${p.d}</span>
+        </div>
+      </div>`;
+    d.addEventListener('click', e => { if(!e.target.closest('iframe')) openV(p.y, p.t); });
     g.appendChild(d);
   });
   g.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  // Initialize YouTube players after DOM update
-  setTimeout(initPlayers, 100);
+  // Init players after brief DOM settle
+  setTimeout(initPlayers, 200);
 }
 
-// Initialize players for all iframes in .pc
 function initPlayers() {
+  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') return;
   document.querySelectorAll('.pc .pv iframe').forEach(iframe => {
-    if (!iframe.id) return;
-    const player = new YT.Player(iframe.id, {
-      events: {
-        onReady: (event) => {
-          // Store player on card element for easy access
-          const card = iframe.closest('.pc');
-          if (card) card.player = event.target;
+    if (!iframe.id || iframe.dataset.yt) return;
+    iframe.dataset.yt = '1';
+    try {
+      const player = new YT.Player(iframe.id, {
+        events: {
+          onReady: event => {
+            const card = iframe.closest('.pc');
+            if (card) card._player = event.target;
+          }
         }
-      }
-    });
-    players.push(player);
+      });
+      players.push(player);
+    } catch(e) {}
   });
-
-  // Attach hover events to each card
   document.querySelectorAll('.pc').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      if (card.player && typeof card.player.playVideo === 'function') {
-        card.player.playVideo();
-      }
-    });
-    card.addEventListener('mouseleave', () => {
-      if (card.player && typeof card.player.pauseVideo === 'function') {
-        card.player.pauseVideo();
-      }
-    });
+    if (card._hoverBound) return;
+    card._hoverBound = true;
+    card.addEventListener('mouseenter', () => { if (card._player) try { card._player.mute(); card._player.playVideo(); } catch(e){} });
+    card.addEventListener('mouseleave', () => { if (card._player) try { card._player.pauseVideo(); } catch(e){} });
   });
 }
 
-// YouTube API ready callback
-window.onYouTubeIframeAPIReady = function() {
-  // Players will be created after buildPG calls initPlayers
-};
-
+window.onYouTubeIframeAPIReady = function() { initPlayers(); };
 buildPG();
-
-// Filter buttons
 document.querySelectorAll('.flt').forEach(b => {
   b.addEventListener('click', () => {
     document.querySelectorAll('.flt').forEach(x=>x.classList.remove('on'));
@@ -1045,106 +1197,99 @@ const vlb=document.getElementById('vlb'), vlbF=document.getElementById('vlbF');
 document.getElementById('vlbX').addEventListener('click', closeV);
 vlb.addEventListener('click', e=>{ if(e.target===vlb) closeV(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closeV();closeLB();} });
-function openV(id,t){ vlbF.src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`; vlb.classList.add('open'); document.body.style.overflow='hidden'; }
+function openV(id){ vlbF.src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`; vlb.classList.add('open'); document.body.style.overflow='hidden'; }
 function closeV(){ vlb.classList.remove('open'); vlbF.src=''; document.body.style.overflow=''; }
 
 /* ===== THUMBNAILS ===== */
 const THUMBS = [
-  {i:'https://i.ibb.co/Q3zFThB4/52.jpg',t:'Fitness Challenge'},
-  {i:'https://i.ibb.co/mCCTq6x9/62.jpg',t:'Chhath Puja Special'},
-  {i:'https://i.ibb.co/NdW0xQRJ/63.jpg',t:'Event Highlights'},
-  {i:'https://i.ibb.co/YFpvF4V3/67.jpg',t:'Cana Event'},
-  {i:'https://i.ibb.co/nNb7ym9L/13.jpg',t:'Hostel Vlog'},
-  {i:'https://i.ibb.co/5hLF5Rh6/32.jpg',t:'Corporate Vlog'},
-  {i:'https://i.ibb.co/xtVFgWXy/35.jpg',t:'Daily Vlog'},
-  {i:'https://i.ibb.co/rGtZtHk5/38.jpg',t:'College Vlog'},
-  {i:'https://i.ibb.co/kp9kvGq/43.jpg',t:'College Event'},
-  {i:'https://i.ibb.co/G4N8vGC2/48.jpg',t:'Garba Night'},
+  {i:'https://i.ibb.co/Q3zFThB4/52.jpg',t:'Fitness Challenge Thumbnail'},
+  {i:'https://i.ibb.co/mCCTq6x9/62.jpg',t:'Chhath Puja Special Thumbnail'},
+  {i:'https://i.ibb.co/NdW0xQRJ/63.jpg',t:'Event Highlights Thumbnail'},
+  {i:'https://i.ibb.co/YFpvF4V3/67.jpg',t:'Cana Event Thumbnail'},
+  {i:'https://i.ibb.co/nNb7ym9L/13.jpg',t:'Hostel Vlog Thumbnail'},
+  {i:'https://i.ibb.co/5hLF5Rh6/32.jpg',t:'Corporate Vlog Thumbnail'},
+  {i:'https://i.ibb.co/xtVFgWXy/35.jpg',t:'Daily Vlog Thumbnail'},
+  {i:'https://i.ibb.co/rGtZtHk5/38.jpg',t:'College Vlog Thumbnail'},
+  {i:'https://i.ibb.co/kp9kvGq/43.jpg',t:'College Event Thumbnail'},
+  {i:'https://i.ibb.co/G4N8vGC2/48.jpg',t:'Garba Night Thumbnail'},
 ];
 (()=>{
   const tr=document.getElementById('ttrack');
-  [...THUMBS,...THUMBS].forEach((th,i)=>{ const d=document.createElement('div'); d.className='ti'; d.innerHTML=`<img src="${th.i}" alt="${th.t}" loading="lazy">`; d.addEventListener('click',()=>openLB(i%THUMBS.length)); tr.appendChild(d); });
+  [...THUMBS,...THUMBS].forEach((th,i)=>{
+    const d=document.createElement('div');
+    d.className='ti';
+    d.setAttribute('tabindex','0');
+    d.setAttribute('role','button');
+    d.setAttribute('aria-label',`View thumbnail: ${th.t}`);
+    d.innerHTML=`<img src="${th.i}" alt="${th.t}" width="280" height="160" loading="lazy" decoding="async">`;
+    const idx = i % THUMBS.length;
+    d.addEventListener('click',()=>openLB(idx));
+    d.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openLB(idx); }});
+    tr.appendChild(d);
+  });
 })();
+
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
 let lbI=0;
 document.getElementById('lbX').addEventListener('click', closeLB);
 lb.addEventListener('click', e=>{ if(e.target===lb) closeLB(); });
 document.getElementById('lbPrev').addEventListener('click', ()=>showLB(lbI-1));
 document.getElementById('lbNext').addEventListener('click', ()=>showLB(lbI+1));
-function openLB(i){ lbI=i; lbImg.src=THUMBS[i].i; lb.classList.add('open'); document.body.style.overflow='hidden'; }
-function showLB(i){ lbI=(i+THUMBS.length)%THUMBS.length; lbImg.src=THUMBS[lbI].i; }
+function openLB(i){ lbI=i; lbImg.src=THUMBS[i].i; lbImg.alt=THUMBS[i].t; lb.classList.add('open'); document.body.style.overflow='hidden'; }
+function showLB(i){ lbI=(i+THUMBS.length)%THUMBS.length; lbImg.src=THUMBS[lbI].i; lbImg.alt=THUMBS[lbI].t; }
 function closeLB(){ lb.classList.remove('open'); document.body.style.overflow=''; }
 
-/* ===== RECOGNITION SLIDESHOW (CERTIFICATES & AWARDS) ===== */
+/* ===== RECOGNITION SLIDESHOW ===== */
 const CERT_IMAGES = [
   { src: 'https://i.ibb.co/YBzKvv9X/79.jpg', title: 'Adobe Certified Professional' },
   { src: 'https://i.ibb.co/zHTHMwf3/78.jpg', title: 'Smart India Hackathon 2024 Winner' },
   { src: 'https://i.ibb.co/jkqc9b3h/80.jpg', title: 'Techstars Startup Weekend' },
   { src: 'https://i.ibb.co/SDY5y4v3/81.jpg', title: 'Microsoft Azure Certificate' }
-  // Replace these placeholder URLs with your actual certificate images
 ];
-
 const recTrack = document.getElementById('recTrack');
 const recDots = document.getElementById('recDots');
-let currentSlide = 0;
-let slideInterval;
+let currentSlide = 0, slideInterval;
 
 function buildRecognition() {
   recTrack.innerHTML = '';
   CERT_IMAGES.forEach((img, idx) => {
     const slide = document.createElement('div');
     slide.className = 'rec-slide';
-    slide.innerHTML = `<img src="${img.src}" alt="${img.title}" loading="lazy">`;
+    slide.setAttribute('role','tabpanel');
+    slide.setAttribute('aria-label', img.title);
+    slide.innerHTML = `<img src="${img.src}" alt="${img.title}" width="800" height="450" loading="lazy" decoding="async">`;
     recTrack.appendChild(slide);
   });
-  // Dots
   recDots.innerHTML = '';
-  CERT_IMAGES.forEach((_, idx) => {
-    const dot = document.createElement('span');
-    dot.className = 'rec-dot' + (idx === currentSlide ? ' active' : '');
+  CERT_IMAGES.forEach((c, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'rec-dot' + (idx === 0 ? ' active' : '');
+    dot.setAttribute('role','tab');
+    dot.setAttribute('aria-label', `Go to slide: ${c.title}`);
+    dot.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
     dot.addEventListener('click', () => goToSlide(idx));
     recDots.appendChild(dot);
   });
   updateSlide();
 }
-
 function updateSlide() {
   recTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
   document.querySelectorAll('.rec-dot').forEach((dot, idx) => {
-    dot.classList.toggle('active', idx === currentSlide);
+    const active = idx === currentSlide;
+    dot.classList.toggle('active', active);
+    dot.setAttribute('aria-selected', active ? 'true' : 'false');
   });
 }
+function nextSlide() { currentSlide = (currentSlide + 1) % CERT_IMAGES.length; updateSlide(); }
+function prevSlide() { currentSlide = (currentSlide - 1 + CERT_IMAGES.length) % CERT_IMAGES.length; updateSlide(); }
+function goToSlide(n) { currentSlide = n; updateSlide(); resetInterval(); }
+function resetInterval() { clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 4000); }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % CERT_IMAGES.length;
-  updateSlide();
-}
-
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + CERT_IMAGES.length) % CERT_IMAGES.length;
-  updateSlide();
-}
-
-function goToSlide(n) {
-  currentSlide = n;
-  updateSlide();
-  resetInterval();
-}
-
-function resetInterval() {
-  clearInterval(slideInterval);
-  slideInterval = setInterval(nextSlide, 4000);
-}
-
-// Event listeners for nav buttons
 document.querySelector('.rec-prev').addEventListener('click', () => { prevSlide(); resetInterval(); });
 document.querySelector('.rec-next').addEventListener('click', () => { nextSlide(); resetInterval(); });
-
-// Pause on hover
 const slider = document.querySelector('.rec-slider');
 slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
 slider.addEventListener('mouseleave', resetInterval);
-
 buildRecognition();
 resetInterval();
 
@@ -1160,9 +1305,22 @@ const FAQS=[
 ];
 const fw=document.getElementById('faqW');
 FAQS.forEach((f,i)=>{
-  const it=document.createElement('div'); it.className='fi reveal'; it.style.animationDelay=(i*.06)+'s';
-  it.innerHTML=`<div class="fq">${f.q}<div class="fq-icon"><i class="fas fa-plus"></i></div></div><div class="fa-ans">${f.a}</div>`;
-  it.querySelector('.fq').addEventListener('click',()=>{ const o=it.classList.contains('open'); document.querySelectorAll('.fi').forEach(x=>x.classList.remove('open')); if(!o)it.classList.add('open'); });
+  const it=document.createElement('div');
+  it.className='fi reveal';
+  it.style.animationDelay=(i*.06)+'s';
+  it.setAttribute('role','listitem');
+  const uid = `faq-ans-${i}`;
+  it.innerHTML=`
+    <button class="fq" aria-expanded="false" aria-controls="${uid}">
+      ${f.q}
+      <div class="fq-icon" aria-hidden="true"><i class="fas fa-plus"></i></div>
+    </button>
+    <div class="fa-ans" id="${uid}" role="region">${f.a}</div>`;
+  it.querySelector('.fq').addEventListener('click', function(){
+    const open = it.classList.contains('open');
+    document.querySelectorAll('.fi').forEach(x=>{ x.classList.remove('open'); x.querySelector('.fq').setAttribute('aria-expanded','false'); });
+    if(!open){ it.classList.add('open'); this.setAttribute('aria-expanded','true'); }
+  });
   fw.appendChild(it);
 });
 fw.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
@@ -1173,11 +1331,11 @@ smsg.style.display='none';
 cform.addEventListener('submit', e=>{
   e.preventDefault();
   const btn=cform.querySelector('.fsub');
-  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…'; btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Sending…'; btn.disabled=true;
   setTimeout(()=>{
     cform.style.display='none'; smsg.style.display='block';
     fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(cform)).toString()}).catch(()=>{});
-    btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message'; btn.disabled=false;
+    btn.innerHTML='<i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message'; btn.disabled=false;
   }, 1400);
 });
 window.resetForm = function(){ smsg.style.display='none'; cform.style.display='block'; cform.reset(); };
