@@ -23,6 +23,10 @@
 <!-- Preload LCP hero image -->
 <link rel="preload" as="image" href="https://i.ibb.co/XZj2T1VY/Untitled-design-8.jpg" fetchpriority="high">
 
+<!-- Preload Font Awesome solid woff2 so icons don't flash -->
+<link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" crossorigin>
+
 <!-- Google Fonts: non-blocking via media=print trick -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap"></noscript>
@@ -61,9 +65,10 @@
   --footer-bg:   #0F0D0C;
   --footer-logo: #F0EBE4;
   --footer-link: rgba(240,235,228,.55);
-  --footer-sub:  rgba(240,235,228,.38);
+  /* ✅ FIX: was .38 (~3.7:1 contrast) — increased to .65 for WCAG AA on dark bg */
+  --footer-sub:  rgba(240,235,228,.65);
   --footer-div:  rgba(255,255,255,.08);
-  --footer-icon: rgba(240,235,228,.6);
+  --footer-icon: rgba(240,235,228,.65);
 }
 [data-theme="dark"] {
   --bg:        #0A0908;
@@ -85,9 +90,10 @@
   --footer-bg:   #060504;
   --footer-logo: #F0EBE4;
   --footer-link: rgba(240,235,228,.5);
-  --footer-sub:  rgba(240,235,228,.34);
+  /* ✅ FIX: was .34 — increased to .62 for contrast on #060504 bg */
+  --footer-sub:  rgba(240,235,228,.62);
   --footer-div:  rgba(255,255,255,.07);
-  --footer-icon: rgba(240,235,228,.55);
+  --footer-icon: rgba(240,235,228,.62);
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -258,7 +264,9 @@ nav{display:flex;justify-content:space-between;align-items:center;}
 .sv-icon{width:52px;height:52px;background:rgba(201,150,26,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--gold);margin-bottom:22px;}
 .sv-card h3{font-size:1.15rem;color:var(--ink);margin-bottom:10px;}
 .sv-card p{color:var(--ink3);font-size:.9rem;line-height:1.75;margin-bottom:16px;}
-.sv-for{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--teal);font-weight:700;background:rgba(13,140,137,.1);border-radius:20px;padding:4px 10px;}
+/* ✅ FIX: was color:var(--teal) on near-white = ~3.9:1, fails WCAG AA for small text.
+   Dark ink text on teal-tint badge passes at 9:1+ */
+.sv-for{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;color:var(--ink2);font-weight:700;background:rgba(13,140,137,.14);border-radius:20px;padding:4px 10px;}
 
 .projects{padding:110px 0;background:var(--bg);}
 .filt-row{display:flex;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap;}
@@ -445,6 +453,25 @@ footer{background:var(--footer-bg);padding:56px 0 32px;}
   .stats-grid{grid-template-columns:1fr;}
   .hero-ctas{flex-direction:column;}
   .btn{width:100%;justify-content:center;}
+}
+
+/* ✅ FIX: Font Awesome @font-face overrides with font-display:swap.
+   The CDN stylesheet doesn't include font-display, causing Lighthouse's "Font display" warning.
+   These rules shadow the CDN's @font-face declarations, applying swap so icons never FOIT. */
+@font-face {
+  font-family:'Font Awesome 6 Free';
+  font-style:normal; font-weight:900; font-display:swap;
+  src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Font Awesome 6 Free';
+  font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Font Awesome 6 Brands';
+  font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
 }
 </style>
 </head>
@@ -694,7 +721,7 @@ footer{background:var(--footer-bg);padding:56px 0 32px;}
         <h2>Got a project in mind?</h2>
         <p>Whether you're a brand, creator, or agency — I'd love to hear about your vision. I respond within 24 hours.</p>
         <div class="ct-links">
-          <a href="mailto:nirajsharma.work@gmail.com" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>nirajsharma.work@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#94fafde6f5fee7fcf5e6f9f5bae3fbe6ffd4f3f9f5fdf8baf7fbf9" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div><span class="__cf_email__" data-cfemail="5a3433283b3029323b28373b742d3528311a3d373b333674393537">[email&#160;protected]</span></a>
           <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fab fa-linkedin-in"></i></div>linkedin.com/in/nirajsharmaeditor</a>
           <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fab fa-instagram"></i></div>@itsnirajsharma</a>
           <a href="https://nirajvisuals.in" target="_blank" rel="noopener noreferrer" class="ct-link"><div class="ct-icon" aria-hidden="true"><i class="fas fa-globe"></i></div>nirajvisuals.in</a>
@@ -752,7 +779,7 @@ footer{background:var(--footer-bg);padding:56px 0 32px;}
         <a href="https://www.instagram.com/itsnirajsharma/" target="_blank" rel="noopener noreferrer" aria-label="Niraj on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
         <a href="https://www.linkedin.com/in/nirajsharmaeditor" target="_blank" rel="noopener noreferrer" aria-label="Niraj on LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
         <a href="https://www.youtube.com/@NikushVlogs" target="_blank" rel="noopener noreferrer" aria-label="Niraj on YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
-        <a href="mailto:nirajsharma.work@gmail.com" aria-label="Email Niraj"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        <a href="/cdn-cgi/l/email-protection#f997908b98938a91988b9498d78e968b92b99e94989095d79a9694" aria-label="Email Niraj"><i class="fas fa-envelope" aria-hidden="true"></i></a>
       </div>
     </div>
     <div class="ft-bot">
@@ -779,7 +806,7 @@ footer{background:var(--footer-bg);padding:56px 0 32px;}
 </div>
 
 <!-- No YouTube API script needed at all — portfolio uses static thumbnail images -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* THEME */
 const html=document.documentElement,ttLabel=document.getElementById('ttLabel');
 function applyTheme(t){html.setAttribute('data-theme',t);ttLabel.textContent=t==='light'?'Light':'Dark';localStorage.setItem('nk-theme',t);}
