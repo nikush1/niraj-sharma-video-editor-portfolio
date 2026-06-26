@@ -43,7 +43,7 @@ export default function Hero() {
                 <i className="fas fa-play" aria-hidden="true" /> View Work
               </Link>
               <a
-                href="https://drive.google.com/file/d/1aUTZrncrhPZEvLULpWqhTgtM6i96ceXu/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1Uzvhm98aDOqX0sP9-ToK5KD2C7kY9sRt/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
