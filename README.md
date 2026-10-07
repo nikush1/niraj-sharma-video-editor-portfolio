@@ -67,16 +67,16 @@ The existing contact email, WhatsApp number, social profiles, resume link, brand
 | `/services/ugc-video-editing` | UGC editing details |
 | `/process` | Five-step collaboration process |
 | `/reviews` | Existing client and collaborator feedback |
-| `/contact` | Contact links and email draft builder |
+| `/contact` | Contact links and direct enquiry form with email/WhatsApp fallbacks |
 | `/resources/video-ad-editing-brief` | Guide and editable, copyable brief |
 
 ## Contact behaviour
 
-There is no email delivery backend and no API key is needed. The contact form validates the required details, then prepares an email draft addressed to `nirajsharma.work@gmail.com`. The visitor can open an email app, copy the draft or return to edit the details. Nothing is sent automatically.
+The contact form posts to `/api/contact`, which validates the request on the server and sends accepted enquiries through the Resend API to `nirajsharma.work@gmail.com`. Configure `RESEND_API_KEY` and `CONTACT_FROM_EMAIL` in the hosting provider's server-side environment settings; the sending address must be verified with Resend. Do not add a `NEXT_PUBLIC_` prefix. These values are documented in `.env.local.example`.
 
-The form supports projects, monthly retainers and remote roles. Its budget, volume and start-date fields adapt to the enquiry type. Direct email, WhatsApp and social links remain available.
+Until the provider is configured, the endpoint returns an explicit unavailable response; the form keeps the entered values and offers a prefilled email fallback plus the existing WhatsApp link. The form includes server and client validation, duplicate-submit prevention, a honeypot field, accessible field errors, and success/failure states. A successful message means Resend accepted the request, not that inbox delivery was confirmed. Direct email, WhatsApp and social links remain available.
 
-If server-side sending is added later, keep delivery-provider credentials server-side and show a sent confirmation only after successful delivery.
+The honeypot provides basic bot filtering. Add a persistent rate limit or CAPTCHA at the hosting/provider layer before high-traffic promotion; no persistent rate-limiting integration is configured in this repository.
 
 ## Update the work
 
@@ -88,6 +88,7 @@ Edit `lib/data.js`. The project fields are:
 | `c` | `sf` for short-form or `lf` for long-form |
 | `y` | YouTube video ID |
 | `tags` | Format and topic tags |
+| `categories` | Verified filter categories: `d2c-meta`, `ugc`, `brand-stories`, `youtube-long` |
 | `d` | Duration, when known |
 | `featured` | Include in the homepage selection when `true` |
 | `brief` | Actual assignment, when known |
@@ -97,7 +98,7 @@ Edit `lib/data.js`. The project fields are:
 
 Project posters use `public/images/work-VIDEO_ID.jpg`. Add a corresponding local image when adding a project. Preserve the original IDs unless intentionally replacing work. Generic project titles should be replaced only after checking the video; do not label unrelated work as a BeastLife project.
 
-The featured gallery and archive derive their counts from `lib/data.js`. The header still displays the current total of 17; update it if the collection changes. Hero and opening poster selections are defined separately in `components/Hero.js` and `components/OpeningSequence.js`.
+The featured gallery and archive derive their counts from `lib/data.js`. The header still displays the current total of 17; update it if the collection changes. Filter categories are intentionally only assigned when supported by the existing project information. At present there are no projects specifically confirmed as UGC, so that filter is empty until the relevant footage/project identity is confirmed. Hero and opening poster selections are defined separately in `components/Hero.js` and `components/OpeningSequence.js`.
 
 The portrait, showreel poster, all 17 project posters and nine thumbnail designs are local. One legacy Garba Night thumbnail and reviewer portraits retain their original remote image URLs.
 
@@ -147,6 +148,7 @@ After deploying, confirm the public video embeds, external image availability, c
 - Keyboard navigation brings the correct pinned project into view. Native gallery progress updates on scroll and resize; counts come from the collection.
 - Thumbnail previews make background content inert and restore focus on close.
 - The contact form rejects whitespace-only required fields and moves focus to the draft action or back to the form.
+- The contact form submits to the server-side Resend endpoint when configured and preserves email/WhatsApp fallbacks when not configured.
 - FAQ answer heights update when text reflows. Brand marks use original colours, per-logo sizes and contrasting frames on the light theme.
 
 ## Verification status
@@ -157,7 +159,7 @@ Earlier reliability checks covered desktop and 390px/320px layouts, repeated men
 
 `node --test tests/scroll-lock.test.mjs` verifies overlapping locks, reverse close order, repeated release, restored overflow and server-side safety (3 tests).
 
-The final `npm run build` passed, generating all 17 static pages reported by Next.js. Actual YouTube streaming depends on embedding permissions and network access; the dialog and correct video URLs were checked, but successful streaming for every video is not claimed. Recheck embeds on the live host after deployment.
+The latest public YouTube oEmbed check returned metadata for all 18 preserved video IDs (17 projects and the showreel), confirming the project titles but not successful playback or embedding permission. One discrepancy needs owner confirmation: the showreel ID `b9DFOfJUSyE` returns “Editbyamit Podcast trailer” from YouTube metadata, while the portfolio labels it a 2025 editing showreel. The ID has been preserved because no replacement URL is confirmed. Actual playback depends on YouTube, browser settings and network access; recheck embeds on the live host after deployment.
 
 ## Key files
 
@@ -167,7 +169,8 @@ The final `npm run build` passed, generating all 17 static pages reported by Nex
 - `components/Projects.js`: featured gallery, archive and filters.
 - `components/About.js`: profile and resume link.
 - `components/Services.js` and `components/Process.js`: service panels and workflow.
-- `components/Contact.js`: enquiry fields and email draft.
+- `components/Contact.js`: enquiry fields and delivery/fallback states.
+- `app/api/contact/route.js`: validated server-side Resend delivery endpoint.
 - `lib/data.js`: projects, FAQs, thumbnails and legacy certificates.
 - `lib/brands.js`: brand list and relationship labels.
 - `app/layout.js`: local font, metadata defaults and Analytics.

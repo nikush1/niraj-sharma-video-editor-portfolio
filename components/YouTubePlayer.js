@@ -61,15 +61,18 @@ export default function YouTubePlayer({ videoId, title, frameClassName = 'video-
   const hostRef = useRef(null);
   const instanceId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const [attempt, setAttempt] = useState(0);
-  const [status, setStatus] = useState({ kind: 'waiting' });
+  const [status, setStatus] = useState({ kind: 'waiting', attempt: 0 });
 
   useEffect(() => {
     const host = hostRef.current;
     let cancelled = false;
     let player;
-    setStatus({ kind: 'waiting' });
     const timeout = window.setTimeout(() => {
-      if (!cancelled) setStatus(current => current.kind === 'waiting' ? { kind: 'slow' } : current);
+      if (!cancelled) {
+        setStatus(current => current.attempt === attempt && current.kind === 'waiting'
+          ? { kind: 'slow', attempt }
+          : current);
+      }
     }, 12000);
 
     // The API owns this iframe, not React. It can remove it safely on cleanup.
@@ -96,20 +99,30 @@ export default function YouTubePlayer({ videoId, title, frameClassName = 'video-
             if (cancelled) return;
             if (event.data === 1) {
               window.clearTimeout(timeout);
-              setStatus({ kind: 'playing' });
+              setStatus({ kind: 'playing', attempt });
             } else if (event.data === 0 || event.data === 2) {
-              setStatus(current => current.kind === 'error' ? current : { kind: 'paused' });
+              setStatus(current => current.attempt === attempt && current.kind === 'error'
+                ? current
+                : { kind: 'paused', attempt });
             }
+          },
+          onReady() {
+            if (cancelled) return;
+            setStatus(current => current.attempt === attempt && current.kind === 'waiting'
+              ? { kind: 'ready', attempt }
+              : current);
           },
           onError(event) {
             if (cancelled) return;
             window.clearTimeout(timeout);
-            setStatus({ kind: 'error', code: event.data });
+            setStatus({ kind: 'error', code: event.data, attempt });
           },
           onAutoplayBlocked() {
             if (cancelled) return;
             window.clearTimeout(timeout);
-            setStatus(current => current.kind === 'error' ? current : { kind: 'paused' });
+            setStatus(current => current.attempt === attempt && current.kind === 'error'
+              ? current
+              : { kind: 'autoplay-blocked', attempt });
           },
         },
       });
@@ -125,10 +138,14 @@ export default function YouTubePlayer({ videoId, title, frameClassName = 'video-
     };
   }, [videoId, title, instanceId, attempt]);
 
-  const message = status.kind === 'playing' ? ''
-    : status.kind === 'error' ? `${errorMessage(status.code)} (Error ${status.code})`
-    : status.kind === 'slow' ? 'Taking longer than expected? Try again or watch on YouTube.'
-    : 'If playback doesn’t start, press Play in the video.';
+  const visibleStatus = status.attempt === attempt ? status : { kind: 'waiting', attempt };
+  const message = visibleStatus.kind === 'playing' ? ''
+    : visibleStatus.kind === 'error' ? `${errorMessage(visibleStatus.code)} (Error ${visibleStatus.code})`
+    : visibleStatus.kind === 'slow' ? 'Taking longer than expected? Try again or watch on YouTube.'
+    : visibleStatus.kind === 'autoplay-blocked' ? 'Autoplay was blocked. Press Play in the player to start the video.'
+    : visibleStatus.kind === 'paused' ? 'Playback is paused. Press Play to continue.'
+    : visibleStatus.kind === 'ready' ? 'Player ready. Press Play if the video does not start.'
+    : 'Loading video player…';
 
   return (
     <div className="yt-player">

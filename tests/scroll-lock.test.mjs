@@ -40,3 +40,26 @@ test('server rendering does not access document', async () => {
   const {acquireBodyScrollLock} = await fresh();
   assert.doesNotThrow(() => acquireBodyScrollLock()());
 });
+
+test('theme preference is restored from localStorage', async () => {
+  const storage = new Map();
+  const value = {
+    getItem(key) { return storage.has(key) ? storage.get(key) : null; },
+    setItem(key, nextValue) { storage.set(key, String(nextValue)); },
+    removeItem(key) { storage.delete(key); },
+  };
+  Object.defineProperty(globalThis, 'localStorage', { value, configurable: true, writable: true });
+  globalThis.document = { documentElement: { dataset: { theme: 'light' } } };
+
+  storage.set('nk-theme', 'dark');
+  const source = await readFile(new URL('../lib/theme.js', import.meta.url), 'utf8');
+  const {readStoredTheme, applyTheme} = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+
+  assert.equal(readStoredTheme(), 'dark');
+  applyTheme('light');
+  assert.equal(document.documentElement.dataset.theme, 'light');
+  assert.equal(localStorage.getItem('nk-theme'), 'light');
+
+  delete globalThis.document;
+  delete globalThis.localStorage;
+});

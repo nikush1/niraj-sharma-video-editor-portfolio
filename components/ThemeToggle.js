@@ -1,12 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
+import { readStoredTheme, applyTheme, subscribeToTheme, getServerTheme } from '@/lib/theme';
+
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState('dark');
-  useEffect(() => { setTheme(document.documentElement.dataset.theme || 'dark'); }, []);
+  const theme = useSyncExternalStore(subscribeToTheme, readStoredTheme, getServerTheme);
+
   const toggle = () => {
     const next = theme === 'light' ? 'dark' : 'light';
-    setTheme(next); document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('nk-theme',next); } catch {}
+    applyTheme(next);
   };
+
   return <button id="themeToggle" onClick={toggle} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}><i className={`fas fa-${theme === 'dark' ? 'sun' : 'moon'}`} aria-hidden="true"/></button>;
 }

@@ -1,19 +1,21 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { THUMBS } from '@/lib/data';
 import { acquireBodyScrollLock } from '@/lib/bodyScrollLock';
 
+const subscribeToMount = () => () => {};
+const getMountedSnapshot = () => true;
+const getServerMountedSnapshot = () => false;
+
 export default function Thumbnails() {
   const [lbIndex, setLbIndex] = useState(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(subscribeToMount, getMountedSnapshot, getServerMountedSnapshot);
   const openerRef = useRef(null);
   const dialogRef = useRef(null);
   const closeRef = useRef(null);
   const isOpen = lbIndex !== null;
-
-  useEffect(() => setMounted(true), []);
 
   const openLB = (idx, trigger) => {
     openerRef.current = trigger;

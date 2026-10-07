@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { BRANDS } from '@/lib/brands';
 
 export default function Brands() {
@@ -44,7 +45,7 @@ export default function Brands() {
                       {brand.wordmark ? (
                         <span className="brand-wordmark"><span>{brand.wordmark[0]}</span><span>{brand.wordmark[1]}</span></span>
                       ) : (
-                        <img src={brand.logo} alt="" width={brand.width} height={brand.height}
+                        <Image src={brand.logo} alt="" width={brand.width} height={brand.height} sizes="208px"
                           className={`brand-logo ${brand.logoClass || ''}`} draggable="false" decoding="async" />
                       )}
                     </div>

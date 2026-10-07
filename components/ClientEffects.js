@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WhatsAppIcon from './WhatsAppIcon';
@@ -10,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ClientEffects() {
   const [reduced, setReduced] = useState(false);
   const cursor = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,6 +30,11 @@ export default function ClientEffects() {
     let alive = true;
     let entrance;
     let removePointer;
+    const cursorElement = cursor.current;
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerInside = true;
+    let cursorFrame;
     const ctx = gsap.context(context => {
       // Intro-completion events happen outside effect setup. Register their
       // animations with the context so preference changes and unmount revert them.
@@ -79,33 +86,49 @@ export default function ClientEffects() {
           if (bar) bar.style.transform = `scaleX(${progress})`;
         };
         viewport.scrollLeft = 0;
-        viewport.classList.add('is-pinned');
         const tween = gsap.to(rail, {
           x: () => -travel(), ease: 'none',
           scrollTrigger: {
-            trigger: stage, start: 'top top', end: () => `+=${travel()}`,
+            trigger: stage, start: 'top top', end: () => `+=${Math.max(1, travel() * .72)}`,
             scrub: .8, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
             onUpdate: self => updateProgress(self.progress),
             onRefresh: self => updateProgress(self.progress),
           },
         });
+        const trigger = tween.scrollTrigger;
+        if (!trigger) return;
+        viewport.classList.add('is-pinned');
+        const onNavigate = event => {
+          const index = event.detail?.index;
+          const count = rail.querySelectorAll('.selected-card').length;
+          if (!Number.isInteger(index) || !count) return;
+          const progress = count < 2 ? 0 : Math.max(0, Math.min(1, index / (count - 1)));
+          const target = trigger.start + progress * (trigger.end - trigger.start);
+          window.scrollTo({
+            top: target,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+          });
+        };
+        window.addEventListener('portfolio:selected-navigate', onNavigate);
         const onFocus = event => {
           if (!(event.target instanceof Element) || !event.target.matches(':focus-visible')) return;
           const card = event.target.closest('.selected-card');
           if (!card) return;
           const offset = card.getBoundingClientRect().left - rail.getBoundingClientRect().left - padding();
-          const trigger = tween.scrollTrigger;
           // The pinned viewport uses overflow:clip, so focusing an offscreen card
           // cannot add a second native horizontal scroll on top of the GSAP shift.
           viewport.scrollLeft = 0;
-          window.scrollTo({ top: trigger.start + Math.min(travel(), Math.max(0, offset)), behavior: 'instant' });
+          const progress = travel() ? Math.min(1, Math.max(0, offset / travel())) : 0;
+          window.scrollTo({
+            top: trigger.start + progress * (trigger.end - trigger.start),
+            behavior: 'instant',
+          });
           ScrollTrigger.update();
-          // Keyboard navigation should reveal the target immediately, rather than
-          // waiting for the scroll-scrub animation while focus is offscreen.
-          trigger.getTween()?.progress(1);
+          trigger.getTween()?.progress(progress);
         };
         viewport.addEventListener('focusin', onFocus);
         return () => {
+          window.removeEventListener('portfolio:selected-navigate', onNavigate);
           viewport.removeEventListener('focusin', onFocus);
           viewport.classList.remove('is-pinned');
         };
@@ -157,28 +180,79 @@ export default function ClientEffects() {
           scrollTrigger: { trigger: '.motion-footer', start: 'top 85%', once: true },
         });
       }
-      if (window.matchMedia('(pointer: fine)').matches && cursor.current) {
-        const xTo = gsap.quickTo(cursor.current, 'x', { duration: .25, ease: 'power3' });
-        const yTo = gsap.quickTo(cursor.current, 'y', { duration: .25, ease: 'power3' });
+      if (window.matchMedia('(pointer: fine)').matches && cursorElement) {
+        const xTo = gsap.quickTo(cursorElement, 'x', { duration: .25, ease: 'power3' });
+        const yTo = gsap.quickTo(cursorElement, 'y', { duration: .25, ease: 'power3' });
         const pointer = event => {
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          pointerInside = true;
           xTo(event.clientX);
           yTo(event.clientY);
-          cursor.current?.classList.toggle('active', Boolean(event.target.closest('[data-cursor]')));
+          cursorElement.classList.toggle('active', Boolean(
+            event.target instanceof Element && event.target.closest('[data-cursor]')
+          ));
+        };
+        const resetPointer = () => {
+          pointerInside = false;
+          cursorElement.classList.remove('active');
+        };
+        const checkCursorTarget = () => {
+          cursorFrame = null;
+          const target = pointerInside ? document.elementFromPoint(pointerX, pointerY) : null;
+          cursorElement.classList.toggle('active', Boolean(
+            target instanceof Element && target.closest('[data-cursor]')
+          ));
+        };
+        const scheduleCursorCheck = () => {
+          if (!cursorFrame) cursorFrame = requestAnimationFrame(checkCursorTarget);
+        };
+        const resetOnVisibility = () => {
+          if (document.hidden) resetPointer();
         };
         document.addEventListener('pointermove', pointer, { passive: true });
-        removePointer = () => document.removeEventListener('pointermove', pointer);
+        document.addEventListener('pointerleave', resetPointer);
+        document.addEventListener('scroll', scheduleCursorCheck, { passive: true, capture: true });
+        document.addEventListener('visibilitychange', resetOnVisibility);
+        removePointer = () => {
+          document.removeEventListener('pointermove', pointer);
+          document.removeEventListener('pointerleave', resetPointer);
+          document.removeEventListener('scroll', scheduleCursorCheck, true);
+          document.removeEventListener('visibilitychange', resetOnVisibility);
+          if (cursorFrame) cancelAnimationFrame(cursorFrame);
+        };
       }
-      document.fonts.ready.then(() => { if (alive) ScrollTrigger.refresh(); });
+      const refreshFrame = { current: null };
+      const refreshLayout = () => {
+        if (!alive || refreshFrame.current) return;
+        refreshFrame.current = requestAnimationFrame(() => {
+          refreshFrame.current = null;
+          if (alive) ScrollTrigger.refresh();
+        });
+      };
+      const onImageLoad = event => {
+        if (event.target instanceof HTMLImageElement) refreshLayout();
+      };
+      document.addEventListener('load', onImageLoad, true);
+      window.addEventListener('load', refreshLayout);
+      window.addEventListener('pageshow', refreshLayout);
+      document.addEventListener('visibilitychange', refreshLayout);
+      document.fonts?.ready.then(refreshLayout);
       return () => {
         media.revert();
         window.removeEventListener('portfolio:entered', enter);
+        document.removeEventListener('load', onImageLoad, true);
+        window.removeEventListener('load', refreshLayout);
+        window.removeEventListener('pageshow', refreshLayout);
+        document.removeEventListener('visibilitychange', refreshLayout);
+        if (refreshFrame.current) cancelAnimationFrame(refreshFrame.current);
         removePointer?.();
       };
     });
     return () => {
       alive = false;
       ctx.revert();
-      cursor.current?.classList.remove('active');
+      cursorElement?.classList.remove('active');
     };
   }, [reduced]);
 
@@ -205,9 +279,11 @@ export default function ClientEffects() {
   return <>
     <div id="pgBar" aria-hidden="true" />
     <div ref={cursor} className="play-cursor" aria-hidden="true"><span>PLAY<br />THE EDIT</span></div>
-    <a className="whatsapp-float" href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20video%20editing" target="_blank" rel="noopener noreferrer" aria-label="Chat with Niraj on WhatsApp" title="Chat with Niraj on WhatsApp">
-      <WhatsAppIcon />
-    </a>
-    <button id="btt" aria-label="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' })}><i className="fas fa-chevron-up" aria-hidden="true" /></button>
+    {pathname !== '/contact' && <>
+      <a className="whatsapp-float" href="https://wa.me/919693574910?text=Hi%20Niraj%2C%20I%20want%20to%20discuss%20video%20editing" target="_blank" rel="noopener noreferrer" aria-label="Chat with Niraj on WhatsApp" title="Chat with Niraj on WhatsApp">
+        <WhatsAppIcon />
+      </a>
+      <button id="btt" aria-label="Back to top" onClick={() => window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' })}><i className="fas fa-chevron-up" aria-hidden="true" /></button>
+    </>}
   </>;
 }

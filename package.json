@@ -6,13 +6,17 @@
     "dev": "node scripts/dev.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",
     "gsap": "^3.15.0",
-    "next": "^15.5.0",
+    "next": "^16.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.12.0",
+    "eslint-config-next": "^16.4.0"
   }
 }

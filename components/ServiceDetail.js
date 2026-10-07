@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { PROJ } from '@/lib/data';
 
 export default function ServiceDetail({ service }) {
+  const examples = service.exampleProjectIds
+    ?.map(id => PROJ.find(project => project.y === id))
+    .filter(Boolean) || [];
+
   return (
     <article className="detail-page c">
       <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -34,6 +40,33 @@ export default function ServiceDetail({ service }) {
           </section>
         ))}
       </div>
+
+      {examples.length > 0 && (
+        <section className="service-examples" aria-labelledby="service-examples-title">
+          <h2 id="service-examples-title">Related portfolio examples</h2>
+          <div className="service-example-grid">
+            {examples.map(project => (
+              <a
+                className="service-example"
+                key={project.y}
+                href={`https://www.youtube.com/watch?v=${project.y}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={`/images/work-${project.y}.jpg`}
+                  alt=""
+                  width={480}
+                  height={360}
+                  sizes="(max-width: 700px) 90vw, 30vw"
+                />
+                <span>{project.t}</span>
+                <span className="service-example-cta">Watch on YouTube ↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <aside className="detail-callout">
         <h2>Start with a clear brief</h2>

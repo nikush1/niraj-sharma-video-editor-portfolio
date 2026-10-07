@@ -1,5 +1,5 @@
 'use client';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,6 +10,7 @@ export default function Header(){
   const [open,setOpen]=useState(false);
   const panel=useRef(null);
   const pathname=usePathname();
+  const close=useCallback(()=>setOpen(false),[]);
   const previousPath=useRef(pathname);
   useLayoutEffect(()=>{
     if(previousPath.current!==pathname){previousPath.current=pathname;setOpen(false);}
@@ -19,17 +20,19 @@ export default function Header(){
     const dialog=panel.current;
     const priorFocus=document.activeElement;
     const releaseScroll=acquireBodyScrollLock();
+    const onCancel=event=>{event.preventDefault();close();};
     // Native top-layer placement avoids clipping and stacking-context bugs.
     // Its focus trap also makes the page behind the menu inert automatically.
-    dialog.showModal();
+    if(!dialog.open) dialog.showModal();
+    dialog.addEventListener('cancel',onCancel);
     dialog.querySelector('button')?.focus({preventScroll:true});
     return()=>{
+      dialog.removeEventListener('cancel',onCancel);
       if(dialog.open)dialog.close();
       releaseScroll();
       if(priorFocus?.isConnected)priorFocus.focus({preventScroll:true});
     };
-  },[open]);
-  const close=()=>setOpen(false);
+  },[open,close]);
   return <>
     <header id="hdr" className={open?'menu-is-open':''}>
       <div className="c"><nav aria-label="Primary navigation">
@@ -41,7 +44,7 @@ export default function Header(){
         </div>
       </nav></div>
     </header>
-    {open&&createPortal(<dialog ref={panel} id="creative-menu" className="menu-shell" aria-label="Navigation" onCancel={event=>{event.preventDefault();close();}}>
+    {open&&createPortal(<dialog ref={panel} id="creative-menu" className="menu-shell" aria-label="Navigation" onKeyDown={event=>{if(event.key==='Escape'){event.preventDefault();close();}}}>
       <div className="menu-panel">
         <button className="menu-dialog-close" onClick={close} aria-label="Close navigation">Close <span aria-hidden="true">×</span></button>
         <div className="menu-links">{NAV.map((n,i)=><div className="menu-link-mask" key={n.href}><Link className="menu-big-link" style={{'--menu-order':i}} href={n.href} aria-current={pathname===n.href?'page':undefined} onClick={close}><sup>0{i+1}</sup>{n.label}<span aria-hidden="true">↗</span></Link></div>)}</div>

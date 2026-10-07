@@ -44,7 +44,9 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `(function(){
               try{
-                document.documentElement.setAttribute('data-theme','light');
+                const saved = localStorage.getItem('nk-theme');
+                const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
                 document.documentElement.removeAttribute('data-motion');
               }catch(e){}
             })();`,
