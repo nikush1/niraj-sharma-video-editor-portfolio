@@ -53,29 +53,6 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        {/* Font Awesome */}
-        <link
-          rel="stylesheet"
-          href="/fontawesome/css/all.min.css"
-          crossOrigin="anonymous"
-        />
-
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          href="/fontawesome/webfonts/fa-solid-900.woff2"
-          crossOrigin="anonymous"
-        />
-
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          href="/fontawesome/webfonts/fa-brands-400.woff2"
-          crossOrigin="anonymous"
-        />
-
         <StructuredData data={siteSchema} />
       </head>
 

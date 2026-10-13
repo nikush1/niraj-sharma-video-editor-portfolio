@@ -45,7 +45,7 @@ export default function Process({ headingLevel = 'h2' }) {
           <Heading id="process-heading">A little structure.<br />A lot of creativity.</Heading>
           <p>Good work is a conversation. Here’s how we get from your first idea to the final frame.</p>
           <Link className="process-link" href="/resources/video-ad-editing-brief">Start with a useful brief <span aria-hidden="true">↗</span></Link>
-          <span className="process-mark" aria-hidden="true">✳</span>
+          <span className="process-mark brand-monogram" aria-hidden="true">N</span>
         </header>
 
         <ol className="process-steps">

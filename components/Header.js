@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { acquireBodyScrollLock } from '@/lib/bodyScrollLock';
+import { PROJ } from '@/lib/data';
 const NAV=[{href:'/work',label:'The work'},{href:'/about',label:'The person'},{href:'/services',label:'What I do'},{href:'/process',label:'How I do it'},{href:'/reviews',label:'Good words'},{href:'/contact',label:'Say hello'}];
 
 export default function Header(){
@@ -38,7 +39,7 @@ export default function Header(){
       <div className="c"><nav aria-label="Primary navigation">
         <Link href="/" className="motion-logo" onClick={close} aria-label="Niraj Sharma home">niraj<span aria-hidden="true">®</span><small>EDITING<br/>WITH FEELING.</small></Link>
         <div className="header-right">
-          <Link href="/work" className="desktop-nav-link">Selected work <sup>17</sup></Link>
+          <Link href="/work" className="desktop-nav-link">Selected work <sup>{PROJ.length}</sup></Link>
           <Link href="/contact" className="desktop-nav-link">Let’s talk</Link>
           <button className="new-menu-toggle" aria-expanded={open} aria-controls={open?'creative-menu':undefined} aria-haspopup="dialog" onClick={()=>setOpen(value=>!value)}>{open?'Close':'Menu'}<span className={`menu-symbol ${open?'is-open':''}`} aria-hidden="true"><i/><i/></span></button>
         </div>

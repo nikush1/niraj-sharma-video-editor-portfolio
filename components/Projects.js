@@ -17,6 +17,8 @@ const FILTERS = [
 
 function ProjectCard({ project, index, onPlay, selected = false }) {
   const categories = project.tags.filter(Boolean).join(' · ');
+  const posterSrc = project.poster || `/images/work-${project.y}.jpg`;
+
   return (
     <article
       className={selected ? 'selected-card' : 'archive-card'}
@@ -38,7 +40,7 @@ function ProjectCard({ project, index, onPlay, selected = false }) {
       >
         <div className="work-image-mat">
           <Image
-            src={`/images/work-${project.y}.jpg`}
+            src={posterSrc}
             alt={`${project.t} video preview`}
             className="work-image"
             fill

@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import Image from 'next/image';
 import { acquireBodyScrollLock } from '@/lib/bodyScrollLock';
 
-const POSTERS = ['_-4noehZq8I', '3CpnoEG3v5w', 'qJqqkw1suTk', 'xGTHW280XRo', 'oRjEKVOdTRk'];
+const POSTERS = ['PzYT1kpQOms', 'CqfDNE7-k-U', 'fSxG9_S59F0', 'FlMux8C-Rls', 'X6TkWMEiLxM', '2dxQdMYQ0Xo'];
 const SESSION_KEY = 'niraj-motion-opening-v2';
 const MAX_OPEN_MS = 5000;
 
@@ -158,5 +158,5 @@ export default function OpeningSequence() {
   }, [run]);
 
   if (!run) return null;
-  return <div ref={root} className="motion-intro" role="dialog" aria-modal="true" aria-label="Portfolio opening animation"><div className="intro-shutters" aria-hidden="true">{[0, 1, 2, 3, 4].map(i => <div className="intro-shutter" key={i} />)}</div><div className="intro-meta"><span>NIRAJ SHARMA®</span><span>A MIND THAT NEVER STANDS STILL.</span></div><div className="intro-wording" aria-hidden="true"><div className="intro-line">{'IDEAS'.split('').map((c, i) => <span className="intro-letter" key={i}>{c}</span>)}</div><div className="intro-line"><span className="intro-line-two">IN MOTION.</span></div></div><div className="intro-selects" aria-hidden="true">{POSTERS.map((id, i) => <div className={`intro-frame intro-frame-${i}`} key={id}><Image src={`/images/work-${id}.jpg`} alt="" width={194} height={238} sizes="194px" /><span>SELECT_0{i + 1}.MOV</span></div>)}</div><div className="intro-playhead" aria-hidden="true" /><div className="intro-bottom"><span>STORY. RHYTHM. A LITTLE MAGIC.</span><button type="button" onClick={() => active.current?.finish()}>Skip intro <span aria-hidden="true">×</span></button></div></div>;
+  return <div ref={root} className="motion-intro" role="dialog" aria-modal="true" aria-label="Portfolio opening animation"><div className="intro-shutters" aria-hidden="true">{[0, 1, 2, 3, 4].map(i => <div className="intro-shutter" key={i} />)}</div><div className="intro-meta"><span>NIRAJ SHARMA®</span><span>A MIND THAT NEVER STANDS STILL.</span></div><div className="intro-wording" aria-hidden="true"><div className="intro-line">{'IDEAS'.split('').map((c, i) => <span className="intro-letter" key={i}>{c}</span>)}</div><div className="intro-line"><span className="intro-line-two">IN MOTION.</span></div></div><div className="intro-selects" aria-hidden="true">{POSTERS.map((id, i) => <div className={`intro-frame intro-frame-${i}`} key={id}><Image src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" width={194} height={238} sizes="194px" loading={i < 2 ? 'eager' : 'lazy'} /><span>SELECT_0{i + 1}.MOV</span></div>)}</div><div className="intro-playhead" aria-hidden="true" /><div className="intro-bottom"><span>STORY. RHYTHM. A LITTLE MAGIC.</span><button type="button" onClick={() => active.current?.finish()}>Skip intro <span aria-hidden="true">×</span></button></div></div>;
 }
