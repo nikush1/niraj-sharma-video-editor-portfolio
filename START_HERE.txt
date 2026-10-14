@@ -1,0 +1,35 @@
+NIRAJ LIGHT MOTION PORTFOLIO — WHATSAPP UPDATE
+
+This version keeps the Light Motion design. The lower-left control is a
+WhatsApp icon, not Motion on/off. The icon is inline SVG, so it does not
+depend on an icon font loading.
+
+UPDATE YOUR EXISTING WEBSITE
+1. Extract this ZIP into a new folder.
+2. Inside that folder, app/, components/, lib/, public/ and package.json
+   are directly at the root of the extracted contents.
+3. Copy ALL extracted contents into your existing Next.js repository root
+   (the folder that already has package.json), replacing matching files.
+   Do not add the outer extraction folder as an extra project subfolder.
+   Keep your existing private environment variables and domain settings.
+4. Commit/push the updated source to the repository connected to your
+   existing Vercel project and check its deployment. If automatic builds
+   are disabled, deploy that updated revision from the existing project.
+   Vercel's Root Directory must contain package.json.
+
+This download does not deploy or change the live website automatically.
+If you still see Motion on/off, verify the actual source revision and
+deployment being opened. The screenshot alone does not prove why it appears.
+
+RUN LOCALLY (Node.js 20 or newer)
+Open a terminal in the folder containing package.json, then run:
+  npm ci
+  npm run dev
+Open http://localhost:3000 in your browser.
+
+PRODUCTION CHECK
+  npm run build
+  npm start
+
+This is Next.js source code. Double-clicking a source file will not run
+the website. See README.md for the project details.
