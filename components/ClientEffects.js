@@ -162,10 +162,12 @@ export default function ClientEffects() {
           scrollTrigger: { trigger: '.about-stage', start: 'top bottom', end: 'bottom top', scrub: 1 },
         });
       }
-      gsap.utils.toArray('.service-panel').forEach((card, index, cards) => {
-        if (index < cards.length - 1) gsap.to(card, {
-          scale: .94, rotation: index % 2 ? 1.5 : -1.5, transformOrigin: '50% 0%', ease: 'none',
-          scrollTrigger: { trigger: cards[index + 1], start: 'top 85%', end: 'top 120px', scrub: 1 },
+      media.add('(min-width: 901px)', () => {
+        gsap.utils.toArray('.service-panel').forEach((card, index, cards) => {
+          if (index < cards.length - 1) gsap.to(card, {
+            scale: .94, rotation: index % 2 ? 1.5 : -1.5, transformOrigin: '50% 0%', ease: 'none',
+            scrollTrigger: { trigger: cards[index + 1], start: 'top 85%', end: 'top 120px', scrub: 1 },
+          });
         });
       });
       gsap.utils.toArray('.process-row').forEach(element => {

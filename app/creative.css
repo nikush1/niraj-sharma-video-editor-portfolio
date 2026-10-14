@@ -47,7 +47,7 @@ header#hdr.hide{transform:none}header#hdr.menu-is-open{background:transparent;bo
 .hero-center p{font-size:16px;line-height:1.55;margin-top:28px;color:var(--ink2);pointer-events:auto}.hero-main-actions{display:flex;align-items:center;gap:28px;margin-top:29px;pointer-events:auto}
 .hero-orbit{position:absolute;inset:0;z-index:2;pointer-events:none;transform:translate(var(--mx),var(--my));transition:transform .7s var(--ease)}
 .orbit-card{position:absolute;padding:7px 7px 6px;background:#fff;width:158px;box-shadow:0 15px 50px #303c3026;z-index:1;transform-origin:center;aspect-ratio:9/16}
-.orbit-card>span{font-size:8px;letter-spacing:.03em;display:flex;justify-content:space-between;margin-top:5px}.orbit-card>span b{font-weight:400}.orbit-photo{height:182px;overflow:hidden;background:#d9d6df;aspect-ratio:9/16}.orbit-photo img{height:100%;width:100%;object-fit:cover;animation:photoDrift 9s ease-in-out infinite alternate}
+.orbit-card>span{font-size:8px;letter-spacing:.03em;display:flex;justify-content:space-between;margin-top:5px}.orbit-card>span b{font-weight:400}.orbit-photo{position:relative;height:182px;overflow:hidden;background:#d9d6df;aspect-ratio:9/16}.orbit-photo img{height:100%;width:100%;object-fit:cover;animation:photoDrift 9s ease-in-out infinite alternate}.orbit-photo iframe{display:block;width:100%;height:100%;border:0}
 .orbit-a{left:3%;top:20%;transform:rotate(-14deg);width:118px}.orbit-b{right:3%;top:20%;transform:rotate(14deg);width:118px}.orbit-c{left:2%;bottom:12%;transform:rotate(9deg);width:118px}.orbit-c .orbit-photo{height:128px}.orbit-d{right:2%;bottom:12%;transform:rotate(-10deg);width:118px}.orbit-d .orbit-photo{height:145px}.orbit-e{left:12%;top:48%;transform:rotate(-8deg);width:118px}.orbit-f{right:12%;top:48%;transform:rotate(8deg);width:118px}.hero-orbit .orbit-card{aspect-ratio:auto}.hero-orbit .orbit-photo{width:100%;height:auto!important;aspect-ratio:9/16}
 .hero-sticker{position:absolute;left:4%;bottom:36%;width:92px;height:92px;background:#dcec93;color:#323e1c;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:4px;transform:rotate(-15deg);z-index:3}.hero-sticker span{font-size:11px;line-height:1.02;font-weight:500}.hero-sticker .brand-monogram{font-size:19px;line-height:1}.hero-pencil-note{position:absolute;right:4%;top:48%;font-family:Georgia,serif;font-style:italic;font-size:16px;transform:rotate(12deg);color:var(--blue);letter-spacing:-.04em}
 .hero-floor{display:flex;justify-content:space-between;align-items:center;width:calc(100% - 112px);margin:0 auto;padding:0 0 28px;font-size:9px;letter-spacing:.08em;position:relative;z-index:4}.scroll-cue{display:flex;align-items:center;gap:15px}.scroll-cue-line{height:25px;width:1px;background:var(--ink);display:block;animation:scrollCue 2s ease-in-out infinite}.replay-link{font-size:10px;background:transparent;border:0;color:var(--ink3);padding:12px 0;display:flex;gap:9px;align-items:center}.replay-link:hover{color:var(--coral)}
@@ -301,4 +301,36 @@ dialog.menu-shell::backdrop{background:#e9e5fc}
   .hero-main-actions{gap:12px;margin-top:12px}
   .hero-main-actions .pill-button,.hero-reel-link{min-height:44px;padding:10px 14px;font-size:13px}
   .hero-orbit,.hero-floor{display:none}
+}
+@media(max-width:650px){
+  .service-stack{gap:22px}
+  .service-panel{
+    position:relative;
+    top:auto;
+    min-height:0;
+    grid-template-columns:minmax(0,1fr);
+    gap:20px;
+    padding:26px 22px;
+    transform:none;
+  }
+  .service-number{top:18px;right:20px}
+  .service-preview,.service-panel:nth-child(2) .service-preview{transform:none}
+  .service-preview{width:100%;max-width:420px;justify-self:center;margin-top:0}
+  .service-preview img{width:100%;height:auto}
+  .hero-orbit .orbit-c,.hero-orbit .orbit-d{display:block;bottom:10%;width:68px}
+  .hero-orbit .orbit-c{left:6%;transform:rotate(8deg)}
+  .hero-orbit .orbit-d{right:6%;transform:rotate(-8deg)}
+  .hero-orbit .orbit-photo img{animation:photoDrift 12s ease-in-out infinite alternate}
+  .hero-sticker{display:flex;width:50px;height:50px;left:calc(50% - 25px);bottom:16%}
+  .hero-sticker span{font-size:6px}
+  .hero-sticker .brand-monogram{font-size:14px}
+}
+@media(max-width:650px) and (max-height:740px){
+  .hero-orbit .orbit-c,.hero-orbit .orbit-d{display:none}
+}
+@media(max-width:350px){
+  .hero-sticker{bottom:11%}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand-monogram{animation:none!important}
 }

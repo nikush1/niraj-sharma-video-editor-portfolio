@@ -106,7 +106,7 @@ The portrait, showreel poster, all 17 project posters and nine thumbnail designs
 
 Project videos and the showreel share `components/VideoModal.js` and `components/YouTubePlayer.js`. Playback loads after a visitor selects a video. The modal supports Escape, a close button, backdrop dismissal and focus restoration.
 
-The player uses the standard `https://www.youtube.com/embed/VIDEO_ID` endpoint with the site origin, a `strict-origin-when-cross-origin` referrer and inline mobile playback. It provides retry and direct YouTube links. The iframe API reports playback state, autoplay blocks and errors; a slow-loading message does not claim that a video is unavailable.
+The player uses the standard `https://www.youtube.com/embed/VIDEO_ID` endpoint with the site origin, an `origin` referrer policy and inline mobile playback. It provides retry and direct YouTube links. The iframe API reports playback state, autoplay blocks and errors; a slow-loading message does not claim that a video is unavailable.
 
 Actual streaming and embedding permissions remain controlled by YouTube. Test a short-form video, a long-form video and the showreel on the live host after deployment. Errors 101/150 indicate embedding restrictions; error 153 relates to player identification or referrer information.
 

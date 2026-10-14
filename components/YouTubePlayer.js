@@ -4,7 +4,6 @@ import { useEffect, useId, useRef, useState } from 'react';
 
 let apiPromise;
 
-// Load once after a visitor opens a video. A failed load can be retried.
 function loadPlayerApi() {
   if (window.YT?.Player) return Promise.resolve(window.YT);
   if (apiPromise) return apiPromise;
@@ -80,7 +79,7 @@ export default function YouTubePlayer({ videoId, title, frameClassName = 'video-
     const iframe = document.createElement('iframe');
     iframe.id = `yt-${instanceId}-${attempt}`;
     iframe.title = title;
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.referrerPolicy = 'origin';
     iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
     iframe.allowFullscreen = true;
     const params = new URLSearchParams({
